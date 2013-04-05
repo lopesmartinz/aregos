@@ -1,0 +1,8 @@
+<% if @user.errors.any? %>
+  <div>Ocorreram os seguintes erros:</div>
+  <ul>
+  <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+<% end %>

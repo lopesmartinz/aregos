@@ -1,0 +1,25 @@
+<div class="formulario">	
+
+	<%= form_for(@user) do |f| %>
+	
+		<%= render 'shared/error_messages' %>
+		
+		<%= f.label :name, "Nome" %>
+		<%= f.text_field :name %>
+
+		<%= f.label :email, "E-mail" %>
+		<%= f.text_field :email %>
+
+		<%= f.label :password, "Password" %>
+		<%= f.text_field :password %>
+
+		<%= f.label :password_confirmation, "Confirmação da Password" %>
+		<%= f.text_field :password_confirmation %>
+
+		<%= f.submit "Registar", class: "btn_submit_formulario" %>
+
+	<% end %>
+	
+<div>
+
+<p>Utilizador Registado? <%= link_to "Login!", signin_path %></p>
