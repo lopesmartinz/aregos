@@ -5,8 +5,15 @@ class User < ActiveRecord::Base
   # "has_secure_password" repesenta o campo "password_digest"
   has_secure_password
 
+
+  # relações com outras tabelas
+  has_many :orders
+
+
+  #operações antes do insert
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
+
 
   #validações
   validates :name, presence: true, length: { maximum: 50 }

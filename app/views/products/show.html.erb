@@ -1,3 +1,4 @@
 <div><%= @product.name %></div>
 <div><%= @product.description %></div>
 <div><%= @product.price %></div>
+<div><%= link_to "Adicionar ao Carrinho", add_to_cart_url(product_id: @product.id), :method => :post %></div>

@@ -6,9 +6,9 @@ class UsersController < ApplicationController
 
   # filtra se utilizador está autenticado
   # => não pode ver dados dos outros users mas pode criar utilizador/registo
-  before_filter :signed_in_user, only: [:show]
+  before_filter :check_signed_in_user, only: [:show]
   # filtra se utilizador deve ter acesso a funcionalidades
-  before_filter :allowed_user, only: [:show]
+  before_filter :check_allowed_user, only: [:show]
 
 
 
@@ -52,19 +52,19 @@ class UsersController < ApplicationController
 
 
   ##################################
-  #### MÉTODOS GENÉRICOS
+  #### MÉTODOS PRIVADOS
   ##################################
 
   # trata utilizadores não autenticados
   private  
-  def signed_in_user
-    redirect_to signin_path unless signed_in?
+  def check_signed_in_user
+    redirect_to signin_path unless is_signed_in_user?
   end
 
 
   # trata permissões do utilizador a esta página/funcionalidade
   private  
-  def allowed_user
+  def check_allowed_user
     user = User.find(params[:id])
     redirect_to signin_path unless is_allowed_user user
   end

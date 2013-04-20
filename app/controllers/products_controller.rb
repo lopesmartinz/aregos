@@ -1,11 +1,13 @@
 class ProductsController < ApplicationController
 	
+	##################################
+	#### ACCÕES
+	##################################
+
 	# GET
 	# Obter produtos válidos
 	def index
-		# o ? será substituído pelo valor correspondente na hash
-		# evita a sql injection
-		@products = Product.where("active = ?", true);
+		@products = Product.where("stock_count > 0 AND is_active = true");
 	end
 
 

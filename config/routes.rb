@@ -1,11 +1,18 @@
 Aregos::Application.routes.draw do
+  
+  #resources
   resources :users
   resources :sessions , only: [:new, :create, :destroy]
   resources :products
+  resources :carts , only: [:show, :create, :destroy]
 
+  # match
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+
+  # faz post para o método "add_to_cart" e passa o id do produto como parâmetro
+  post '/add_to_cart/:product_id' => 'carts#add_to_cart', :as => 'add_to_cart'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

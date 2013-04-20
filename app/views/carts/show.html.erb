@@ -1,0 +1,13 @@
+<ul>
+	<% @cart.cart_items.each do |ci| %>
+		<li>
+			<div>Produto: <%= ci.product.name %></div>
+			<div>Preço: <%= ci.price %></div>
+			<div>Quantidade: <%= ci.quantity %></div>
+		</li>
+	<% end %>
+</ul>
+
+<div>Total: <%= @cart.cart_items.sum("price * quantity") %></div>
+
+<div><%= link_to "Limpar Carrinho", @cart, {method: "delete"} %></div>
