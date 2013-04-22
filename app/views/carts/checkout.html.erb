@@ -1,0 +1,21 @@
+<% if !user_is_signed_in? %>
+	
+	<div>Para finalizar o processo de compra necessita de estar autenticado!<br/><br/></div>
+
+	<div>Utilizador Registado? <%= link_to "Autentique-se!", signin_path %></div>
+	<div>Novo Utilizador? <%= link_to "Registe-se!", signup_path %></div>	
+
+<% end %>
+
+
+<ul>
+	<% @cart.cart_items.each do |item| %>
+		<li>
+			<div>Produto: <%= item.product.name %></div>
+			<div>Preço: <%= item.price %></div>
+  			<div>Quantidade: <%= item.quantity %></div>
+		</li>
+	<% end %>
+</ul>
+
+<div>Total: <%= @cart.cart_items.sum("price * quantity") %></div>

@@ -1,13 +1,35 @@
-<ul>
-	<% @cart.cart_items.each do |ci| %>
-		<li>
-			<div>Produto: <%= ci.product.name %></div>
-			<div>Preço: <%= ci.price %></div>
-			<div>Quantidade: <%= ci.quantity %></div>
-		</li>
+<table cellspacing="0" class="cart">
+	<tr class="cartHeader">
+		<th>Produto</th>
+		<th>Preço</th>
+		<th>Quantidade</th>
+		<th></th>
+	</tr>
+
+	<% @cart.cart_items.each do |item| %>
+		<tr class="cartItem">		
+			<td class="name"><%= item.product.name %></td>
+			<td class="price"><%= item.product.price %></td>
+			<td class="quantity"><%= item.quantity %></td>
+			<td class="actions">
+				<%= button_to "+", {:controller => :cart_items, :action => 'increase_quantity', :id => item.id}, :method => :put %>		
+				<%= button_to "-", {:controller => :cart_items, :action => 'decrease_quantity', :id => item.id}, :method => :put %>		
+				<%= button_to "Remover", {:controller => :cart_items, :action => 'destroy', :id => item.id}, :method => :delete %>
+			</td>			       
+	    </tr>
 	<% end %>
-</ul>
 
-<div>Total: <%= @cart.cart_items.sum("price * quantity") %></div>
+	<tr class="cartFooter">
+		<td colspan="4">
+			<span class="totalLabel">Total</span>
+			<span class="totalValue"><%= @cart.cart_items.sum("price * quantity") %></span>
+		</td>
+	</tr>
+</table>
 
-<div><%= link_to "Limpar Carrinho", @cart, {method: "delete"} %></div>
+
+<div class="actionControls">
+	<%= button_to "Limpar Carrinho", @cart, :method => :delete %>
+	<%= button_to "Continuar a Comprar", products_path, :method => :get %>
+	<%= button_to "Finalizar Compra", {:controller => :carts, :action => :checkout, id: @cart.id}, :method => :get %>
+</div>

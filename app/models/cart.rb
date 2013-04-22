@@ -1,11 +1,10 @@
 class Cart < ActiveRecord::Base
 
-  # attr_accessible :title, :body
+  attr_accessible :status
 
   # relações com outras tabelas
   has_many :cart_items
   has_many :products, :through => :cart_items
-
 
 
   # Métodos da classe

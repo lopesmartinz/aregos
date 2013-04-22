@@ -29,7 +29,7 @@ module SessionsHelper
 
 
   	# verifica se o utilizador está autenticado
-	def is_signed_in_user?
+	def user_is_signed_in?
 		!current_user.nil?
   	end
 

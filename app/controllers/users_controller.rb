@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
 
   ##################################
-  #### ACCÕES
+  #### ACCÕES DEFAULT
   ##################################
 
   # GET
@@ -43,7 +43,15 @@ class UsersController < ApplicationController
     if @user.save
       # autentica o user criado
       sign_in @user
-  		redirect_to @user
+
+      # definir página após login com sucesso
+      if exists_pending_cart?
+        # redirecciona para a paǵina de checkout se existir um checkout pendente
+        redirect_to ({:controller => :orders, :action => :new})
+      else
+          redirect_to @user
+      end
+
   	else
   		render 'new'
   	end
@@ -58,7 +66,7 @@ class UsersController < ApplicationController
   # trata utilizadores não autenticados
   private  
   def check_signed_in_user
-    redirect_to signin_path unless is_signed_in_user?
+    redirect_to signin_path unless user_is_signed_in?
   end
 
 

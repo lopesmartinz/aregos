@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
 	
 	##################################
-	#### ACCÕES
+	#### ACCÕES DEFAULT
 	##################################
 
 	# GET

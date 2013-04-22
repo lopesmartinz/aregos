@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 	
 	##################################
-	#### ACCÕES
+	#### ACCÕES DEFAULT
 	##################################
 
 	# GET
@@ -26,7 +26,12 @@ class SessionsController < ApplicationController
 			sign_in @user
 
 			# definir página após login com sucesso
-      		redirect_to @user
+			if exists_pending_cart?
+				# redirecciona para a paǵina de checkout se existir um checkout pendente
+				redirect_to ({:controller => :orders, :action => :new})
+			else
+      			redirect_to @user
+      		end
 		else
 			render 'new'
 		end
