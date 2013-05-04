@@ -1,0 +1,9 @@
+<ul>
+	<% @products.each do |p| %>
+		<li>
+			<div><%= link_to p.name, p %></div>
+			<div><%= p.description %></div>
+			<div><%= p.price %></div>
+		</li>
+	<% end %>
+</ul>

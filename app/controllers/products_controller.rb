@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+ 	
+ 	# definição do layout
+	layout "inner_page"
 	
 	##################################
 	#### ACCÕES DEFAULT

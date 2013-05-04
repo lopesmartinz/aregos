@@ -1,0 +1,29 @@
+<div class="formulario">
+
+
+	<%= form_for (@order) do |f| %>
+
+		<% if @order.errors.any? %>
+		  <div>Ocorreram os seguintes erros:</div>
+		  <ul>
+	  		<% @order.errors.full_messages.each do |msg| %>
+	    	<li><%= msg %></li>
+	  		<% end %>
+		  </ul>
+		<% end %>
+
+
+		<%= f.label :address_line_1, "Endereço" %>
+		<%= f.text_field :address_line_1 %>
+		<%= f.text_field :address_line_2 %>
+
+		<%= f.label :zip_code, "Código Postal" %>
+		<%= f.text_field :zip_code %>
+
+		<%= f.label :city, "Cidade" %>
+		<%= f.text_field :city %>
+
+		<%= f.submit "Finalizar Compra", class: "btn_submit_formulario" %>
+
+	<% end %>
+</div>

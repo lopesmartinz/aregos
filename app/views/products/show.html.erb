@@ -3,3 +3,7 @@
 <div><%= @product.price %></div>
 
 <div><%= button_to "Adicionar ao Carrinho", {:controller => :carts, :action => :add_to_cart, product_id: @product.id}, :method => :post %></div>
+
+<% content_for :sidebar do %>
+	<%= render "shared/cart" unless current_cart.nil? %>
+<% end %>

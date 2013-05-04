@@ -1,4 +1,6 @@
 Aregos::Application.routes.draw do
+
+  root :to => "public#index"
   
   #resources
   resources :users
@@ -20,10 +22,23 @@ Aregos::Application.routes.draw do
     end
   end
 
+  resources :orders do
+    collection do
+      get 'search'
+      get 'search_results'
+    end
+  end
+
   # match
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match '/admin',  to: 'admin/sessions#new'
+
+  namespace :admin do
+    resources :products
+    resources :sessions
+  end
 
   # faz post para o método "add_to_cart" e passa o id do produto como parâmetro
   #post '/add_to_cart/:product_id' => 'carts#add_to_cart', :as => 'add_to_cart'

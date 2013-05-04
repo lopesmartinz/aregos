@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Aregos</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div class="siteContainer">
+		<div class="headerContainer">
+			<div class="topMenu">
+				<%= render "shared/top_menu" %>
+			</div>	
+			<div class="banner"></div>			
+			<div class="mainMenu">
+				<%= render "shared/main_menu" %>
+			</div>
+		</div>
+
+		<div class="centralContainer">
+			<div class="mainContent">
+				<%= yield %>
+			</div>
+			<div class="sidebar">
+				<%= yield :sidebar %>
+			</div>
+		</div>
+
+		<div class="footerContainer"></div>
+	</div>
+</body>
+</html>

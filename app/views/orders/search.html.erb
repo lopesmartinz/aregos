@@ -1,0 +1,10 @@
+<%= form_for(:order, :url => {:controller => :orders, :action => :search_results}, :method => :get) do |f| %>
+
+	<%= f.label :reference, "Referência" %>
+	<%= f.text_field :reference %>
+
+	<%= f.submit "Pesquisar" %>
+
+<% end %>
+
+

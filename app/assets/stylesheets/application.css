@@ -11,7 +11,75 @@
  *= require_self
  *= require_tree .
  */
- @import "bootstrap";
+@import "bootstrap";
+
+body, html, ul, li {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+h1 {
+	margin: 0;
+	font-size: 1.5em;
+}
+
+body, html {
+	text-align: center;
+	font-size: 1.1em;
+	background-color: #EEE;
+}
+
+
+.siteContainer {
+	max-width: 940px;
+	margin: 0 auto;
+	text-align: left;
+}
+.topMenu {
+	min-height: 40px;
+	vertical-align: middle;
+	background-color: yellow;
+}
+.banner {
+	height: 100px;
+}
+.mainMenu {
+	min-height: 40px;
+	vertical-align: middle;
+	background-color: #666;
+}
+.mainMenu ul li {
+	display: inline;
+	margin: 0 20px;
+}
+
+
+.centralContainer {
+	background-color: #CCC;
+}
+.mainContent {
+	float: left;
+	width: 550px;
+	padding: 20px;
+	background-color: #FFF;
+}
+
+ .sidebar {
+ 	float: right;
+ 	padding: 20px;
+ 	background-color: #333;
+ 	width: 310px;
+ }
+ .footerContainer {
+ 	clear: both;
+ }
+
+
+
+
+
 
  .formulario input,  .formulario label {
  	display: block;

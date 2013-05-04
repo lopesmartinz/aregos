@@ -33,3 +33,8 @@
 	<%= button_to "Continuar a Comprar", products_path, :method => :get %>
 	<%= button_to "Finalizar Compra", {:controller => :carts, :action => :checkout, id: @cart.id}, :method => :get %>
 </div>
+
+
+<% content_for :sidebar do %>
+	<%= render "shared/products" %>
+<% end %>

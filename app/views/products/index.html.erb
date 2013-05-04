@@ -1,9 +1,13 @@
 <ul>
 	<% @products.each do |p| %>
 		<li>
-			<div><%= link_to p.name, p %></div>
-			<div><%= p.description %></div>
-			<div><%= p.price %></div>
+			<h1><%= link_to p.name, p %></h1>
+			<p><%= p.abstract %></p>
+			<p><%= p.price %></p>
 		</li>
 	<% end %>
 </ul>
+
+<% content_for :sidebar do %>
+	<%= render "shared/cart" unless current_cart.nil? %>
+<% end %>

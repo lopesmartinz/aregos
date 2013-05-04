@@ -1,0 +1,6 @@
+<div><%= @product.name %></div>
+<div><%= @product.description %></div>
+<div><%= @product.price %></div>
+<div><%= image_tag("/images/upload/" + @product.picture, :width => "100") %></div>
+
+<%= button_to "Editar", {:controller => "admin/products", :action => :edit, :id => @product.id}, :method => :get %>

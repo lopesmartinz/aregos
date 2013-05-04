@@ -1,5 +1,8 @@
 class CartsController < ApplicationController
 
+	# definição do layout
+	layout "inner_page"
+	
 	##################################
 	#### VERIFICAÇÕES PRÉVIAS
 	##################################
@@ -24,6 +27,9 @@ class CartsController < ApplicationController
 	# mostra o carrinho actual
 	def show
 		@cart = current_cart
+		
+		# para mostrar a listagem de produtos na barra lateral (partial)
+		@products = Product.all
 	end
 
 
@@ -33,7 +39,7 @@ class CartsController < ApplicationController
 		@cart = current_cart
 		@cart.delete
 
-		session[:aregos_cart_id] = nil
+		session.delete(:aregos_cart_id)
 
 		redirect_to products_path
 	end

@@ -8,14 +8,6 @@
 <% end %>
 
 
-<ul>
-	<% @cart.cart_items.each do |item| %>
-		<li>
-			<div>Produto: <%= item.product.name %></div>
-			<div>Preço: <%= item.price %></div>
-  			<div>Quantidade: <%= item.quantity %></div>
-		</li>
-	<% end %>
-</ul>
-
-<div>Total: <%= @cart.cart_items.sum("price * quantity") %></div>
+<% content_for :sidebar do %>
+	<%= render "shared/cart" unless current_cart.nil? %>
+<% end %>
