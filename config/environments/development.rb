@@ -34,4 +34,17 @@ Aregos::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # configuração dos pagamnetos com cartão de crédito
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+    ::GATEWAY = ActiveMerchant::Billing::TrustCommerceGateway.new(
+      :login    => 'TestMerchant',
+      :password => 'password'
+    )
+  end
+
+  # configuração do envio de e-mails
+  ActionMailer::Base.delivery_method = :smtp 
+
 end

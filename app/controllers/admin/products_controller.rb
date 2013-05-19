@@ -114,7 +114,7 @@ class Admin::ProductsController < ApplicationController
 
 	# verifica se existe um utilizador do tipo admin autenticado
 	def check_if_is_admin_user
-		redirect_to admin_signin_path unless !current_user.nil? && current_user.is_admin == true
+		redirect_to admin_path unless !current_user.nil? && current_user.is_admin == true
 	end
 
 

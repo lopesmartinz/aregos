@@ -13,16 +13,19 @@ class OrdersController < ApplicationController
 	# verifica se o utilizador tem permissão para ver o detalhe da encomenda
 	before_filter :user_has_permission_to_view, only: [:show]
 
-	# verifica se o utilizador tem permissão para pesquisar encomendas
-	before_filter :user_has_permission_to_search, only: [:search, :search_results]
-
-
 
 
 	##################################
 	#### ACCÕES DEFAULT
 	##################################
 	
+	# GET
+	# listagem de encomendas do utilizador
+	def index
+		@orders = Order.where("user_id = ?", current_user.nil? ? -1 : current_user.id)
+	end
+
+
 	# GET
 	# detalhe da encomenda	
 	def show
@@ -39,13 +42,17 @@ class OrdersController < ApplicationController
 
 	# POST
 	# criação da encomenda
-	def create
-		# criar encomenda com dados preenchidos no formulário
-		@order = Order.new(params[:order])
-		@order.user_id = current_user.id
+	def create	
 
-		if @order.save
-			# criar items da encomenda
+		# criar encomenda com dados preenchidos no formulário
+		@order = current_user.orders.new
+		@order.address_line_1 = params[:order][:address_line_1]
+		@order.address_line_2 = params[:order][:address_line_2]
+		@order.zip_code = params[:order][:zip_code]
+		@order.city = params[:order][:city]
+
+		if payment_was_successful? && @order.save
+			# transferir items do carrinho para a encomenda
 			create_order_items(@order.id)
 
 			# fechar carrinho actual
@@ -61,37 +68,25 @@ class OrdersController < ApplicationController
 	end
 
 
-	# GET
-	# serve apenas para criar o formulário de pesquisa
-	def search
-	end
-
-
-	# GET
-	# resultado da pesquisa
-	def search_results
-
-		order = Order.new
-
-		if !params[:order].nil? && !params[:order][:reference].nil?
-			order = Order.find_by_reference(params[:order][:reference])
-		end
-
-		if !order.nil?
-			redirect_to order
-		else
-			render 'search'
-		end	
-
-	end
-
-
+	
 
 	##################################
 	#### MÉTODOS PRIVADOS
 	##################################
-	
-	# criação de items da encomenda
+
+	private
+	def payment_was_successful?
+		success = false
+
+		if @order.validate_card
+			success = @order.charge_credit_card
+		end
+
+		success
+	end
+
+		
+	# transferir items do carrinho para a encomenda
 	private
 	def create_order_items(order_id)
 
@@ -119,13 +114,6 @@ class OrdersController < ApplicationController
 		order = Order.find(params[:id])
 
 		redirect_to root_path unless !current_user.nil? && current_user == order.user
-	end
-
-
-	# verificar se utilizador pode pesuisar encomendas
-	private
-	def user_has_permission_to_search
-		redirect_to root_path unless !current_user.nil?
 	end
 
 end

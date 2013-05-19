@@ -44,6 +44,9 @@ class UsersController < ApplicationController
       # autentica o user criado
       sign_in @user
 
+      # envio do email para o utilizador
+      Emails.user_creation(@user).deliver
+
       # definir página após login com sucesso
       if exists_pending_cart?
         # redirecciona para a paǵina de checkout se existir um checkout pendente

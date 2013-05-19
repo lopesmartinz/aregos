@@ -1,0 +1,24 @@
+<div><%= @order.address_line_1 %></div>
+<div><%= @order.address_line_2 %></div>
+<div><%= @order.zip_code %></div>
+<div><%= @order.city %></div>
+
+<table>
+	<tr>
+		<th>Produto</th>
+		<th>Preço</th>
+		<th>Quantidade</th>
+		<th>Subtotal</th>
+	</tr>
+	<% @order.order_items.each do |item| %>
+		<tr>
+			<td><%= item.product.name %></td>
+			<td><%= item.price %></td>
+			<td><%= item.quantity %></td>
+			<td><%= item.price * item.quantity %></td>
+		</tr>
+	<% end %>
+	<tr>
+		<td colspan="4"><%= @order.order_items.sum("price * quantity") %><td>
+	</tr>
+</table>

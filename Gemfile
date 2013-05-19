@@ -14,6 +14,9 @@ gem 'bootstrap-sass', '2.1'
 #encriptacao de password dos utilizadores
 gem 'bcrypt-ruby', '3.0.1'
 
+#pagamentos
+gem 'activemerchant'
+
 gem 'execjs'
 gem 'therubyracer'
 

@@ -22,12 +22,8 @@ Aregos::Application.routes.draw do
     end
   end
 
-  resources :orders do
-    collection do
-      get 'search'
-      get 'search_results'
-    end
-  end
+  resources :orders
+  
 
   # match
   match '/signup',  to: 'users#new'
@@ -35,9 +31,10 @@ Aregos::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/admin',  to: 'admin/sessions#new'
 
-  namespace :admin do
-    resources :products
+  namespace :admin do    
     resources :sessions
+    resources :products
+    resources :orders
   end
 
   # faz post para o método "add_to_cart" e passa o id do produto como parâmetro
