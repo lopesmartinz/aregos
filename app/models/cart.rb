@@ -3,8 +3,8 @@ class Cart < ActiveRecord::Base
   attr_accessible :status
 
   # relações com outras tabelas
-  has_many :cart_items
-  has_many :products, :through => :cart_items
+  has_many :cart_items, :dependent => :destroy
+  has_many :products, :through => :cart_items, :dependent => :destroy
 
 
   # Métodos da classe

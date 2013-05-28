@@ -1,0 +1,28 @@
+pt:
+  errors:  
+    format: "%{attribute} %{message}"
+    messages:
+      blank: "é obrigatório"      
+      too_short : "demasiado curto"
+      too_long : "demasiado longo"
+      invalid: "inválido"
+      taken: "já registado"
+  activerecord:    
+    attributes:
+      user:
+        name: "Nome"
+        email: "E-mail"
+        password: "Password"
+        password_confirmation: "Confirmação da Password"
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              too_long: "demasiado longo (máximo de 50 caracteres)"
+            password:
+              blank: "é obrigatória"
+              too_short: "demasiado curta (mínimo de 6 caracteres)"
+              confirmation: "e Confirmação da Password não coincidem"
+            password_confirmation:
+              blank: "é obrigatória"

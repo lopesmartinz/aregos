@@ -99,3 +99,8 @@ body, html {
  	margin-top: 10px;
  }
 
+
+ .field_with_errors input[type="text"], .formulario input[type="password"] {
+ 	border: 1px solid #FF3300;
+ }
+

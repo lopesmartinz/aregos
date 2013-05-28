@@ -10,6 +10,8 @@ class CartItemsController < ApplicationController
 		@cart_item = CartItem.find(params[:id])
 
 		if @cart_item.delete
+			flash[:notice] = "O produto foi removido do carrinho"
+
 			redirect_to :back
 		end
 	end
@@ -28,7 +30,7 @@ class CartItemsController < ApplicationController
 
 		@cart_item.quantity += 1
 
-		if @cart_item.save
+		if @cart_item.save			
 			redirect_to :back
 		end
 	end

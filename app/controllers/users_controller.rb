@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   
+  # definição do layout
+  layout "inner_page"
+  
   ##################################
   #### VERIFICAÇÕES PRÉVIAS
   ##################################
@@ -41,11 +44,14 @@ class UsersController < ApplicationController
 
   	# guarda user na base de dados
     if @user.save
+      # alerta para user criado com sucesso
+      flash[:notice] = "Registo feito com sucesso"
+
       # autentica o user criado
       sign_in @user
 
       # envio do email para o utilizador
-      Emails.user_creation(@user).deliver
+      Emails.user_registration_confirmation(@user).deliver
 
       # definir página após login com sucesso
       if exists_pending_cart?
@@ -55,7 +61,7 @@ class UsersController < ApplicationController
           redirect_to @user
       end
 
-  	else
+  	else      
   		render 'new'
   	end
   end

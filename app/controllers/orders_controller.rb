@@ -50,10 +50,21 @@ class OrdersController < ApplicationController
 		@order.address_line_2 = params[:order][:address_line_2]
 		@order.zip_code = params[:order][:zip_code]
 		@order.city = params[:order][:city]
+		@order.country = params[:order][:country]
+		@order.payment_method = params[:order][:payment_method]
+
+		# dados do cartão de crédito	
+		@order.first_name = params[:order][:first_name]
+		@order.last_name = params[:order][:last_name]
+		@order.card_type = params[:order][:card_type]
+		@order.card_number = params[:order][:card_number]
+		@order.card_verification = params[:order][:card_verification]
+		@order.card_expiration_year = params[:order]["card_expiration_date(1i)"]
+		@order.card_expiration_month = params[:order]["card_expiration_date(2i)"]
 
 		if payment_was_successful? && @order.save
 			# transferir items do carrinho para a encomenda
-			create_order_items(@order.id)
+			create_order_items(@order)
 
 			# fechar carrinho actual
 			current_cart.update_attributes(status: "closed")
@@ -74,32 +85,6 @@ class OrdersController < ApplicationController
 	#### MÉTODOS PRIVADOS
 	##################################
 
-	private
-	def payment_was_successful?
-		success = false
-
-		if @order.validate_card
-			success = @order.charge_credit_card
-		end
-
-		success
-	end
-
-		
-	# transferir items do carrinho para a encomenda
-	private
-	def create_order_items(order_id)
-
-		order = Order.find(order_id)
-		cart = Cart.find(current_cart)
-		
-		for item in cart.cart_items
-			order.add_item(item.id)
-		end
-
-	end
-
-	
 	# verificar se utilizador está autenticado e tem carrinho
 	# => são estas as condições para existir ser criada uma encomenda
 	private
@@ -114,6 +99,30 @@ class OrdersController < ApplicationController
 		order = Order.find(params[:id])
 
 		redirect_to root_path unless !current_user.nil? && current_user == order.user
+	end
+
+		
+	# transferir items do carrinho para a encomenda
+	private
+	def create_order_items(order)		
+		cart = Cart.find(current_cart)
+		
+		for item in cart.cart_items
+			order.add_item(item.id)
+		end
+
+	end	
+	
+
+	private
+	def payment_was_successful?
+		success = false
+
+		if @order.validate_card
+			success = @order.charge_credit_card
+		end
+
+		success
 	end
 
 end

@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
 	
+	# definição do layout
+	layout "inner_page"
+
 	##################################
 	#### ACCÕES DEFAULT
 	##################################
@@ -24,6 +27,9 @@ class SessionsController < ApplicationController
 			# => é feito o include do "sessions_helper"
 			# => por omissão só estaria acessível nos views
 			sign_in @user
+
+			# alerta para user autenticado com sucesso
+      		flash[:notice] = "Login feito com sucesso"
 
 			# definir página após login com sucesso
 			if exists_pending_cart?

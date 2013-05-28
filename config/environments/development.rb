@@ -35,6 +35,8 @@ Aregos::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+
+
   # configuração dos pagamnetos com cartão de crédito
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :test
@@ -45,6 +47,15 @@ Aregos::Application.configure do
   end
 
   # configuração do envio de e-mails
-  ActionMailer::Base.delivery_method = :smtp 
+  ActionMailer::Base.delivery_method = :smtp
+
+  ActionMailer::Base.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: "aregosdev@gmail.com",
+    password: "aregos123"
+  } 
 
 end

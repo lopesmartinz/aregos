@@ -41,6 +41,8 @@ class CartsController < ApplicationController
 
 		session.delete(:aregos_cart_id)
 
+		flash[:notice] = "O carrinho foi eliminado"
+
 		redirect_to products_path
 	end
 
@@ -62,6 +64,8 @@ class CartsController < ApplicationController
 		# adicionar item ao carrinho
 		# => add_item é um método do model "cart"
 		@cart.add_item(params[:product_id])
+
+		flash[:notice] = "O produto foi adicionado ao carrinho"
 
 		redirect_to @cart
 	end
