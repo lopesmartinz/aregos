@@ -1,12 +1,13 @@
+<h1>Finalizar a Encomenda</h1>
+
 <%= render :partial => "shared/error_messages", :locals => { :object => @order }  %>
 
-<div class="formulario">
+<div class="form_field">
 
 	<%= form_for (@order) do |f| %>
 
 		<%= f.label :address_line_1 %>
 		<%= f.text_field :address_line_1 %>
-		<%= f.text_field :address_line_2 %>
 
 		<%= f.label :zip_code %>
 		<%= f.text_field :zip_code %>
@@ -15,30 +16,36 @@
 		<%= f.text_field :city %>
 
 		<%= f.label :country %>
-		<%= f.select :country, [["Portugal"], ["Europa"]] %>
+		<%= f.select :country, [["Portugal"], ["Outro"]] %>
 
 		<%= f.label :payment_method %>
-		<%= f.select :payment_method, [["Defina o método de pagamento"], ["Cartao de Credito"], ["Envio à Cobrança"]] %>
+		<%= f.select(:payment_method, PaymentMethod.all.collect {|pm| [ pm.name, pm.id ] }, {include_blank: 'Indique o Método de Pagamento'}) %>
 
 		<%= f.label :first_name %>
 		<%= f.text_field :first_name %>
-		
+
 		<%= f.label :last_name %>
 		<%= f.text_field :last_name %>
 
 		<%= f.label :card_type %>
-		<%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]] %>
+		<%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], {include_blank: 'Indique o Tipo de Cartão'} %>
 
 		<%= f.label :card_number %>
 		<%= f.text_field :card_number %>
 
-		<%= f.label :card_verification %>
-		<%= f.text_field :card_verification %>
-
 		<%= f.label :card_expiration_date %>
 		<%= f.date_select :card_expiration_date, :start_year => Date.today.year, :end_year => (Date.today.year+10), :order => [:year, :month], :add_month_numbers => true %>
 
-		<%= f.submit "Finalizar Compra", class: "btn_submit_formulario" %>
+		<%= f.label :card_verification %>
+		<%= f.text_field :card_verification %>
+		
+
+		<div class="actions_wrapper">
+			<div class="action_button">
+				<%= f.submit "Finalizar Compra" %>
+			</div>
+		</div>
 
 	<% end %>
+
 </div>

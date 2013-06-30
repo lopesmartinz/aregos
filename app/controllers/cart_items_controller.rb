@@ -44,6 +44,9 @@ class CartItemsController < ApplicationController
 		@cart_item.quantity -= 1
 
 		if @cart_item.save
+			# apaga o item se a quantidade for zero
+			@cart_item.delete unless @cart_item.quantity > 0
+
 			redirect_to :back
 		end
 	end

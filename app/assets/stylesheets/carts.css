@@ -1,0 +1,39 @@
+.cart th.quantity {
+	text-align: center;
+}
+.cart th.price, .cart td.price, .cart td.quantity {
+	text-align: right;
+}
+.cart td.price {
+	width: 6.5em;
+}
+.cart td.actions {
+	width: 5.5em;
+}
+.cart td.quantity {
+	width: 7.5em;
+}
+.cart .table_row_item .action_button input[type="submit"] {
+	background-color: #bbb;
+	min-width: 2em;
+	padding: 0.4em 0.3em 0.05em 0.3em;
+}
+.cart .table_row_item .quantity .quantity_wrapper {
+	float: right;
+	margin-top: 1em;
+}
+.cart .table_row_item .quantity .quantity_wrapper .quantity_value {
+	float: left;
+	margin: 0.5em 0.5em 0 0;
+}
+.cart .table_row_item .quantity .quantity_wrapper .action_button input[type="submit"] {
+	margin-left: 0.2em;
+	float: left;
+}
+.cart .table_row_footer .left_table_column {
+	text-align: right;
+}
+.cart .total_value {
+	margin-left: 0.5em;
+	color: #cc9933;
+}

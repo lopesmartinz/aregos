@@ -1,8 +1,10 @@
-<div><%= @product.name %></div>
-<div><%= @product.description %></div>
-<div><%= @product.price %></div>
+<h1><%= @product.name %></h1>
+<p><%= raw @product.description %></p>
+<div class="product_price"><%= number_to_currency(@product.price, :unit => "€", format: "%n %u") %></div>
 
-<div><%= button_to "Adicionar ao Carrinho", {:controller => :carts, :action => :add_to_cart, product_id: @product.id}, :method => :post %></div>
+<div class="actions_wrapper">
+	<div class="action_button"><%= button_to "Adicionar ao Carrinho", {:controller => :carts, :action => :add_to_cart, product_id: @product.id}, :method => :post %></div>
+</div>
 
 <% content_for :sidebar do %>
 	<%= render "shared/cart" unless current_cart.nil? %>

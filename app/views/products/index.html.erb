@@ -1,9 +1,12 @@
-<ul>
+<ul class="products_list">
 	<% @products.each do |p| %>
 		<li>
 			<h1><%= link_to p.name, p %></h1>
-			<p><%= p.abstract %></p>
-			<p><%= p.price %></p>
+			<p><%= raw p.abstract %></p>
+			<div class="product_price"><%= number_to_currency(p.price, :unit => "€", format: "%n %u") %></div>
+			<div class="actions_wrapper">								
+				<div class="action_button"><%= link_to "Ver Mais", p %></div>
+			</div>
 		</li>
 	<% end %>
 </ul>

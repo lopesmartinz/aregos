@@ -1,24 +1,25 @@
-<div><%= @order.address_line_1 %></div>
-<div><%= @order.address_line_2 %></div>
-<div><%= @order.zip_code %></div>
-<div><%= @order.city %></div>
+<h1>Compra - <%= @order.reference %></h1>
 
-<table>
-	<tr>
-		<th>Produto</th>
-		<th>Preço</th>
-		<th>Quantidade</th>
-		<th>Subtotal</th>
+<table cellspacing="0" class="table order">
+	<tr class="table_row_header">
+		<th class="left_table_column product">Produto</th>		
+		<th class="quantity">Quantidade</th>
+		<th class="right_table_column price">Preço</th>
 	</tr>
+
 	<% @order.order_items.each do |item| %>
-		<tr>
-			<td><%= item.product.name %></td>
-			<td><%= item.price %></td>
-			<td><%= item.quantity %></td>
-			<td><%= item.price * item.quantity %></td>
-		</tr>
+		<tr class="table_row_item">		
+			<td class="name"><%= item.product.name %></td>			
+			<td class="quantity"><%= item.quantity %></td>
+			<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>
+	    </tr>
 	<% end %>
-	<tr>
-		<td colspan="4"><%= @order.order_items.sum("price * quantity") %><td>
+
+	<tr class="table_row_footer">
+		<td colspan="2" class="left_table_column"></td>
+		<td class="right_table_column">
+			<span class="total_label">Total</span>					
+			<span class="total_value"><%= number_to_currency(@order.order_items.sum("price * quantity"), :unit => "€", format: "%n %u") %></span>
+		</td>
 	</tr>
 </table>

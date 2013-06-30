@@ -4,31 +4,27 @@
   <title>Aregos</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+  <%= csrf_meta_tags %>	
 </head>
 <body>
-	<div class="siteContainer">
-		<div class="headerContainer">
-			<div class="topMenu">
-				<%= render "shared/top_menu" %>
-			</div>	
-			<div class="banner"></div>			
-			<div class="mainMenu">
+	<div class="site_wrapper">
+		<div class="top_background">
+			<div class="centered_wrapper">
+				<%= render "shared/header" %>
+			</div>
+			<div class="centered_wrapper">
 				<%= render "shared/main_menu" %>
 			</div>
 		</div>
-
-		<div class="centralContainer">
-			<div class="mainContent">
-				<%= render "shared/flash_notices" %>
+		<div class="banner_background">
+			<%= render "shared/banner" %>
+		</div>
+		<div class="centered_wrapper">
+			<div class="content_wrapper">				
 				<%= yield %>
-			</div>
-			<div class="sidebar">
-				<%= yield :sidebar %>
+				<div class="clear_both"></div>	
 			</div>
 		</div>
-
-		<div class="footerContainer"></div>
 	</div>
 </body>
 </html>

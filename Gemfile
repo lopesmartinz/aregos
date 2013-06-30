@@ -17,6 +17,9 @@ gem 'bcrypt-ruby', '3.0.1'
 #pagamentos
 gem 'activemerchant'
 
+#tinymce
+gem 'tinymce-rails'
+
 gem 'execjs'
 gem 'therubyracer'
 

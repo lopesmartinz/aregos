@@ -1,5 +1,5 @@
 <div><%= @product.name %></div>
-<div><%= @product.description %></div>
+<div><%= raw @product.description %></div>
 <div><%= @product.price %></div>
 <div><%= image_tag("/images/upload/" + @product.picture, :width => "100") %></div>
 

@@ -7,6 +7,9 @@ pt:
       too_long : "demasiado longo"
       invalid: "inválido"
       taken: "já registado"
+      missing_parameter: "em falta"
+  date:
+    month_names: [Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
   activerecord:    
     attributes:
       user:
@@ -14,6 +17,21 @@ pt:
         email: "E-mail"
         password: "Password"
         password_confirmation: "Confirmação da Password"
+      order:
+        address_line_1: "Endereço"
+        address_line_2: "Endereço"
+        zip_code: "Código Postal"
+        city: "Cidade"
+        country: "País"
+        payment_method: "Método de Pagamento"
+        first_name: "Nome"
+        last_name: "Sobrenome"
+        card_type: "Tipo de Cartão"
+        card_number: "Número do Cartão"        
+        card_expiration_date: "Data de Expiração"
+        card_expiration_year: "Ano de Expiração"
+        card_expiration_month: "Mês de Expiração"
+        card_verification: "Número de Verificação"
     errors:
       models:
         user:

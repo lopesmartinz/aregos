@@ -6,10 +6,10 @@
 		<%= f.text_field :name %>
 
 		<%= f.label :abstract, "Resumo" %>
-		<%= f.text_area :abstract %>
+		<%= f.text_area :abstract, class: "tinymce" %>
 
 		<%= f.label :description, "Descrição" %>
-		<%= f.text_area :description %>
+		<%= f.text_area :description, class: "tinymce" %>
 
 		<%= f.label :price, "Preço" %>
 		<%= f.text_field :price %>
@@ -28,3 +28,5 @@
 	<% end %>
 
 </div>
+
+<%= tinymce %>

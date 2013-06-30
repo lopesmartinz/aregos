@@ -1,5 +1,9 @@
 class Admin::SessionsController < ApplicationController
 
+	# definição do layout
+	layout "backoffice"
+	
+
 	##################################
 	#### ACCÕES DEFAULT
 	##################################

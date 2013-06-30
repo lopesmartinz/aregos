@@ -1,0 +1,17 @@
+ul.products_list {
+	list-style: none;
+}
+ul.products_list li {
+	float: left;
+	max-width: 385px;
+}
+ul.products_list li:nth-child(2n) {
+	float: right;
+}
+ul.products_list li:nth-child(2n+1) {
+	clear: both;
+}
+.product_price {
+	font-size: 1.2em;
+	color: #cc9933;
+}

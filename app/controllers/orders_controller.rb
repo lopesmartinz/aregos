@@ -62,7 +62,8 @@ class OrdersController < ApplicationController
 		@order.card_expiration_year = params[:order]["card_expiration_date(1i)"]
 		@order.card_expiration_month = params[:order]["card_expiration_date(2i)"]
 
-		if payment_was_successful? && @order.save
+		# antes da criação, valida-se o cartão (caso seja esse o método de pagamento)
+		if @order.save
 			# transferir items do carrinho para a encomenda
 			create_order_items(@order)
 
@@ -75,7 +76,7 @@ class OrdersController < ApplicationController
 		else
 			render 'new'
 		end
-
+			
 	end
 
 
@@ -101,7 +102,7 @@ class OrdersController < ApplicationController
 		redirect_to root_path unless !current_user.nil? && current_user == order.user
 	end
 
-		
+
 	# transferir items do carrinho para a encomenda
 	private
 	def create_order_items(order)		
@@ -111,18 +112,6 @@ class OrdersController < ApplicationController
 			order.add_item(item.id)
 		end
 
-	end	
-	
-
-	private
-	def payment_was_successful?
-		success = false
-
-		if @order.validate_card
-			success = @order.charge_credit_card
-		end
-
-		success
-	end
+	end		
 
 end

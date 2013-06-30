@@ -1,5 +1,9 @@
 class Admin::ProductsController < ApplicationController
 
+	# definição do layout
+	layout "backoffice"
+	
+
 	##################################
 	#### VERIFICAÇÕES PRÉVIAS
 	##################################
@@ -102,7 +106,9 @@ class Admin::ProductsController < ApplicationController
 	def destroy
 		@product = Product.find(params[:id])
 
-		@product.delete
+		if @product.delete
+			redirect_to :index
+		end
 	end
 
 

@@ -15,6 +15,7 @@ class Order < ActiveRecord::Base
 	##################################
 
 	belongs_to :user
+	belongs_to :payment_methods
 	has_many :order_items, :dependent => :destroy
 	has_many :products, :through => :order_items
 
@@ -25,6 +26,8 @@ class Order < ActiveRecord::Base
 	##################################
 
   	before_save :add_reference
+  	before_save :validate_credit_card
+  	after_save :charge_credit_card
 
 
 
@@ -38,16 +41,23 @@ class Order < ActiveRecord::Base
 	validates :city, presence: true
 	validates :country, presence: true
 	validates :payment_method, presence: true
-	
-	#validates :first_name, presence: true
-	#validates :last_name, presence: true
-	#validates :card_type, presence: true
-	#validates :card_number, presence: true
-	#validates :card_verification, presence: true
-	#validates :card_expiration_year, presence: true
-	#validates :card_expiration_month, presence: true
 
-	
+	validates_presence_of :first_name,
+		:if => Proc.new { |o| o.payment_method == 1 }
+
+	validates_presence_of :last_name,
+		:if => Proc.new { |o| o.payment_method == 1 }
+
+	validates_presence_of :card_type,
+		:if => Proc.new { |o| o.payment_method == 1 }
+
+	validates_presence_of :card_number,
+		:if => Proc.new { |o| o.payment_method == 1 }
+
+	validates_presence_of :card_number,
+		:if => Proc.new { |o| o.payment_method == 1 }
+
+
 
 	##################################
 	#### MÉTODOS DA CLASSE
@@ -60,8 +70,16 @@ class Order < ActiveRecord::Base
 		order_items.create(product_id: cart_item.product_id, quantity: cart_item.quantity, price: cart_item.price)
 	end
 
-	# valida cartão de crédito
-	def validate_card
+	# valida os dados do cartão de crédito e se tem fundos
+	def validate_credit_card
+		if self.payment_method == 1
+			credit_card_data_is_valid?
+			credit_card_has_enough_founds?
+		end
+	end
+
+	# valida os dados do cartão de crédito indicados pelo utilizador
+	def credit_card_data_is_valid?
 		# cria objecto do cartão de crédito
 		# => e valida os dados do cartão
 		unless credit_card.valid?
@@ -88,19 +106,32 @@ class Order < ActiveRecord::Base
 		)
 	end
 
-	# tenta cobrar o valor da encomenda no cartão de crédito	
-	def charge_credit_card
+	# verifica se o cartão de crédito tem o valor necessário
+	def credit_card_has_enough_founds?
 		# usa a gateway (constante) defida em "config/environments"	
-		response = GATEWAY.purchase(1000, credit_card)
+		response = GATEWAY.authorize(1000, credit_card)
 		
 		# adiciona as mensagens de erro às outras mensagens de erro do model
 		unless response.success?
-			response.errors.full_messages.each do |message|
-				errors[:base] << message
-			end
+			errors[:base] << response.message			
 		end
 
 		response.success?
+	end
+
+	# tenta cobrar o valor da encomenda no cartão de crédito	
+	def charge_credit_card
+		if self.payment_method == 1
+			# usa a gateway (constante) defida em "config/environments"	
+			response = GATEWAY.purchase(1000, credit_card)
+			
+			# adiciona as mensagens de erro às outras mensagens de erro do model
+			unless response.success?
+				errors[:base] << response.message
+			end
+
+			response.success?
+		end
 	end
 
 
@@ -110,6 +141,6 @@ class Order < ActiveRecord::Base
 	##################################
 	private
 	def add_reference
-		self.reference = "ARGS#{Order.last.id + 1}"
+		self.reference = "ARGS#{Order.count + 1}"
 	end
 end

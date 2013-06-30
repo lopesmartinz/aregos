@@ -1,5 +1,9 @@
 class Admin::OrdersController < ApplicationController
 
+	# definição do layout
+	layout "backoffice"
+	
+
 	##################################
 	#### VERIFICAÇÕES PRÉVIAS
 	##################################

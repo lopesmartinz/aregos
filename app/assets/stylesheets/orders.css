@@ -1,0 +1,28 @@
+/* LISTA DE COMPRAS */
+.orders .table_row_header .creation_date, .orders .table_row_item .creation_date {
+	text-align: center;
+}
+.orders .table_row_header .status, .orders .table_row_item .status {
+	text-align: center;
+}
+
+
+/* DETALHE DE COMPRAS */
+.order .table_row_header .quantity, .order .table_row_item .quantity {
+	text-align: center;
+}
+.order .table_row_header .price {
+	width: 6.5em;
+	text-align: center;
+}
+.order .table_row_item .price {
+	text-align: right;
+}
+
+.order .table_row_footer .right_table_column {
+	text-align: right;
+}
+.order .total_value {
+	margin-left: 0.5em;
+	color: #cc9933;
+}
