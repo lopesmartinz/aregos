@@ -28,7 +28,7 @@
 }
 .cart .table_row_item .quantity .quantity_wrapper .action_button input[type="submit"] {
 	margin-left: 0.2em;
-	float: left;
+	float: left;	
 }
 .cart .table_row_footer .left_table_column {
 	text-align: right;
@@ -36,4 +36,11 @@
 .cart .total_value {
 	margin-left: 0.5em;
 	color: #cc9933;
+}
+
+.cart .actions_wrapper {
+	float: right;
+}
+.cart .action_button {
+	float: left;
 }

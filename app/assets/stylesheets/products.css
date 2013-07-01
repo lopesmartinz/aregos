@@ -1,17 +1,25 @@
-ul.products_list {
+/* LISTA DE PRODUTOS */
+.products ul {
 	list-style: none;
 }
-ul.products_list li {
+.products ul li {
 	float: left;
 	max-width: 385px;
 }
-ul.products_list li:nth-child(2n) {
+.products ul li:nth-child(2n) {
 	float: right;
 }
-ul.products_list li:nth-child(2n+1) {
+.products ul li:nth-child(2n+1) {
 	clear: both;
 }
-.product_price {
+.products .price {
+	font-size: 1.2em;
+	color: #cc9933;
+}
+
+
+/*DETALHE DE PRODUTOS */
+.product .price {
 	font-size: 1.2em;
 	color: #cc9933;
 }

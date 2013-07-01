@@ -1,6 +1,8 @@
+<h1>Registo</h1>
+
 <%= render :partial => "shared/error_messages", :locals => { :object => @user }  %>
 
-<div class="formulario">	
+<div class="form_field">
 
 	<%= form_for(@user) do |f| %>
 		
@@ -16,10 +18,12 @@
 		<%= f.label :password_confirmation %>
 		<%= f.password_field :password_confirmation %>
 
-		<%= f.submit "Registar", class: "btn_submit_formulario" %>
+		<div class="actions_wrapper">
+			<div class="action_button">
+				<%= f.submit "Registar" %>
+			</div>
+		</div>
 
 	<% end %>
 	
 </div>
-
-<p>Utilizador Registado? <%= link_to "Login!", signin_path %></p>

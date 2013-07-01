@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
 	# GET
 	# serve apenas para gerar o form de login
-	def new		
+	def new			
 	end
 
 

@@ -1,47 +1,45 @@
-<h1>Carrinho de Compras</h1>
+<div class="cart">
+	<h1>Carrinho de Compras</h1>
 
-<table cellspacing="0" class="table cart">
-	<tr class="table_row_header">
-		<th class="left_table_column product">Produto</th>		
-		<th class="quantity">Quantidade</th>
-		<th class="price">Preço</th>
-		<th class="right_table_column actions"></th>
-	</tr>
+	<table cellspacing="0" class="table">
+		<tr class="table_row_header">
+			<th class="left_table_column product">Produto</th>		
+			<th class="quantity">Quantidade</th>
+			<th class="price">Preço</th>
+			<th class="right_table_column actions"></th>
+		</tr>
 
-	<% @cart.cart_items.each do |item| %>
-		<tr class="table_row_item">		
-			<td class="name"><%= item.product.name %></td>			
-			<td class="quantity">
-				<div class="quantity_wrapper">
-					<div class="quantity_value"><%= item.quantity %></div>
-					<div class="action_button"><%= button_to "-", {:controller => :cart_items, :action => 'decrease_quantity', :id => item.id}, :method => :put %></div>		
-					<div class="action_button"><%= button_to "+", {:controller => :cart_items, :action => 'increase_quantity', :id => item.id}, :method => :put %></div>
-					<div style="clear: both;">&nbsp;</div>
-				</div>
+		<% @cart.cart_items.each do |item| %>
+			<tr class="table_row_item">		
+				<td class="name"><%= item.product.name %></td>			
+				<td class="quantity">
+					<div class="quantity_wrapper">
+						<div class="quantity_value"><%= item.quantity %></div>
+						<div class="action_button"><%= button_to "-", {:controller => :cart_items, :action => 'decrease_quantity', :id => item.id}, :method => :put %></div>		
+						<div class="action_button"><%= button_to "+", {:controller => :cart_items, :action => 'increase_quantity', :id => item.id}, :method => :put %></div>
+						<div style="clear: both;">&nbsp;</div>
+					</div>
+				</td>
+				<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>
+				<td class="actions">				
+					<div class="action_button"><%= button_to "Remover", {:controller => :cart_items, :action => 'destroy', :id => item.id}, :method => :delete %></div>
+				</td>			       
+		    </tr>
+		<% end %>
+
+		<tr class="table_row_footer">
+			<td colspan="3" class="left_table_column">
+				<span class="total_label">Total</span>			
+				<span class="total_value"><%= number_to_currency(@cart.cart_items.sum("price * quantity"), :unit => "€", format: "%n %u") %></span>
 			</td>
-			<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>
-			<td class="actions">				
-				<div class="action_button"><%= button_to "Remover", {:controller => :cart_items, :action => 'destroy', :id => item.id}, :method => :delete %></div>
-			</td>			       
-	    </tr>
-	<% end %>
+			<td class="right_table_column"></td>
+		</tr>
+	</table>
 
-	<tr class="table_row_footer">
-		<td colspan="3" class="left_table_column">
-			<span class="total_label">Total</span>			
-			<span class="total_value"><%= number_to_currency(@cart.cart_items.sum("price * quantity"), :unit => "€", format: "%n %u") %></span>
-		</td>
-		<td class="right_table_column"></td>
-	</tr>
-</table>
-
-<div class="actions_wrapper">
-	<div class="action_button"><%= button_to "Limpar Carrinho", @cart, :method => :delete, class: "action_button" %></div>
-	<div class="action_button"><%= button_to "Continuar a Comprar", products_path, :method => :get %></div>
-	<div class="action_button"><%= button_to "Finalizar Compra", {:controller => :carts, :action => :checkout, id: @cart.id}, :method => :get %></div>
-	<div style="clear: both;">&nbsp;</div>
+	<div class="actions_wrapper">
+		<div class="action_button"><%= button_to "Limpar Carrinho", @cart, :method => :delete, class: "action_button" %></div>
+		<div class="action_button"><%= button_to "Continuar a Comprar", products_path, :method => :get %></div>
+		<div class="action_button"><%= button_to "Finalizar Compra", {:controller => :carts, :action => :checkout, id: @cart.id}, :method => :get %></div>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
 </div>
-
-<% content_for :sidebar do %>
-	<%= render "shared/products" %>
-<% end %>
