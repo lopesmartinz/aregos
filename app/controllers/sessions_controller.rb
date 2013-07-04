@@ -29,16 +29,17 @@ class SessionsController < ApplicationController
 			sign_in @user
 
 			# alerta para user autenticado com sucesso
-      		flash[:notice] = "Login feito com sucesso"
+      		flash[:notice] = "Bem vindo #{@user.name}"
 
 			# definir página após login com sucesso
 			if exists_pending_cart?
 				# redirecciona para a paǵina de checkout se existir um checkout pendente
 				redirect_to ({:controller => :orders, :action => :new})
 			else
-      			redirect_to @user
+      			redirect_to root_path
       		end
 		else
+			flash[:notice] = "Utilizador ou password errados."
 			render 'new'
 		end
 	end

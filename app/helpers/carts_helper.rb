@@ -10,7 +10,7 @@ module CartsHelper
 
 	# "GET" do estado do carrinho actual
 	def exists_pending_cart?
-		!current_cart.nil? && current_cart.status == 'pending'
+		!current_cart.nil? && current_cart.cart_status == CartStatus.find(2)
 	end
 
 end

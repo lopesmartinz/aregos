@@ -1,0 +1,21 @@
+/* RESET */
+html, body, h1, h2, h3, ul, li, p, th {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+a, a:hover, a:visited {
+	text-decoration: none;
+	color: #777;
+}
+img {
+	border: 0;
+}
+
+
+/* LAYOUT */
+body {		
+	font-family: "Arial", "DejaVu Sans";
+	font-size: 1em;
+	color: #777;
+}

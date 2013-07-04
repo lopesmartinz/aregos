@@ -82,7 +82,7 @@ body {
 .banner_wrapper {				
 	border-left: 1px solid #555;
 	border-right: 1px solid #555;
-	height: 400px;
+	height: 300px;
 }
 .content_wrapper {
 	background-color: #eee;
@@ -132,6 +132,7 @@ ul.main_menu li {
 	font-family: "Candara", "Arial", "DejaVu Sans";
 	font-size: 1.1em;
 	margin: 0 1.7em;
+	color: #888;
 }
 ul.main_menu li a, ul.main_menu li a:hover, ul.main_menu li a:visited {
 	text-decoration: none;
@@ -160,19 +161,23 @@ p {
 	margin-bottom: 1em;
 }
 tr.table_row_header th {
-	background-color: #e5e5e5;
+	background-color: #ddd;
 	padding: 0.5em;
-	border-bottom: 1px solid #fff;
 }
 
 tr.table_row_item td {
 	padding: 0.5em;
-	background-color: #f4f4f4;
-	border-bottom: 1px solid #e5e5e5;
+	border-bottom: 1px solid #ddd;
 	font-size: 0.9em;
 }
+tr.table_row_item td.left_table_column {
+	border-left: 1px solid #ddd;
+}
+tr.table_row_item td.right_table_column {
+	border-right: 1px solid #ddd;
+}
 tr.table_row_footer td {
-	background-color: #e5e5e5;
+	background-color: #ddd;
 	padding: 0.5em;
 }
 tr.table_row_header th.left_table_column {
@@ -221,22 +226,30 @@ tr.table_row_footer td.right_table_column {
 	font-family: "Candara", "Arial", "DejaVu Sans";
 	font-size: 0.95em;
 	color: #fff;
-	padding: 0.5em 0.5em 0.2em 0.5em;
+	padding: 0.5em 0.5em 0.3em 0.5em;
 	background-color: #cc9933;
 	border-radius: 0.4em;
-	margin-left: 0.4em;
+	margin-left: 0.5em;
 	border: 0;
 }
 
 
 /* ERROS */
-.erros_list {
+.errors_list {
 	border-radius: 0.4em;
 	background-color: #cc9933;
 	padding: 1em 1em 1em 2em;
 	margin-bottom: 1.5em;
 }
-.erros_list ul li {
+.errors_list ul li {
 	margin-bottom: 0.3em;
+}
+
+/* ALERTAS */
+.flash_notice {
+	border-radius: 0.4em;
+	background-color: #cc9933;
+	padding: 1em;
+	margin-bottom: 1.5em;
 }
 

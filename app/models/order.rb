@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   
 	attr_accessible :user_id, :address_line_1, :address_line_2, :zip_code,
-		:city, :country, :payment_method
+		:city, :country, :payment_method_id, :order_status_id
 
 	attr_accessor :first_name, :last_name,
 		:card_type, :card_number,
@@ -15,7 +15,8 @@ class Order < ActiveRecord::Base
 	##################################
 
 	belongs_to :user
-	belongs_to :payment_methods
+	belongs_to :payment_method
+	belongs_to :order_status
 	has_many :order_items, :dependent => :destroy
 	has_many :products, :through => :order_items
 
@@ -40,22 +41,22 @@ class Order < ActiveRecord::Base
 	validates :zip_code, presence: true
 	validates :city, presence: true
 	validates :country, presence: true
-	validates :payment_method, presence: true
+	validates :payment_method_id, presence: true
 
 	validates_presence_of :first_name,
-		:if => Proc.new { |o| o.payment_method == 1 }
+		:if => Proc.new { |o| o.payment_method_id == 1 }
 
 	validates_presence_of :last_name,
-		:if => Proc.new { |o| o.payment_method == 1 }
+		:if => Proc.new { |o| o.payment_method_id == 1 }
 
 	validates_presence_of :card_type,
-		:if => Proc.new { |o| o.payment_method == 1 }
+		:if => Proc.new { |o| o.payment_method_id == 1 }
 
 	validates_presence_of :card_number,
-		:if => Proc.new { |o| o.payment_method == 1 }
+		:if => Proc.new { |o| o.payment_method_id == 1 }
 
 	validates_presence_of :card_number,
-		:if => Proc.new { |o| o.payment_method == 1 }
+		:if => Proc.new { |o| o.payment_method_id == 1 }
 
 
 
@@ -72,7 +73,7 @@ class Order < ActiveRecord::Base
 
 	# valida os dados do cartão de crédito e se tem fundos
 	def validate_credit_card
-		if self.payment_method == 1
+		if self.payment_method_id == 1
 			credit_card_data_is_valid?
 			credit_card_has_enough_founds?
 		end
@@ -121,7 +122,7 @@ class Order < ActiveRecord::Base
 
 	# tenta cobrar o valor da encomenda no cartão de crédito	
 	def charge_credit_card
-		if self.payment_method == 1
+		if self.payment_method_id == 1
 			# usa a gateway (constante) defida em "config/environments"	
 			response = GATEWAY.purchase(1000, credit_card)
 			

@@ -23,7 +23,7 @@ pt:
         zip_code: "Código Postal"
         city: "Cidade"
         country: "País"
-        payment_method: "Método de Pagamento"
+        payment_method_id: "Método de Pagamento"
         first_name: "Nome"
         last_name: "Sobrenome"
         card_type: "Tipo de Cartão"

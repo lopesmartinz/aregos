@@ -6,6 +6,7 @@
 				<li><%= link_to "Registo" ,signup_path %></li>
 				<li><%= link_to "Login", signin_path %></li>
 			<% else %>
+				<li><%= button_to "Logout", signout_path, :method => :delete %></li>
 				<li><%= link_to "Minhas Compras", orders_path %></li>			
 			<% end %>
 

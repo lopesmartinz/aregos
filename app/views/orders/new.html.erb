@@ -18,8 +18,8 @@
 		<%= f.label :country %>
 		<%= f.select :country, [["Portugal"], ["Outro"]] %>
 
-		<%= f.label :payment_method %>
-		<%= f.select(:payment_method, PaymentMethod.all.collect {|pm| [ pm.name, pm.id ] }, {include_blank: 'Indique o Método de Pagamento'}) %>
+		<%= f.label :payment_method_id %>
+		<%= f.select(:payment_method_id, PaymentMethod.all.collect {|pm| [ pm.name, pm.id ] }, {include_blank: 'Indique o Método de Pagamento'}) %>
 
 		<%= f.label :first_name %>
 		<%= f.text_field :first_name %>

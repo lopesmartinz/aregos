@@ -51,24 +51,39 @@ class OrdersController < ApplicationController
 		@order.zip_code = params[:order][:zip_code]
 		@order.city = params[:order][:city]
 		@order.country = params[:order][:country]
-		@order.payment_method = params[:order][:payment_method]
 
-		# dados do cartão de crédito	
-		@order.first_name = params[:order][:first_name]
-		@order.last_name = params[:order][:last_name]
-		@order.card_type = params[:order][:card_type]
-		@order.card_number = params[:order][:card_number]
-		@order.card_verification = params[:order][:card_verification]
-		@order.card_expiration_year = params[:order]["card_expiration_date(1i)"]
-		@order.card_expiration_month = params[:order]["card_expiration_date(2i)"]
+		if !params[:order][:payment_method_id].blank? 
+			@order.payment_method = PaymentMethod.find(params[:order][:payment_method_id])
+		end
+
+		@order.order_status = OrderStatus.find(1)
+
+		# dados do cartão de crédito
+		if @order.payment_method == PaymentMethod.find(1)
+			@order.first_name = params[:order][:first_name]
+			@order.last_name = params[:order][:last_name]
+			@order.card_type = params[:order][:card_type]
+			@order.card_number = params[:order][:card_number]
+			@order.card_verification = params[:order][:card_verification]
+			@order.card_expiration_year = params[:order]["card_expiration_date(1i)"]
+			@order.card_expiration_month = params[:order]["card_expiration_date(2i)"]
+		end
 
 		# antes da criação, valida-se o cartão (caso seja esse o método de pagamento)
 		if @order.save
 			# transferir items do carrinho para a encomenda
 			create_order_items(@order)
 
+			# envio do email de confirmação da submissão da encomenda
+      		Emails.order_submission_confirmation(current_user, @order).deliver
+
 			# fechar carrinho actual
-			current_cart.update_attributes(status: "closed")
+			@cart = Cart.find(current_cart)
+			@cart.cart_status = CartStatus.find(3)
+			@cart.save
+
+			flash[:notice] = "A encomenda foi submetida com sucesso."
+
 			session.delete(:aregos_cart_id)
 
 			# redirecciona para detalhe da encomenda

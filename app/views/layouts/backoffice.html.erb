@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Aregos</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>  
-</head>
-<body>
+	<head>
+	  <title>Aregos</title>
+	  <%= stylesheet_link_tag "backoffice" %>
+	  <%= javascript_include_tag "application" %>
+	  <%= csrf_meta_tags %>  
+	</head>
+	<body>
 
-	<%= tinymce_assets %>
+		<%= tinymce_assets %>
 
-	<%= yield %>
+		<ul>
+			<li><%= link_to "Produtos", admin_products_path %></li>
+			<li><%= link_to "Encomendas", admin_orders_path %></li>
+		</ul>
 
-	<%= tinymce %>
+		<%= yield %>
 
-</body>
+		<%= tinymce %>
+
+	</body>
 </html>

@@ -1,14 +1,21 @@
-<table>
-		<tr>
-			<th>Referência</th>
-			<th>Data</th>
-		</tr>
+<h1>Compras</h1>
 
-		<% @orders.each do |order| %>
-			<tr>
-				<td><%= order.reference %></td>
-				<td><%= order.created_at.strftime("%Y-%m-%d") %></td>
-			</tr>			
-		<% end %>
+<table cellspacing="0" class="table orders">
+	<tr class="table_row_header">
+		<th class="left_table_column reference">Referência</th>		
+		<th class="creation_date">Data</th>
+		<th class="right_table_column status">Estado</th>
+	</tr>
 
+	<% @orders.each do |order| %>
+		<tr class="table_row_item">		
+			<td class="left_table_column reference"><%= link_to order.reference, [:admin, order] %></td>			
+			<td class="creation_date"><%= order.created_at.strftime("%Y-%m-%d") %></td>
+			<td class="right_table_column status"><%= order.order_status.name unless order.order_status.nil? %></td>
+	    </tr>
+	<% end %>
+
+	<tr class="table_row_footer">
+		<td colspan="2" class="left_table_column"></td>
+		<td class="right_table_column"></td>	
 </table>

@@ -41,7 +41,7 @@ class CartsController < ApplicationController
 
 		session.delete(:aregos_cart_id)
 
-		flash[:notice] = "O carrinho foi eliminado"
+		flash[:notice] = "O carrinho foi eliminado."
 
 		redirect_to products_path
 	end
@@ -65,7 +65,7 @@ class CartsController < ApplicationController
 		# => add_item é um método do model "cart"
 		@cart.add_item(params[:product_id])
 
-		flash[:notice] = "O produto foi adicionado ao carrinho"
+		flash[:notice] = "O produto foi adicionado ao carrinho."
 
 		redirect_to @cart
 	end
@@ -77,10 +77,12 @@ class CartsController < ApplicationController
 
 		# operações se o utilizador estiver autenticado
 		if user_is_signed_in?
-			@cart.update_attributes(status: "closed")
+			# carrinho só é fechado depois da encomenda ser feita com sucesso			
 			redirect_to ({:controller => :orders, :action => :new})
 		else
-			@cart.update_attributes(status: "pending")
+			# dar o carrinho como pendente se o utilizador não estiver autenticado
+			@cart.cart_status = CartStatus.find(2)
+			@cart.save
 		end		
 	end
 
@@ -93,7 +95,9 @@ class CartsController < ApplicationController
 	# cria carrinho, guarda o id em sessão e devolve o carrinho actual
 	private
 	def create_cart
-		@cart = Cart.create(status: "created")
+		@cart = Cart.new
+		@cart.cart_status = CartStatus.find(1)
+		@cart.save
 
 		session[:aregos_cart_id] = @cart.id
 

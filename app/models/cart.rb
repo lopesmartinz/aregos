@@ -1,8 +1,9 @@
 class Cart < ActiveRecord::Base
 
-  attr_accessible :status
+  attr_accessible :cart_status_id
 
   # relações com outras tabelas
+  belongs_to :cart_status
   has_many :cart_items, :dependent => :destroy
   has_many :products, :through => :cart_items, :dependent => :destroy
 

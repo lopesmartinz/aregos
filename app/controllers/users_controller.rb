@@ -19,13 +19,6 @@ class UsersController < ApplicationController
   #### ACCÕES DEFAULT
   ##################################
 
-  # GET
-  # obtem dados do utilizador
-  def show
-  	# o parâmetro ":id" vem da querystring
-    @user = User.find(params[:id])
-  end
-
 
   # GET
   # instancia novo user para carregar form
@@ -45,12 +38,12 @@ class UsersController < ApplicationController
   	# guarda user na base de dados
     if @user.save
       # alerta para user criado com sucesso
-      flash[:notice] = "Registo feito com sucesso"
+      flash[:notice] = "Bem vindo #{@user.name}. Obrigado por se ter registado."
 
       # autentica o user criado
       sign_in @user
 
-      # envio do email para o utilizador
+      # envio do email de confirmação do registo para o utilizador
       Emails.user_registration_confirmation(@user).deliver
 
       # definir página após login com sucesso
@@ -61,7 +54,7 @@ class UsersController < ApplicationController
           redirect_to @user
       end
 
-  	else      
+  	else       
   		render 'new'
   	end
   end
