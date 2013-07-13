@@ -1,7 +1,7 @@
 class Admin::ProductsController < ApplicationController
 
 	# definição do layout
-	layout "backoffice"
+	layout "admin/inner_page"
 	
 
 	##################################
@@ -107,7 +107,7 @@ class Admin::ProductsController < ApplicationController
 		@product = Product.find(params[:id])
 
 		if @product.delete
-			redirect_to :index
+			redirect_to ({:controller => "admin/products", :action => :index})
 		end
 	end
 

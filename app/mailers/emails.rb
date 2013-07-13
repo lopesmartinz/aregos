@@ -18,4 +18,13 @@ class Emails < ActionMailer::Base
   	mail(to: @user.email, subject: "Confirmacao da sua encomenda no site www.douromemories.com")
   end
 
+  # configuração do envio do e-mail de confirmação da submissão de encomendas
+  def general_interaction_submission(subject, description)
+    @subject = subject
+    @description= description
+
+    #mail(to: "geral@douromemories.com", subject: "Mensagem de Contacto do site www.douromemories.com")
+    mail(to: "lopesmartinz@gmail.com", subject: "Mensagem de Contacto do site www.douromemories.com")
+  end
+
 end

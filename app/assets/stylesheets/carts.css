@@ -36,10 +36,3 @@
 	margin-left: 0.5em;
 	color: #cc9933;
 }
-
-.cart .actions_wrapper {
-	text-align: right;
-}
-.cart .action_button {
-	display: inline-block;
-}

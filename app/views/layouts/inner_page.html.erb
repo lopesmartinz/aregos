@@ -2,7 +2,10 @@
 <html>
 <head>
   <title>Aregos</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag "application" %>
+  <%= stylesheet_link_tag "products" %>
+  <%= stylesheet_link_tag "carts" %>
+  <%= stylesheet_link_tag "orders" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>	
 </head>
@@ -21,7 +24,7 @@
 		</div>
 		<div class="centered_wrapper">
 			<div class="content_wrapper">
-				<%= render "shared/flash_notices" %>				
+				<%= render "shared/flash_notices" %>								
 				<%= yield %>
 				<div class="clear_both"></div>	
 			</div>

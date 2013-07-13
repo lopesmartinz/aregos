@@ -4,7 +4,6 @@ Aregos::Application.routes.draw do
   
 
   #resources
-  resources :static_pages
   resources :users
   resources :sessions , only: [:new, :create, :destroy]
   resources :products
@@ -16,7 +15,10 @@ Aregos::Application.routes.draw do
     end
   end
 
-  resources :cart_items , only: [:destroy] do
+  # faz post para o método "add_to_cart" e passa o id do produto como parâmetro
+  post '/add_to_cart/:product_id' => 'carts#add_to_cart', :as => 'add_to_cart'
+
+  resources :cart_items, only: [:destroy] do
     # "member" permite adicionar acções extra ao recurso (para além das default)
     member do
       put 'increase_quantity'
@@ -25,11 +27,19 @@ Aregos::Application.routes.draw do
   end
 
   resources :orders
+
+  resources :general_interactions, only: [:new, :create]
   
   
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+
+  # static_pages
+  match '/about_us',  to: 'static_pages#about_us'
+  match '/caldas_de_aregos',  to: 'static_pages#caldas_de_aregos'
+
+  # backoffice
   match '/admin',  to: 'admin/sessions#new'
 
   namespace :admin do    
@@ -37,9 +47,7 @@ Aregos::Application.routes.draw do
     resources :products
     resources :orders
   end
-
-  # faz post para o método "add_to_cart" e passa o id do produto como parâmetro
-  post '/add_to_cart/:product_id' => 'carts#add_to_cart', :as => 'add_to_cart'
+ 
 
 
   # The priority is based upon order of creation:

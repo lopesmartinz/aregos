@@ -1,0 +1,83 @@
+/* RESET */
+html, body, h1, h2, h3, ul, li, p, th {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	font-size: 1em;
+}
+a, a:hover, a:visited {
+	text-decoration: none;
+	color: #777;
+}
+img {
+	border: 0;
+}
+
+
+/* LAYOUT */
+html, body, form {
+	height: 100%;
+}
+body {
+	text-align: center;	
+	font-family: "Arial", "DejaVu Sans";
+	font-size: 1em;
+	color: #777;
+	background-color: #f3f3f3;
+}
+
+/* LOGIN */
+.login_outer_wrapper {
+	height: 100%;
+	width: 100%;
+	display: table;
+}
+.login_inner_wrapper {		
+	display: table-cell;
+	vertical-align: middle;
+}
+.login_box {
+	margin: auto;
+	text-align: left;		
+	font-size: 1em;	
+	width: 350px;
+}
+.login_box h1 {
+	font-size: 1.3em;
+	border-top-left-radius: 0.6em;
+	border-top-right-radius: 0.6em;
+	padding: 0.6em;
+	background-color: #777;
+	color: #fff;
+	border: 1px solid #bbb;
+	border-bottom: 0;
+}
+.login_box .form_field {
+	border-bottom-left-radius: 0.6em;
+	border-bottom-right-radius: 0.6em;
+	padding: 0.6em;
+	background-color: #ddd;
+	border: 1px solid #bbb;
+	border-top: 0;
+}
+
+.login_box input[type="text"], .login_box input[type="password"] {
+	border-radius: 0.3em;
+	width: 95%;
+	padding: 0.5em;
+	color: #777;
+	border: 1px solid #bbb;
+	margin-bottom: 1em;
+}
+.actions_wrapper .action_button {
+	text-align: center;
+}
+.action_button a, .action_button input[type="submit"] {
+	cursor: hand;
+	cursor: pointer;	
+	color: #fff;
+	padding: 0.5em 1em;
+	background-color: #777;
+	border-radius: 0.4em;
+	border: 0;
+}

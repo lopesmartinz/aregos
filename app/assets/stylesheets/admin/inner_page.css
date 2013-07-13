@@ -1,0 +1,127 @@
+/* RESET */
+html, body, h1, h2, h3, ul, li, p, th {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+a, a:hover, a:visited {
+	text-decoration: none;
+	color: #777;
+}
+img {
+	border: 0;
+}
+
+
+/* LAYOUT */
+html, body {
+	height: 100%;
+}
+body {
+	font-family: "Arial", "DejaVu Sans";
+	font-size: 1em;
+	color: #777;
+}
+
+ul.main_menu {
+	list-style: none;
+	background-color: #777;
+}
+ul.main_menu li {
+	display: inline;
+	line-height: 55px;
+	vertical-align: middle;
+	font-size: 1.1em;
+	padding: 0 1em;
+	border-right: 1px solid #fff;
+	color: #fff;
+}
+ul.main_menu li a, ul.main_menu li a:hover, ul.main_menu li a:visited {
+	text-decoration: none;
+	color: #fff;
+}
+.content_wrapper {
+	margin: 1em;
+	max-width: 700px;
+}
+
+
+/* TABELAS */
+.table {
+	width: 100%;
+	margin-bottom: 1em;
+	border: 1px solid #ccc;
+}
+tr.table_row_header th {
+	background-color: #ddd;
+	padding: 0.5em;
+	text-align: center
+}
+tr.table_row_item td {
+	padding: 0.5em;
+	border-bottom: 1px solid #ddd;
+	font-size: 0.9em;
+	text-align: center
+}
+tr.table_row_item td.actions input[type="submit"] {
+	background-color: #999;
+}
+tr.table_row_footer td {
+	background-color: #ddd;
+	padding: 0.5em;
+}
+
+
+/* FORMULÁRIOS */
+.form_field input[type="text"], .form_field input[type="password"], .form_field label {
+	display: block;
+}
+.form_field input[type="text"], .form_field input[type="password"], .form_field select, .form_field textarea {
+	border: 1px solid #ddd;
+ 	margin-bottom: 2em;
+ 	width: 98%;
+ 	color: #777;
+ 	padding: 0.5em;
+ 	font-size: 0.9em;
+}
+.form_field label {
+	color: #555;
+}
+.form_field .mce-tinymce {
+	margin-bottom: 2em;
+}
+.form_field select {
+ 	width: 100%;
+}
+.form_field textarea {
+	height: 10em;
+}
+
+
+/* BOTÕES */
+.action_button{
+	display: inline-block;
+}
+.action_button input[type="submit"] {
+	background-color: #777;
+	padding: 0.5em 1em;
+	border: 0;
+	color: #fff;
+}
+
+
+/* DETALHES */
+.detail .value {
+	border: 1px solid #ddd;
+ 	margin-bottom: 2em;
+ 	width: 98%;
+ 	color: #777;
+ 	padding: 0.5em;
+ 	font-size: 0.9em;
+}
+
+
+/* PRODUTOS */
+tr.table_row_header th.name, tr.table_row_item td.name {
+	text-align: left;
+}

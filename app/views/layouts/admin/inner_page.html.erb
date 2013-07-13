@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>Aregos</title>
+	  <%= stylesheet_link_tag "admin/inner_page" %>
+	  <%= javascript_include_tag "application" %>
+	  <%= csrf_meta_tags %>  
+	</head>
+	<body>
+
+		<%= tinymce_assets %>
+
+		<ul class="main_menu">
+			<li><%= link_to "Produtos", admin_products_path %></li>
+			<li><%= link_to "Encomendas", admin_orders_path %></li>
+		</ul>
+
+		<div class="content_wrapper">
+			<%= yield %>
+		</div>
+
+		<%= tinymce %>
+
+	</body>
+</html>

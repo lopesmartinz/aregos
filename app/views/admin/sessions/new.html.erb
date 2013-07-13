@@ -1,15 +1,27 @@
-<div class="formulario">
+<div class="login_outer_wrapper">
+	<div class="login_inner_wrapper">
+		<div class="login_box">
+			<h1>Login</h1>
 
-	<%= form_for(:session, :url => {:controller => "admin/sessions", :action => :create}, :method => :post) do |f| %>
+			<div class="form_field">
 
-		<%= f.label :email, "E-mail" %>
-		<%= f.text_field :email %>
+				<%= form_for(:session, :url => {:controller => "admin/sessions", :action => :create}, :method => :post) do |f| %>
 
-		<%= f.label :password, "Password" %>
-		<%= f.password_field :password %>
+					<%= f.label :email, "E-mail" %>
+					<%= f.text_field :email %>
 
-		<%= f.submit "Login", class: "btn_submit_formulario" %>
+					<%= f.label :password, "Password" %>
+					<%= f.password_field :password %>
 
-	<% end %>
+					<div class="actions_wrapper">
+						<div class="action_button">
+							<%= f.submit "Login" %>
+						</div>
+					</div>
 
-<div>
+				<% end %>
+
+			</div>
+		</div>
+	</div>
+</div>

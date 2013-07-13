@@ -1,3 +1,41 @@
 <div class="centered_wrapper banner_wrapper">
-	<img src="/images/layout/banner_1.png" border="0" >
+
+	<div id="showcase" class="showcase">
+	<!-- Each child div in #showcase represents a slide -->
+		<div class="showcase-slide">
+		<!-- Put the slide content in a div with the class .showcase-content -->
+			<div class="showcase-content">
+				<img src="/images/layout/banner_1.png" border="0" >
+			</div>
+		</div>
+		<div class="showcase-slide">
+		<!-- Put the slide content in a div with the class .showcase-content -->
+			<div class="showcase-content">
+				<img src="/images/layout/banner_2.png" border="0" >
+			</div>
+		</div>        
+	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$("#showcase").awShowcase(
+		{
+			content_width:			900,
+			content_height:			350,
+			fit_to_parent:			false,
+			auto:					true,
+			interval:				8000,
+			continuous:				true,
+			arrows:					false,
+			buttons:				false,
+			pauseonover: 			false,
+			stoponclick: 			false,
+			transition:				'fade', /* hslide/vslide/fade */
+			transition_delay:		300,
+			transition_speed:		1000,
+			speed_change:			true
+		});
+	});
+</script>

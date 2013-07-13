@@ -1,7 +1,7 @@
 class Admin::OrdersController < ApplicationController
 
 	# definição do layout
-	layout "backoffice"
+	layout "admin/inner_page"
 	
 
 	##################################

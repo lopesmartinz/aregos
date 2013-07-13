@@ -54,9 +54,7 @@ class OrdersController < ApplicationController
 
 		if !params[:order][:payment_method_id].blank? 
 			@order.payment_method = PaymentMethod.find(params[:order][:payment_method_id])
-		end
-
-		@order.order_status = OrderStatus.find(1)
+		end		
 
 		# dados do cartão de crédito
 		if @order.payment_method == PaymentMethod.find(1)
@@ -67,15 +65,16 @@ class OrdersController < ApplicationController
 			@order.card_verification = params[:order][:card_verification]
 			@order.card_expiration_year = params[:order]["card_expiration_date(1i)"]
 			@order.card_expiration_month = params[:order]["card_expiration_date(2i)"]
-		end
+		end		
+
 
 		# antes da criação, valida-se o cartão (caso seja esse o método de pagamento)
 		if @order.save
-			# transferir items do carrinho para a encomenda
-			create_order_items(@order)
+			# registar acção de criação da encomenda
+			@order.order_action_items.create(:order_action => OrderAction.find(1))	
 
-			# envio do email de confirmação da submissão da encomenda
-      		Emails.order_submission_confirmation(current_user, @order).deliver
+			# transferir items do carrinho para a encomenda
+			create_order_items(@order)					
 
 			# fechar carrinho actual
 			@cart = Cart.find(current_cart)
@@ -85,6 +84,9 @@ class OrdersController < ApplicationController
 			flash[:notice] = "A encomenda foi submetida com sucesso."
 
 			session.delete(:aregos_cart_id)
+
+			# envio do email de confirmação da submissão da encomenda
+      		Emails.order_submission_confirmation(current_user, @order).deliver
 
 			# redirecciona para detalhe da encomenda
 			redirect_to @order

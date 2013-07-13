@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130702223957) do
+ActiveRecord::Schema.define(:version => 20130712212632) do
 
   create_table "cart_items", :force => true do |t|
     t.integer  "product_id"
@@ -34,6 +34,20 @@ ActiveRecord::Schema.define(:version => 20130702223957) do
     t.integer  "cart_status_id"
   end
 
+  create_table "order_action_items", :force => true do |t|
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "order_id"
+    t.integer  "order_action_id"
+  end
+
+  create_table "order_actions", :force => true do |t|
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "action_name"
+    t.string   "status"
+  end
+
   create_table "order_items", :force => true do |t|
     t.integer  "product_id"
     t.integer  "order_id"
@@ -41,12 +55,6 @@ ActiveRecord::Schema.define(:version => 20130702223957) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.float    "price"
-  end
-
-  create_table "order_statuses", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "name"
   end
 
   create_table "orders", :force => true do |t|
@@ -60,7 +68,6 @@ ActiveRecord::Schema.define(:version => 20130702223957) do
     t.string   "city",              :null => false
     t.string   "country"
     t.integer  "payment_method_id"
-    t.integer  "order_status_id"
   end
 
   add_index "orders", ["reference"], :name => "index_orders_on_reference", :unique => true

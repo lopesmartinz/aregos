@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   
 	attr_accessible :user_id, :address_line_1, :address_line_2, :zip_code,
-		:city, :country, :payment_method_id, :order_status_id
+		:city, :country, :payment_method_id
 
 	attr_accessor :first_name, :last_name,
 		:card_type, :card_number,
@@ -16,9 +16,11 @@ class Order < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :payment_method
-	belongs_to :order_status
 	has_many :order_items, :dependent => :destroy
+	has_many :order_action_items, :dependent => :destroy
 	has_many :products, :through => :order_items
+	has_many :order_actions, :through => :order_action_items
+
 
 
 

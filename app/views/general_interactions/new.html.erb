@@ -1,0 +1,21 @@
+<h1>Contacte-nos</h1>
+
+<div class="form_field">
+
+	<%= form_for(:general_interactions, url: general_interactions_path) do |f| %>
+
+		<%= f.label :subject, "Assunto" %>
+		<%= f.text_field :subject %>
+
+		<%= f.label :description, "Descrição" %>
+		<%= f.text_area :description %>
+
+		<div class="actions_wrapper">
+			<div class="action_button">
+				<%= f.submit "Enviar" %>
+			</div>
+		</div>
+
+	<% end %>
+
+</div>

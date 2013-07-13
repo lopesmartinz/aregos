@@ -2,17 +2,17 @@
 	<a href="/"><img src="/images/layout/logo.png" border="0"></a>	
 	<div class="user_area">
 		<ul class="user_menu">
-			<% if !user_is_signed_in? %>
-				<li><%= link_to "Registo" ,signup_path %></li>
-				<li><%= link_to "Login", signin_path %></li>
-			<% else %>
-				<li><%= button_to "Logout", signout_path, :method => :delete %></li>
-				<li><%= link_to "Minhas Compras", orders_path %></li>			
-			<% end %>
-
 			<% if !current_cart.nil? %>
 				<li><%= link_to "Carrinho de Compras", carts_path %></li>
-			<% end %>				
+			<% end %>
+
+			<% if user_is_signed_in? %>
+				<li><%= link_to "Minhas Compras", orders_path %></li>
+				<li><%= button_to "Logout", signout_path, :method => :delete %></li>				
+			<% else %>
+				<li><%= link_to "Registo" ,signup_path %></li>
+				<li><%= link_to "Login", signin_path %></li>							
+			<% end %>							
 		</ul>
 	</div>
 </div>

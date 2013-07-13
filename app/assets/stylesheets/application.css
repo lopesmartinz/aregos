@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
  */
 @import "bootstrap";
 
@@ -67,38 +66,33 @@ body {
 .top_background {
 	background-color: #ddd;
 }
-.header_wrapper {
-	background-color: #fff;
+.main_menu_wrapper {
+	background-color: #f3f3f3;
 	border-bottom-left-radius: 0.6em;
 	border-bottom-right-radius: 0.6em;
+}
+.header_wrapper {
+	background-color: #fff;
 	height: 55px;
-	padding: 0 30px;
+	padding-left: 1.5em;
 }
 .banner_background {
-	background-color: #777;
-	border-top: 1px solid #555;
-	border-bottom: 1px solid #555;
+	background-color: #999;
+	border-top: 1px solid #777;
+	border-bottom: 1px solid #777;
+	margin: 1em 0;
 }
 .banner_wrapper {				
-	border-left: 1px solid #555;
-	border-right: 1px solid #555;
-	height: 300px;
+	border-left: 1px solid #777;
+	border-right: 1px solid #777;
+	height: 350px;
 }
 .content_wrapper {
-	background-color: #eee;
+	background-color: #f3f3f3;
 	border-top-left-radius: 0.6em;
 	border-top-right-radius: 0.6em;
 	min-height: 300px;
-	margin-top: 20px;
-	padding: 30px;
-}
-.left_content_wrapper {
-	float: left;
-	max-width: 385px;
-}
-.right_content_wrapper {
-	float: right;
-	max-width: 385px;
+	padding: 1.5em;
 }
 
 .user_area {
@@ -106,15 +100,23 @@ body {
 }
 ul.user_menu {
 	text-align: right;
-	list-style: none;	
+	list-style: none;
+	margin: 1em 0.3em 0 0;
 }
 ul.user_menu li {
-	display: inline;
-	line-height: 55px;
-	vertical-align: middle;
+	display: inline-block;	
+	border-left: 1px dotted #ccc;
+}
+ul.user_menu li a, ul.user_menu li input[type="submit"] {
+	display: inline-block;
+	cursor: hand;
+	cursor: pointer;
 	font-family: "Candara", "Arial", "DejaVu Sans";
 	font-size: 0.9em;
-	margin-left: 1em;
+	color: #cc9933;
+	background: none;
+	border: 0;
+	padding: 0 1.2em;
 }
 ul.user_menu li a, ul.user_menu li a:hover, ul.user_menu li a:visited {
 	text-decoration: none;
@@ -198,7 +200,7 @@ tr.table_row_footer td.right_table_column {
 .form_field input[type="text"], .form_field input[type="password"], .form_field label {
 	display: block;
 }
-.form_field input[type="text"], .form_field input[type="password"], .form_field select {
+.form_field input[type="text"], .form_field input[type="password"], .form_field select, .form_field textarea {
 	background-color: #f4f4f4;
 	border: 1px solid #ddd;
  	border-radius: 0.4em;
@@ -206,15 +208,22 @@ tr.table_row_footer td.right_table_column {
  	width: 98%;
  	color: #777;
  	padding: 0.5em;
+ 	font-size: 0.9em;
 }
 .form_field select {
  	width: 100%;
 }
+.form_field textarea {
+	height: 10em;
+}
 
 
 /* BOTÕES */
-.action_button {
+.actions_wrapper {
 	text-align: right;
+}
+.action_button {
+	display: inline-block;
 }
 .action_button a, .action_button a:hover, .action_button a:visited {
 	text-decoration: none;				
@@ -240,6 +249,9 @@ tr.table_row_footer td.right_table_column {
 	background-color: #cc9933;
 	padding: 1em 1em 1em 2em;
 	margin-bottom: 1.5em;
+	border: 1px solid #ddd;
+	font-size: 0.9em;
+	color: #fff;
 }
 .errors_list ul li {
 	margin-bottom: 0.3em;
@@ -248,8 +260,10 @@ tr.table_row_footer td.right_table_column {
 /* ALERTAS */
 .flash_notice {
 	border-radius: 0.4em;
-	background-color: #cc9933;
+	background-color: #f3f3f3;
 	padding: 1em;
 	margin-bottom: 1.5em;
+	border: 1px solid #ddd;
+	font-size: 0.9em;	
 }
 

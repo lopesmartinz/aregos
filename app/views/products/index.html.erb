@@ -5,8 +5,9 @@
 				<h1><%= link_to p.name, p %></h1>
 				<p><%= raw p.abstract %></p>
 				<div class="price"><%= number_to_currency(p.price, :unit => "€", format: "%n %u") %></div>
-				<div class="actions_wrapper">								
-					<div class="action_button"><%= link_to "Ver Mais", p %></div>
+				<div class="actions_wrapper">
+					<div class="action_button"><%= button_to "Adicionar ao Carrinho", {:controller => :carts, :action => :add_to_cart, product_id: p.id}, :method => :post %></div>
+					<div class="action_button"><%= button_to "Ver Mais", p, :method => :get %></div>
 				</div>
 			</li>
 		<% end %>

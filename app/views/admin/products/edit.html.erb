@@ -1,4 +1,4 @@
-<div class="formulario">
+<div class="form_field">
 
 	<%= form_for(@product, :url => {:controller => "admin/products", :action => :update, :id => @product.id}, :method => :put) do |f| %>
 
@@ -14,7 +14,7 @@
 		<%= f.label :price, "Preço" %>
 		<%= f.text_field :price %>
 
-		<%= f.label :stock_count, "Número em stock" %>
+		<%= f.label :stock_count, "Número em Stock" %>
 		<%= f.text_field :stock_count %>
 
 		<%= f.label :picture, "Imagem" %>
@@ -23,7 +23,11 @@
 		<%= f.label :is_active, "Activo" %>
 		<%= f.check_box :is_active %>
 
-		<%= f.submit "Actualizar" %>
+		<div class="actions_wrapper">
+			<div class="action_button">
+				<%= f.submit "Actualizar" %>
+			</div>
+		</div>
 
 	<% end %>
 
