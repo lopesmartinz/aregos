@@ -1,8 +1,68 @@
 <div class="main_menu_wrapper">
 	<ul class="main_menu">
-		<li><a href="/about_us">Sobre Nós</a></li>
-		<li><a href="/products">Produtos</a></li>
-		<li><a href="/caldas_de_aregos">Caldas de Arêgos</a></li>
-		<li><a href="/general_interactions/new">Contacte-nos</a></li>
+		<li id="home"><a href="/">Início</a></li>
+		<li id="about_us"><a href="/about_us">Sobre Nós</a></li>
+		<li id="products"><a href="/products">Produtos</a></li>
+		<li id="caldas_de_aregos"><a href="/caldas_de_aregos">Caldas de Arêgos</a></li>
+		<li id="general_interactions"><a href="/general_interactions/new">Contacte-nos</a></li>
 	</ul>
+	<div class="current_main_menu_pointer"><img src="/images/layout/current_main_menu_pointer.png" border="0" /></div>
 </div>
+
+<script type="text/javascript">
+	var current_menu;
+
+	// coloca o marcador no menu correspondente ao endereço actual
+	$(function(){
+		var current_location = document.location.href.toLowerCase();		
+
+		if(current_location.indexOf("about_us") > -1)
+			current_menu = $("#about_us");
+		else if(current_location.indexOf("product") > -1)
+			current_menu = $("#products");
+		else if(current_location.indexOf("caldas_de_aregos") > -1)
+			current_menu = $("#caldas_de_aregos");
+		else if(current_location.indexOf("general_interactions") > -1)
+			current_menu = $("#general_interactions");
+		else
+			current_menu = $("#home");
+		
+		if(current_menu)
+		{
+			var current_menu_center = current_menu.position().left + (current_menu.css("width").replace("px", "") / 2) + 20;
+			$(".current_main_menu_pointer").css({"left" : current_menu_center + "px"});
+
+			current_menu.addClass("current_menu");
+		}
+	});
+
+	// trata a animação do apontador para o menu no mouseover
+	$(function(){
+		$(".main_menu li a").mouseenter(function(){
+			var current_menu_center = $(this).position().left + ($(this).css("width").replace("px", "") / 2) - 11;
+
+			current_menu.removeClass("current_menu");
+
+			$(".current_main_menu_pointer").animate(
+				{
+					left : current_menu_center + "px",
+				}, 250
+			);
+		});
+	});
+
+	// trata a animação do apontador para retornar ao ponto de partida
+	$(function(){
+		$(".main_menu").mouseleave(function(){
+			var current_menu_center = current_menu.position().left + (current_menu.css("width").replace("px", "") / 2) + 20;
+
+			$(".current_main_menu_pointer").animate(
+				{
+					left : current_menu_center + "px",
+				}, 250
+			);
+
+			current_menu.addClass("current_menu");
+		});
+	});
+</script>

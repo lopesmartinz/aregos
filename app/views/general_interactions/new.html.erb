@@ -1,13 +1,21 @@
 <h1>Contacte-nos</h1>
 
+<%= render :partial => "shared/error_messages", :locals => { :object => @general_interaction }  %>
+
 <div class="form_field">
 
-	<%= form_for(:general_interactions, url: general_interactions_path) do |f| %>
+	<%= form_for(@general_interaction) do |f| %>
 
-		<%= f.label :subject, "Assunto" %>
+		<%= f.label :sender_name %>
+		<%= f.text_field :sender_name %>
+
+		<%= f.label :sender_email %>
+		<%= f.text_field :sender_email %>
+
+		<%= f.label :subject %>
 		<%= f.text_field :subject %>
 
-		<%= f.label :description, "Descrição" %>
+		<%= f.label :description %>
 		<%= f.text_area :description %>
 
 		<div class="actions_wrapper">

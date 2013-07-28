@@ -1,7 +1,18 @@
-<% if flash[:notice] %>
+<% if flash[:notice] %>	
+	<div class="flash_notice_wrapper">
+		<div class="flash_notice">
+			<div class="flash_notice_close_button"><img src="/images/layout/flash_notice_close_button.png" border="0" /></div>
 
-	<div class="flash_notice">
-		<%= flash[:notice] %>
+			<%= raw flash[:notice] %>
+		</div>
+		<div class="flash_notice_pointer"></div>
 	</div>
-
 <% end %>
+
+<script>
+	$(function() {
+		$(".flash_notice_close_button>img").click(function(){
+			$(".flash_notice_wrapper").hide();
+		});
+	});
+</script>

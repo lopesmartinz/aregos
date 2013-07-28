@@ -1,4 +1,26 @@
-<h1>Login</h1>
+<% if !user_is_signed_in? && exists_pending_cart? %>
+
+	<h1>Finalizar Processo de Encomenda</h1>
+
+	<div><%= render "shared/cart" %></div>
+
+	<div class="cart_checkout_steps">
+		<div class="cart_checkout_step current_step">Passo 1 de 2 - Registo / Login</div>
+		<div class="cart_checkout_step">Passo 2 de 2 - Definir Local de Entrega da Encomenda</div>
+		<div class="clear_both"></div>
+	</div>
+
+<% else %>
+	<h1>Login</h1>
+<% end %>
+
+<% if flash[:alert] %>
+	<div class="errors_list">
+		<ul>
+			<li><%= raw flash[:alert] %></li>
+		</ul>
+	</div>
+<% end %>
 
 <div class="form_field">
 
@@ -12,10 +34,19 @@
 
 		<div class="actions_wrapper">
 			<div class="action_button">
-				<%= f.submit "Login" %>
+				<%= f.submit !user_is_signed_in? && exists_pending_cart? ? "Avançar" : "Login" %>
 			</div>
 		</div>
 
 	<% end %>
 
+</div>
+
+<div class="aditional_info">
+	<p>
+		<span class="highlight">Esqueceu-se da Password? <%= link_to "Recupere aqui a sua Password!", {:controller => :users, :action => :recover_password} %></span>
+	</p>	
+	<p>
+		<span class="highlight">Utilizador não Registado? <%= link_to "Registe-se Agora!", signup_path %></span>
+	</p>
 </div>

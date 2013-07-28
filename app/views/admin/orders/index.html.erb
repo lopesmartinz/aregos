@@ -11,7 +11,7 @@
 		<tr class="table_row_item">		
 			<td class="left_table_column reference"><%= link_to order.reference, [:admin, order] %></td>			
 			<td class="creation_date"><%= order.created_at.strftime("%Y-%m-%d") %></td>
-			<td class="right_table_column status"><%= order.order_status.name unless order.order_status.nil? %></td>
+			<td class="right_table_column status"><%= order.order_actions.last.status unless order.order_actions.last.nil? %></td>
 	    </tr>
 	<% end %>
 

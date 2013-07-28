@@ -9,9 +9,9 @@
 
 	<% @order.order_items.each do |item| %>
 		<tr class="table_row_item">		
-			<td class="name"><%= item.product.name %></td>			
+			<td class="left_table_column name"><%= item.product.name %></td>			
 			<td class="quantity"><%= item.quantity %></td>
-			<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>
+			<td class="right_table_column price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>
 	    </tr>
 	<% end %>
 

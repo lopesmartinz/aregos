@@ -4,7 +4,8 @@
 }
 .products ul li {
 	float: left;
-	max-width: 390px;
+	width: 390px;
+	margin-bottom: 1em;
 }
 .products ul li:nth-child(2n) {
 	float: right;

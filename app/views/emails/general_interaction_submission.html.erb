@@ -6,12 +6,20 @@
   <body>
     <h1>Mensagem de Contacto do site www.douromemories.com.</h1>
     <p>
+      <strong>Remetente</strong><br/>
+      <%= @general_interaction.sender_name %>.<br/>
+    </p>
+    <p>
+      <strong>E-mail</strong><br/>
+      <%= @general_interaction.sender_email %>.<br/>
+    </p>
+    <p>
       <strong>Assunto</strong><br/>
-      <%= @subject %>.<br/>
+      <%= @general_interaction.subject %>.<br/>
     </p>
     <p>
       <strong>Descrição</strong><br/>
-      <%= @description %>.<br/>
+      <%= @general_interaction.description %>.<br/>
     </p>
   </body>
 </html>

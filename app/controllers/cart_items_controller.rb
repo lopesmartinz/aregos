@@ -10,7 +10,7 @@ class CartItemsController < ApplicationController
 		@cart_item = CartItem.find(params[:id])
 
 		if @cart_item.delete
-			flash[:notice] = "O produto foi removido do carrinho."
+			flash[:notice] = "O produto foi removido do carrinho de compras."
 
 			redirect_to :back
 		end

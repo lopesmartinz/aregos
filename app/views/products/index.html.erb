@@ -2,7 +2,7 @@
 	<ul>
 		<% @products.each do |p| %>
 			<li>
-				<h1><%= link_to p.name, p %></h1>
+				<h1><%= link_to p.name, p %></h1>				
 				<p><%= raw p.abstract %></p>
 				<div class="price"><%= number_to_currency(p.price, :unit => "€", format: "%n %u") %></div>
 				<div class="actions_wrapper">
@@ -13,7 +13,3 @@
 		<% end %>
 	</ul>
 </div>
-
-<% content_for :sidebar do %>
-	<%= render "shared/cart" unless current_cart.nil? %>
-<% end %>

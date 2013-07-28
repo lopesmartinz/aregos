@@ -4,7 +4,17 @@ Aregos::Application.routes.draw do
   
 
   #resources
-  resources :users
+  resources :users do
+    member do
+      # a action "recover_password" serve para gerar o form em que o utilizador indica o endereço de e-mail
+      get 'recover_password'
+      # a action "send_password_recover_email" é a ação invocada no form da acção "recover_password"
+      # => é a acção que trata efectivamente do envio do e-mail
+      post 'send_password_recover_email'
+      get 'edit_password'
+      put 'update_password'
+    end
+  end
   resources :sessions , only: [:new, :create, :destroy]
   resources :products
 
@@ -27,13 +37,19 @@ Aregos::Application.routes.draw do
   end
 
   resources :orders
-
+  
   resources :general_interactions, only: [:new, :create]
   
   
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+
+  # recuperação da password
+  match '/recover_password',  to: 'users#recover_password'
+  match '/send_password_recover_email',  to: 'users#send_password_recover_email'
+  match '/edit_password',  to: 'users#edit_password'
+  match '/update_password',  to: 'users#update_password'  
 
   # static_pages
   match '/about_us',  to: 'static_pages#about_us'
@@ -45,7 +61,12 @@ Aregos::Application.routes.draw do
   namespace :admin do    
     resources :sessions
     resources :products
-    resources :orders
+    resources :orders do
+      # "member" permite adicionar acções extra ao recurso (para além das default)
+      member do
+        post 'add_order_action'
+      end
+    end
   end
  
 

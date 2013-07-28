@@ -1,13 +1,22 @@
-<% if !user_is_signed_in? %>
+<% if !user_is_signed_in? && exists_pending_cart? %>
+
+	<h1>Finalizar Processo de Encomenda</h1>	
+
+	<div><%= render "shared/cart" %></div>
+
+	<div class="errors_list">
+		<ul>				
+			<li>Para finalizar o processo de encomenda necessita de estar registado e autenticado!</li>				
+		</ul>
+	</div>
 	
-	<div>Para finalizar o processo de compra necessita de estar autenticado!<br/><br/></div>
+	<div class="aditional_info">		
+		<p>
+			<span class="highlight">Utilizador já Registado? <%= link_to "Faça aqui o seu Login!", signin_path %></span>
+		</p>
+		<p>
+			<span class="highlight">Utilizador não Registado? <%= link_to "Registe-se Agora!", signup_path %></span>
+		</p>
+	</div>
 
-	<div>Utilizador Registado? <%= link_to "Autentique-se!", signin_path %></div>
-	<div>Novo Utilizador? <%= link_to "Registe-se!", signup_path %></div>	
-
-<% end %>
-
-
-<% content_for :sidebar do %>
-	<%= render "shared/cart" unless current_cart.nil? %>
 <% end %>

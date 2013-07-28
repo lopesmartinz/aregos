@@ -11,21 +11,27 @@ class GeneralInteractionsController < ApplicationController
 
 	# GET
 	# criação do formulário de submissão
-	def new		
+	def new
+		@general_interaction = GeneralInteraction.new	
 	end
 
 
 	# POST
 	# guardar dados da interacção
 	def create
-		# envio dos dados inseridos pelo utilizador para o e-mail
-		@subject = params[:general_interactions][:subject]
-		@description = params[:general_interactions][:description]
-      	Emails.general_interaction_submission(@subject, @description).deliver
+		@general_interaction = GeneralInteraction.new(params[:general_interaction])
 
-      	flash[:notice] = "A sua mensagem foi enviada com sucesso."
+		if @general_interaction.save
 
-      	redirect_to root_path
+			# envio dos dados inseridos pelo utilizador para o e-mail
+		  	Emails.general_interaction_submission(@general_interaction).deliver
+
+		  	flash[:notice] = "A sua mensagem foi enviada com sucesso."
+
+		  	redirect_to root_path
+		else
+			render "new"
+		end
 	end
 
 end

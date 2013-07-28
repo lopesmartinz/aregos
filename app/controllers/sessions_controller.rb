@@ -1,5 +1,7 @@
+# encoding: utf-8
+
 class SessionsController < ApplicationController
-	
+
 	# definição do layout
 	layout "inner_page"
 
@@ -9,7 +11,8 @@ class SessionsController < ApplicationController
 
 	# GET
 	# serve apenas para gerar o form de login
-	def new			
+	def new
+	
 	end
 
 
@@ -18,9 +21,13 @@ class SessionsController < ApplicationController
 	def create
 		# verificar se o user existe
 		@user = User.find_by_email(params[:session][:email].downcase)
-		
-		# autenticar se o user existe e se a password corresponde
-		if @user && @user.authenticate(params[:session][:password])
+
+		if !@user.nil? && @user.failed_password_attempt_count == 5
+			flash[:alert] = "Acesso bloqueado devido ao excesso de tentativas de login erradas.<br/><br/>Utilize a opção de recuperação da password."
+			render 'new'
+		elsif !@user.nil? && @user.authenticate(params[:session][:password])
+			# autenticar se o user existe e se a password corresponde
+
 			# guardar cookie com o remeber_token correspondente ao utilizador
 			# a função sign_in está definida no "sessions_helper"
 			# só está acessível no controller porque no "application_controller"
@@ -39,7 +46,19 @@ class SessionsController < ApplicationController
       			redirect_to root_path
       		end
 		else
-			flash[:notice] = "Utilizador ou password errados."
+			# adicionar tentiva de login falhada
+			if !@user.nil?
+				@user.failed_password_attempt_count += 1
+
+				# o attribute_accessor "is_failed_password_attempt_count_update"
+				# => serve para evitar as validações quando só queremos actualizar o número de tentativas de login falhadas
+				@user.is_failed_password_attempt_count_update = true
+
+				@user.save
+			end
+			
+			flash[:alert] = "Utilizador ou password errados."
+
 			render 'new'
 		end
 	end

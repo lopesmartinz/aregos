@@ -21,8 +21,9 @@ class OrdersController < ApplicationController
 	
 	# GET
 	# listagem de encomendas do utilizador
-	def index
-		@orders = Order.where("user_id = ?", current_user.nil? ? -1 : current_user.id)
+	def index		
+		#@orders = Order.where("user_id = ?", current_user.nil? ? -1 : current_user.id)
+		@orders = current_user.orders.order("created_at DESC") unless current_user.nil?
 	end
 
 
@@ -50,6 +51,15 @@ class OrdersController < ApplicationController
 		@order.address_line_2 = params[:order][:address_line_2]
 		@order.zip_code = params[:order][:zip_code]
 		@order.city = params[:order][:city]
+
+		# COMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO
+		@order.country = "Portugal"
+		@order.payment_method = PaymentMethod.find(2)
+
+=begin
+
+DESCOMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO
+
 		@order.country = params[:order][:country]
 
 		if !params[:order][:payment_method_id].blank? 
@@ -65,10 +75,13 @@ class OrdersController < ApplicationController
 			@order.card_verification = params[:order][:card_verification]
 			@order.card_expiration_year = params[:order]["card_expiration_date(1i)"]
 			@order.card_expiration_month = params[:order]["card_expiration_date(2i)"]
-		end		
+		end
 
+DESCOMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO
 
-		# antes da criação, valida-se o cartão (caso seja esse o método de pagamento)
+=end
+
+		# antes da criação (before_save no model), valida-se o cartão (caso seja esse o método de pagamento)
 		if @order.save
 			# registar acção de criação da encomenda
 			@order.order_action_items.create(:order_action => OrderAction.find(1))	

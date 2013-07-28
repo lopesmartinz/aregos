@@ -19,9 +19,13 @@ class Admin::SessionsController < ApplicationController
 	def create
 		# verificar se o user existe
 		@user = User.find_by_email(params[:session][:email].downcase)
-		
-		# autenticar se o user existe e se a password corresponde
-		if @user && @user.authenticate(params[:session][:password]) && @user.is_admin
+
+		if !@user.nil? && @user.failed_password_attempt_count == 5
+			flash[:alert] = "Acesso bloqueado devido ao excesso de tentativas de login erradas.<br/><br/>Utilize a opção de recuperação da password."
+			render 'new'
+		elsif !@user.nil? && @user.authenticate(params[:session][:password])
+			# autenticar se o user existe e se a password corresponde
+
 			# guardar cookie com o remeber_token correspondente ao utilizador
 			# a função sign_in está definida no "sessions_helper"
 			# só está acessível no controller porque no "application_controller"
@@ -29,8 +33,30 @@ class Admin::SessionsController < ApplicationController
 			# => por omissão só estaria acessível nos views
 			sign_in @user
 
-			redirect_to admin_products_path
+			# alerta para user autenticado com sucesso
+      		flash[:notice] = "Bem vindo #{@user.name}"
+
+			# definir página após login com sucesso
+			if exists_pending_cart?
+				# redirecciona para a paǵina de checkout se existir um checkout pendente
+				redirect_to ({:controller => :orders, :action => :new})
+			else
+      			redirect_to root_path
+      		end
 		else
+			# adicionar tentiva de login falhada
+			if !@user.nil?
+				@user.failed_password_attempt_count += 1
+
+				# o attribute_accessor "is_failed_password_attempt_count_update"
+				# => serve para evitar as validações quando só queremos actualizar o número de tentativas de login falhadas
+				@user.is_failed_password_attempt_count_update = true
+
+				@user.save
+			end
+			
+			flash[:alert] = "Utilizador ou password errados."
+
 			render 'new'
 		end
 	end

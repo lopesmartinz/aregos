@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class UsersController < ApplicationController
   
   # definição do layout
@@ -58,6 +60,80 @@ class UsersController < ApplicationController
   		render 'new'
   	end
   end
+
+
+
+
+  ##################################
+  #### ACÇÕES EXTRA
+  ##################################
+  
+  # GET
+  # a action "recover_password" serve para gerar o form em que o utilizador indica o endereço de e-mail
+  def recover_password
+    @user = User.new
+  end
+
+
+  #POST
+  # a action "send_password_recover_email" é a ação invocada no form da acção "recover_password"
+  # => é a acção que trata efectivamente do envio do e-mail
+  def send_password_recover_email
+    @user = User.find_by_email(params[:user][:email])
+
+    if @user.nil?
+      flash[:notice] = "Não existem utilizadores com o endereço de e-mail que indicou."
+
+      redirect_to :back
+    else
+      Emails.user_password_recover(@user).deliver
+
+      flash[:notice] = "Foi enviado um e-mail para o endereço de e-mail que indicou.<br/><br/>Siga as instruções nele indicadas de forma a alterar a sua password de acesso."
+
+      redirect_to root_path
+    end
+    
+  end
+
+
+  # GET
+  # cria o formulário com os dados do utilizador (com token vindo do email)
+  def edit_password
+    # o utilizador é identificado pelo remember_token
+    # esse remember token é enviado no link (?user=xxx) que é enviado para o utilizador para alteração da password
+
+    @user = User.find_by_remember_token(params[:user])
+
+    redirect_to root_path unless !@user.nil?
+  end
+
+
+  # PUT
+  # faz o update da password
+  def update_password
+    # o e-mail do utilizador está colocado num campo hidden para poder identificar o utilizador que se está a editar
+    @user = User.find_by_email(params[:user][:email])
+
+    @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password_confirmation]
+    @user.failed_password_attempt_count = 0;
+
+    # guarda user na base de dados
+    if @user.save
+      # alerta para user criado com sucesso
+      flash[:notice] = "A sua password foi alterada com sucesso."
+
+      # autentica o user criado
+      sign_in @user
+
+      redirect_to root_path     
+
+    else       
+      render 'edit_password'
+    end
+
+  end
+
 
 
 

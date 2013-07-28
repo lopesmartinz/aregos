@@ -1,4 +1,12 @@
-<h1>Finalizar Compra</h1>
+<h1>Finalizar Processo de Encomenda</h1>
+
+<div><%= render "shared/cart" %></div>
+
+<div class="cart_checkout_steps">
+	<div class="cart_checkout_step">Passo 1 de 2 - Registo / Login <span style="font-size: 1.3em;">&#10003;</span></div>
+	<div class="cart_checkout_step current_step">Passo 2 de 2 - Definir Local de Entrega da Encomenda</div>
+	<div class="clear_both"></div>
+</div>
 
 <%= render :partial => "shared/error_messages", :locals => { :object => @order }  %>
 
@@ -14,6 +22,11 @@
 
 		<%= f.label :city %>
 		<%= f.text_field :city %>
+
+<%
+=begin %>
+
+DESCOMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO
 
 		<%= f.label :country %>
 		<%= f.select :country, [["Portugal"], ["Outro"]] %>
@@ -38,11 +51,15 @@
 
 		<%= f.label :card_verification %>
 		<%= f.text_field :card_verification %>
-		
+
+DESCOMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO
+
+<%
+=end %>		
 
 		<div class="actions_wrapper">
 			<div class="action_button">
-				<%= f.submit "Finalizar Compra" %>
+				<%= f.submit "Finalizar Encomenda" %>
 			</div>
 		</div>
 

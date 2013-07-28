@@ -11,7 +11,7 @@
 <div>País</div>
 <div><%= @order.country %></div>
 <div>Estado</div>
-<div><%= @order.order_status.name %></div>
+<div><%= @order.order_actions.last.status unless @order.order_actions.last.nil? %></div>
 
 <table cellspacing="0" class="table order">
 	<tr class="table_row_header">
@@ -36,3 +36,19 @@
 		</td>
 	</tr>
 </table>
+
+<div class="actions_wrapper">
+
+	<% if !@order.order_actions.last.nil? && @order.order_actions.last.id == 1 %>
+		<div class="action_button"><%= button_to "Passar para Processamento", {:controller => "admin/orders", :action => :add_order_action, order_action_id: 2}, :method => :post %></div>
+	<% end %>
+
+	<% if !@order.order_actions.last.nil? && @order.order_actions.last.id == 2 %>
+		<div class="action_button"><%= button_to "Dar como Enviada", {:controller => "admin/orders", :action => :add_order_action, order_action_id: 3}, :method => :post %></div>
+	<% end %>
+
+	<% if !@order.order_actions.last.nil? && @order.order_actions.last.id == 3 %>
+		<div class="action_button"><%= button_to "Dar como Fechada", {:controller => "admin/orders", :action => :add_order_action, order_action_id: 4}, :method => :post %></div>
+	<% end %>
+
+</div>

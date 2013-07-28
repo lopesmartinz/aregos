@@ -14,7 +14,7 @@
 	width: 7.5em;
 }
 .cart .table_row_item .action_button input[type="submit"] {
-	background-color: #c5c5c5;
+	background-color: #ccc;
 	min-width: 2em;
 	padding: 0.4em 0.3em 0.05em 0.3em;
 }

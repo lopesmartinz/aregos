@@ -32,6 +32,11 @@ pt:
         card_expiration_year: "Ano de Expiração"
         card_expiration_month: "Mês de Expiração"
         card_verification: "Número de Verificação"
+      general_interaction:
+        sender_name: "Nome"
+        sender_email: "E-mail"
+        subject: "Assunto"
+        description: "Mensagem"
     errors:
       models:
         user:
@@ -42,5 +47,10 @@ pt:
               blank: "é obrigatória"
               too_short: "demasiado curta (mínimo de 6 caracteres)"
               confirmation: "e Confirmação da Password não coincidem"
+              invalid: "deve incluir pelo menos uma letra e pelo menos um número"
             password_confirmation:
+              blank: "é obrigatória"
+        general_interaction:
+          attributes:
+            description:
               blank: "é obrigatória"

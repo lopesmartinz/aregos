@@ -1,4 +1,18 @@
-<h1>Registo</h1>
+<% if !user_is_signed_in? && exists_pending_cart? %>
+
+	<h1>Finalizar Processo de Encomenda</h1>
+
+	<div><%= render "shared/cart" %></div>
+
+	<div class="cart_checkout_steps">
+		<div class="cart_checkout_step current_step">Passo 1 de 2 - Registo / Login</div>
+		<div class="cart_checkout_step">Passo 2 de 2 - Definir Local de Entrega da Encomenda</div>
+		<div class="clear_both"></div>
+	</div>
+
+<% else %>
+	<h1>Registo</h1>
+<% end %>
 
 <%= render :partial => "shared/error_messages", :locals => { :object => @user }  %>
 
@@ -20,10 +34,16 @@
 
 		<div class="actions_wrapper">
 			<div class="action_button">
-				<%= f.submit "Registar" %>
+				<%= f.submit !user_is_signed_in? && exists_pending_cart? ? "Avançar" : "Registar" %>
 			</div>
 		</div>
 
 	<% end %>
 	
+</div>
+
+<div class="aditional_info">
+	<p>
+		<span class="highlight">Utilizador já Registado? <%= link_to "Faça aqui o seu Login!", signin_path %></span>
+	</p>		
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712212632) do
+ActiveRecord::Schema.define(:version => 20130714212800) do
 
   create_table "cart_items", :force => true do |t|
     t.integer  "product_id"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(:version => 20130712212632) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "cart_status_id"
+  end
+
+  create_table "general_interactions", :force => true do |t|
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "sender_name"
+    t.string   "sender_email"
+    t.string   "subject"
+    t.string   "description"
   end
 
   create_table "order_action_items", :force => true do |t|
@@ -93,11 +102,12 @@ ActiveRecord::Schema.define(:version => 20130712212632) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "is_admin",        :default => false
+    t.boolean  "is_admin",                      :default => false
+    t.integer  "failed_password_attempt_count", :default => 0
   end
 
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"

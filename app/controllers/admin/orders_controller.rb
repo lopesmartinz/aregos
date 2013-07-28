@@ -22,13 +22,32 @@ class Admin::OrdersController < ApplicationController
 	# GET
 	# listagem de encomendas
 	def index
-		@orders = Order.all
+		@orders = Order.order("created_at DESC")
 	end
 
 	# GET
 	# detalhe de encomenda
 	def show
 		@order = Order.find(params[:id])
+	end
+
+
+
+
+
+	##################################
+	#### ACÇÕES EXTRA
+	##################################
+	
+	# POST
+	# adiciona acção sobre a encomenda
+	def add_order_action
+		order = Order.find(params[:id])
+		order_action = OrderAction.find(params[:order_action_id])
+
+		order.order_action_items.create(:order_action => order_action)
+
+		redirect_to admin_order_path	
 	end
 
 
