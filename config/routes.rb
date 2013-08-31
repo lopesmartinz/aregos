@@ -1,6 +1,6 @@
 Aregos::Application.routes.draw do
 
-  root :to => 'products#index'  
+  root :to => 'products#highlights'  
   
 
   #resources
@@ -16,7 +16,11 @@ Aregos::Application.routes.draw do
     end
   end
   resources :sessions , only: [:new, :create, :destroy]
-  resources :products
+  resources :products do
+    member do      
+      get 'highlights'      
+    end
+  end
 
   resources :carts , only: [:index, :show, :create, :destroy] do
     member do
@@ -37,6 +41,8 @@ Aregos::Application.routes.draw do
   end
 
   resources :orders
+
+  resources :partners, only: [:index]
   
   resources :general_interactions, only: [:new, :create]
   
@@ -52,8 +58,8 @@ Aregos::Application.routes.draw do
   match '/update_password',  to: 'users#update_password'  
 
   # static_pages
-  match '/about_us',  to: 'static_pages#about_us'
-  match '/caldas_de_aregos',  to: 'static_pages#caldas_de_aregos'
+  match '/the_project',  to: 'static_pages#the_project'
+  match '/press',  to: 'static_pages#press'
 
   # backoffice
   match '/admin',  to: 'admin/sessions#new'
@@ -67,6 +73,7 @@ Aregos::Application.routes.draw do
         post 'add_order_action'
       end
     end
+    resources :partners
   end
  
 

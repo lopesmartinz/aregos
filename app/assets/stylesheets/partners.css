@@ -1,0 +1,13 @@
+.partners p.intro {
+	padding-bottom: 1.5em;
+	margin-bottom: 3em;
+	border-bottom: 1px dotted #ddd;
+}
+.partners ul {
+	list-style: none;
+	margin: 0 -28px;	
+}
+.partners ul li {
+	margin-bottom: 2em;
+	border-bottom: 1px dotted #ddd;
+}

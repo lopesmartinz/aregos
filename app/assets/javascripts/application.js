@@ -15,5 +15,5 @@
 //= require_tree .
 
 //= require jquery.aw-showcase.min
-
+//= require jquery.carouFredSel-6.2.1-packed
 

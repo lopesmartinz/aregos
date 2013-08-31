@@ -9,8 +9,10 @@
 	<div class="value"><%= @product.price %></div>
 	<div class="label">Número em Stock</div>
 	<div class="value"><%= @product.stock_count %></div>
+	<div class="label">Thumbnail</div>
+	<div class="value"><%= image_tag("/images/products/" + @product.thumbnail, :width => "100") unless @product.thumbnail.nil?  %></div>
 	<div class="label">Imagem</div>
-	<div class="value"><%= image_tag("/images/upload/" + @product.picture, :width => "100") %></div>
+	<div class="value"><%= image_tag("/images/products/" + @product.picture, :width => "100") unless @product.picture.nil?  %></div>
 	<div class="label">Activo</div>
 	<div class="value"><%= @product.is_active? ? "Sim" : "Não" %></div>
 

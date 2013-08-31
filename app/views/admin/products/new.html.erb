@@ -2,31 +2,34 @@
 
 	<%= form_for(@product, :url => {:controller => "admin/products", :action => :create}, :method => :post) do |f| %>
 		<%= f.label :name, "Nome" %>
-			<%= f.text_field :name %>
+		<%= f.text_field :name %>
 
-			<%= f.label :abstract, "Resumo" %>
-			<%= f.text_area :abstract, class: "tinymce" %>
+		<%= f.label :abstract, "Resumo" %>
+		<%= f.text_area :abstract, class: "tinymce" %>
 
-			<%= f.label :description, "Descrição" %>
-			<%= f.text_area :description, class: "tinymce" %>
+		<%= f.label :description, "Descrição" %>
+		<%= f.text_area :description, class: "tinymce" %>
 
-			<%= f.label :price, "Preço" %>
-			<%= f.text_field :price %>
+		<%= f.label :price, "Preço" %>
+		<%= f.text_field :price %>
 
-			<%= f.label :stock_count, "Número em Stock" %>
-			<%= f.text_field :stock_count %>
+		<%= f.label :stock_count, "Número em Stock" %>
+		<%= f.text_field :stock_count %>
 
-			<%= f.label :picture, "Imagem" %>
-			<%= f.file_field :picture %>
+		<%= f.label :thumbnail, "Thumbnail" %>
+		<%= f.file_field :thumbnail %>
 
-			<%= f.label :is_active, "Activo" %>
-			<%= f.check_box :is_active %>
-			
-			<div class="actions_wrapper">
-				<div class="action_button">
-					<%= f.submit "Inserir" %>
-				</div>
+		<%= f.label :picture, "Imagem" %>
+		<%= f.file_field :picture %>
+
+		<%= f.label :is_active, "Activo" %>
+		<%= f.check_box :is_active %>
+		
+		<div class="actions_wrapper">
+			<div class="action_button">
+				<%= f.submit "Inserir" %>
 			</div>
+		</div>
 	<% end %>
 
 </div>

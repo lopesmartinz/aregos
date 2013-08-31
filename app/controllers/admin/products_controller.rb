@@ -58,11 +58,31 @@ class Admin::ProductsController < ApplicationController
 		@product.stock_count = params[:product][:stock_count]		
 		@product.is_active = params[:product][:is_active]
 
+		# upload da imagem
 		if !params[:product][:picture].nil?
-			@product.picture = params[:product][:picture].original_filename
+			# o nome da imagem será o id do produto
+			product_id = 1
+			product_id = Product.last.id + 1 unless Product.last.nil?
+
+			file_extension = File.extname(params[:product][:picture].original_filename)
+			file_new_name = "#{product_id}#{file_extension}"
+			@product.picture = file_new_name
+			
+			upload_image(params[:product][:picture], "public/images/products/", file_new_name)
+		end
+
+		# upload do thumbnail
+		if !params[:product][:thumbnail].nil?
+			# o nome do thumbnail será o id do produto + "_thumbnail"
+			product_id = 1
+			product_id = Product.last.id + 1 unless Product.last.nil?
+
+			file_extension = File.extname(params[:product][:thumbnail].original_filename)
+			file_new_name = "#{@product.id}_thumbnail#{file_extension}"
+			@product.thumbnail = file_new_name
 
 			# upload da imagem
-			upload_picture
+			upload_image(params[:product][:thumbnail], "public/images/products/", file_new_name)
 		end
 
 		if @product.save
@@ -85,13 +105,24 @@ class Admin::ProductsController < ApplicationController
 		@product.stock_count = params[:product][:stock_count]		
 		@product.is_active = params[:product][:is_active]
 
+		# upload da imagem
 		if !params[:product][:picture].nil?
-			@product.picture = params[:product][:picture].original_filename
+			file_extension = File.extname(params[:product][:picture].original_filename)
+			file_new_name = "#{@product.id}#{file_extension}"
+			@product.picture = file_new_name
+			
+			upload_image(params[:product][:picture], "public/images/products/", file_new_name)
+		end
+
+		# upload do thumbnail
+		if !params[:product][:thumbnail].nil?
+			file_extension = File.extname(params[:product][:thumbnail].original_filename)
+			file_new_name = "#{@product.id}_thumbnail#{file_extension}"
+			@product.thumbnail = file_new_name
 
 			# upload da imagem
-			upload_picture
-		end
-		
+			upload_image(params[:product][:thumbnail], "public/images/products/", file_new_name)
+		end	
 
 		if @product.save
 			render :show, :id => @product.id
@@ -102,7 +133,7 @@ class Admin::ProductsController < ApplicationController
 
 
 	# DELETE
-	# criação de produto com dados preenchidos no formulário
+	# apagar produto
 	def destroy
 		@product = Product.find(params[:id])
 
@@ -125,14 +156,11 @@ class Admin::ProductsController < ApplicationController
 
 
 	# verifica se existe um utilizador do tipo admin autenticado
-	def upload_picture
-		picture = params[:product][:picture]
+	def upload_image(image, directory_path, image_name)
+    	full_path = File.join(directory_path, image_name)
 
-		directory = "public/images/upload"
-    	path = File.join(directory, picture.original_filename)
-
-		File.open(path, 'wb') do |file|
-			file.write(picture.read)
+		File.open(full_path, 'wb') do |file|
+			file.write(image.read)
 		end
 	end
 

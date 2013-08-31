@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   
-  attr_accessible :description, :name, :abstract, :description, :price, :stock_count, :picture, :is_active
+  attr_accessible :description, :name, :abstract, :description, :price, :stock_count, :picture, :thumbnail, :is_active
 
   # relações com outras tabelas
   has_many :order_items, :dependent => :destroy

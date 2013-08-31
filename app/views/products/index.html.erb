@@ -1,15 +1,50 @@
+<style>
+.content_wrapper {
+	padding-left: 0;
+	padding-right: 0;
+}
+</style>
+
 <div class="products">
-	<ul>
+	<ul id="products_carousel">
 		<% @products.each do |p| %>
-			<li>
-				<h1><%= link_to p.name, p %></h1>				
-				<p><%= raw p.abstract %></p>
-				<div class="price"><%= number_to_currency(p.price, :unit => "€", format: "%n %u") %></div>
-				<div class="actions_wrapper">
-					<div class="action_button"><%= button_to "Adicionar ao Carrinho", {:controller => :carts, :action => :add_to_cart, product_id: p.id}, :method => :post %></div>
-					<div class="action_button"><%= button_to "Ver Mais", p, :method => :get %></div>
+			<li class="two_columns_content_wrapper">
+				<h1><%= link_to p.name, p %></h1>
+				<div style="margin: 0 0.5em 0.5em 0; float: left; border: 1px dotted #ddd;"><%= image_tag("/images/products/" + p.thumbnail, :width => "200") unless p.thumbnail.nil?  %></div>
+				<p><%= raw p.description %></p>
+				<div class="price_wrapper">
+					<div class="price"><%= number_to_currency(p.price, :unit => "€", format: "%n %u") %></div>
+					<div class="price_extra_info">mais portes de envio</div>
+
+					<div class="actions_wrapper">
+						<div class="action_button"><%= button_to "Adicionar ao Carrinho", {:controller => :carts, :action => :add_to_cart, product_id: p.id}, :method => :post %></div>
+						<div class="action_button"><%= button_to "Ver Mais", p, :method => :get %></div>
+					</div>
 				</div>
 			</li>
 		<% end %>
 	</ul>
 </div>
+
+
+<script type="text/javascript">
+	$("#products_carousel").carouFredSel({
+		circular: true,
+		infinite: true,
+		auto    : true,
+		scroll  : {
+			items           : 1,
+			duration        : 1000,
+			timeoutDuration : 8000
+		},
+		prev    : {
+			button  : "#foo2_prev",
+			key     : "left"
+		},
+		next    : {
+			button  : "#foo2_next",
+			key     : "right"
+		},
+		pagination  : "#foo2_pag"
+	});
+</script>

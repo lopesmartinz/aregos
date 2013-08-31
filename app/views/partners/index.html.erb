@@ -1,0 +1,14 @@
+<div class="partners">
+	<h1>Parceiros</h1>
+	<ul>
+		<% @partners.each do |p| %>
+			<li class="two_columns_content_wrapper">
+				<h2><%= p.name %></h2>
+				<p>
+					<strong>Morada:</strong> <%= p.address %><br/>
+					<strong>Telefone:</strong> <%= p.phone_number %>
+				</p>
+			</li>
+		<% end %>		
+	</ul>
+</div>

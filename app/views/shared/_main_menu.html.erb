@@ -1,9 +1,10 @@
 <div class="main_menu_wrapper">
 	<ul class="main_menu">
 		<li id="home"><a href="/">Início</a></li>
-		<li id="about_us"><a href="/about_us">Sobre Nós</a></li>
+		<li id="the_project"><a href="/the_project">O Projeto</a></li>
 		<li id="products"><a href="/products">Produtos</a></li>
-		<li id="caldas_de_aregos"><a href="/caldas_de_aregos">Caldas de Arêgos</a></li>
+		<li id="partners"><a href="/partners">Parceiros</a></li>
+		<li id="press"><a href="/press">Imprensa</a></li>
 		<li id="general_interactions"><a href="/general_interactions/new">Contacte-nos</a></li>
 	</ul>
 	<div class="current_main_menu_pointer"><img src="/images/layout/current_main_menu_pointer.png" border="0" /></div>
@@ -16,12 +17,14 @@
 	$(function(){
 		var current_location = document.location.href.toLowerCase();		
 
-		if(current_location.indexOf("about_us") > -1)
-			current_menu = $("#about_us");
+		if(current_location.indexOf("the_project") > -1)
+			current_menu = $("#the_project");
 		else if(current_location.indexOf("product") > -1)
 			current_menu = $("#products");
-		else if(current_location.indexOf("caldas_de_aregos") > -1)
-			current_menu = $("#caldas_de_aregos");
+		else if(current_location.indexOf("partners") > -1)
+			current_menu = $("#partners");
+		else if(current_location.indexOf("press") > -1)
+			current_menu = $("#press");
 		else if(current_location.indexOf("general_interactions") > -1)
 			current_menu = $("#general_interactions");
 		else

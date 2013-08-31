@@ -3,24 +3,31 @@
 	list-style: none;
 }
 .products ul li {
-	float: left;
-	width: 390px;
-	margin-bottom: 1em;
-}
-.products ul li:nth-child(2n) {
-	float: right;
-}
-.products ul li:nth-child(2n+1) {
-	clear: both;
+	margin-bottom: 1em;	
 }
 .products .price {
-	font-size: 1.2em;
+	font-size: 1.1em;
 	color: #cc9933;
+}
+.products .actions_wrapper {
+	margin-top: 1em;
 }
 
 
 /*DETALHE DE PRODUTOS */
+.price_wrapper {
+	border-top: 1px dotted #ddd;
+	text-align: right;
+	padding-top: 1em;
+}
 .product .price {
-	font-size: 1.2em;
+	font-size: 1.1em;
 	color: #cc9933;
+}
+.product .actions_wrapper {
+	margin-top: 1em;
+}
+
+.price_extra_info {
+	font-size: 0.7em;
 }

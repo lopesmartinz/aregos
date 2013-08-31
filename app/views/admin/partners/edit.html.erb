@@ -1,0 +1,18 @@
+<div class="form_field">
+
+	<%= form_for(@partner, :url => {:contoller => "admin/partners", :action => :update, :id => @partner.id}, :method => :put) do |f| %>
+		<%= f.label :name, "Nome" %>
+		<%= f.text_field :name %>
+		<%= f.label :address, "Morada" %>
+		<%= f.text_field :address %>
+		<%= f.label :phone_number, "Telefone" %>
+		<%= f.text_field :phone_number %>
+
+		<div class="actions_wrapper">
+			<div class="action_button">
+				<%= f.submit "Actualizar" %>
+			</div>
+		</div>
+	<% end %>
+	
+</div>

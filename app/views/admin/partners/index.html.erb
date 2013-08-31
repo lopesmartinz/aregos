@@ -1,0 +1,30 @@
+<div class="products">
+	<h1>Partners</h1>
+	<table cellspacing="0" class="table">
+		<tr class="table_row_header">
+			<th>Nome</th>	
+			
+			<th class="actions"></th>
+		</tr>
+
+		<% @partners.each do |p| %>
+			<tr class="table_row_item">
+				<td>
+					<%= link_to p.name, {:controller => "admin/partners", :action => :show, :id => p.id}, :method => :get %>
+				</td>				
+				<td class="actions">
+					<div class="action_button"><%= button_to "Editar", {:controller => "admin/partners", :action => :edit, :id => p.id}, :method => :get %></div>
+					<div class="action_button"><%= button_to "Apagar", {:controller => "admin/partners", :action => :destroy, :id => p.id}, :method => :delete %></div>
+				</td>
+			</tr>
+		<% end %>
+		
+	</table>
+
+	<div class="actions_wrapper">
+		<div class="action_button">
+			<%=button_to "Inserir", {:controller => "admin/partners", :action => :new}, :method => :get %>
+		</div>
+	</div>
+</div>
+

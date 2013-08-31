@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Admin::SessionsController < ApplicationController
 
 	# definição do layout
@@ -36,13 +37,7 @@ class Admin::SessionsController < ApplicationController
 			# alerta para user autenticado com sucesso
       		flash[:notice] = "Bem vindo #{@user.name}"
 
-			# definir página após login com sucesso
-			if exists_pending_cart?
-				# redirecciona para a paǵina de checkout se existir um checkout pendente
-				redirect_to ({:controller => :orders, :action => :new})
-			else
-      			redirect_to root_path
-      		end
+      		redirect_to admin_products_path			
 		else
 			# adicionar tentiva de login falhada
 			if !@user.nil?
@@ -70,7 +65,7 @@ class Admin::SessionsController < ApplicationController
 		sign_out
 
 		# redirecciona para a raiz do site
-    	redirect_to "/"
+    	redirect_to admin_path
 	end
 
 end

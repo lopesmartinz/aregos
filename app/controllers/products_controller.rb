@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
  	
  	# definição do layout
-	layout "inner_page"
+	layout :resolve_layout
+
 	
 	##################################
 	#### ACCÕES DEFAULT
@@ -10,7 +11,7 @@ class ProductsController < ApplicationController
 	# GET
 	# Obter produtos válidos
 	def index
-		@products = Product.where("stock_count > 0 AND is_active = true");
+		@products = Product.where("stock_count > 0 AND is_active = true")
 	end
 
 
@@ -19,4 +20,31 @@ class ProductsController < ApplicationController
 	def show
 		@product = Product.find(params[:id])
 	end
+
+
+
+
+	##################################
+	#### ACCÕES EXTRA
+	##################################
+	def highlights
+		@products = Product.where("stock_count > 0 AND is_active = true")
+	end
+
+
+
+
+	##################################
+	#### MÉTODOS PRIVADOS
+	##################################
+	private
+	def resolve_layout
+		case action_name
+	    when "show"
+	      "detail_page"		    
+	    else
+	      "inner_page"
+	    end		
+	end
+
 end

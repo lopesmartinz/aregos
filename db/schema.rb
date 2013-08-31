@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130714212800) do
+ActiveRecord::Schema.define(:version => 20130831144430) do
 
   create_table "cart_items", :force => true do |t|
     t.integer  "product_id"
@@ -81,6 +81,14 @@ ActiveRecord::Schema.define(:version => 20130714212800) do
 
   add_index "orders", ["reference"], :name => "index_orders_on_reference", :unique => true
 
+  create_table "partners", :force => true do |t|
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "name",         :null => false
+    t.string   "address"
+    t.string   "phone_number"
+  end
+
   create_table "payment_methods", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -97,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20130714212800) do
     t.integer  "stock_count",                               :default => 0
     t.text     "abstract"
     t.string   "picture"
+    t.string   "thumbnail"
   end
 
   create_table "users", :force => true do |t|
