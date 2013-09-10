@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body style="font-family: Arial, Verdana; color: #444;">
+    <div style="background-color: #eee; padding: 40px; margin-bottom: 20px;">
+      <div style="background-color: #fff; margin-bottom: 20px; padding: 0 20px 20px 20px; border: 1px solid #ccc;">
+        <h2>
+          Confirmamos o registo da sua encomenda com o código: <%= @order.reference %>.
+        </h2>
+        <% if @order.payment_method_id == 1 %>
+          Escolheu proceder ao pagamento através de tranferência bancária.
+        <% elsif @order.payment_method_id == 2 %>        
+          A sua encomenda será enviada à cobrança.
+        <% end %>
+      </div>
+
+      <% if @order.payment_method_id == 1 %>
+          <div style="background-color: #FFF899; padding: 20px; border: 1px solid #ccc; font-size: 14px; font-weight: bold; margin-bottom: 20px;">          
+              Para dar seguimento à sua encomenda deverá executar os dois primeiros passos descritos de seguida na secção "Processo de Entrega da Encomenda".<br/><br/>
+              Após a realização destes passos e consequente confirmação da receção do pagamento, daremos início ao processo de envio da sua encomenda.
+          </div>
+        <% end %>
+
+      <div style="background-color: #fff; padding: 0 20px 20px 20px; border: 1px solid #ccc;">
+        <h2>Processo de Entrega da Encomenda</h2>
+        <div style="padding: 10px 20px; border: 1px solid #aaa; margin-bottom: 20px;">
+          <% if @order.payment_method_id == 1 %>        
+            <ol style="margin: 0; padding: 0;">
+              <li>
+                <strong>Cliente -</strong> Deverá proceder à transferência bancária no valor total da encomenda para o NIB: x
+              </li>
+              <li>
+                <strong>Cliente -</strong> Deverá responder ao presente e-mail, confirmando que a transferência foi efetuada
+              </li>
+              <li>
+                <strong>Douro Memories -</strong> Após confirmação da transferência iniciará o processamento da encomenda
+              </li>
+              <li>
+                <strong>Douro Memories -</strong> Enviará a encomenda para o cliente
+              </li>
+            </ol>        
+
+          <% elsif @order.payment_method_id == 2 %>          
+            <ol style="margin: 0; padding: 0;">
+              <li>
+                <strong>Douro Memories -</strong> Iniciará o processamento da encomenda
+              </li>
+              <li>
+                <strong>Douro Memories -</strong> Enviará a encomenda para o cliente
+              </li>            
+            </ol>
+
+          <% end %>
+        </div>
+
+        Receberá notificações por e-mail em cada uma das fases do processamento da encomenda.<br/><br/>    
+        Poderá também consultar o estado da sua encomenda através do nosso site.<br/>
+        Para isso bastará que efetue a autenticação com os dados com que se registou - e-mail e password - e que de seguida aceda à opção "Minhas Compras".
+      </div>
+    </div>
+
+    <div style="background-color: #eee; padding: 40px;">
+      <div style="background-color: #fff; margin-bottom: 20px; padding: 0 20px 20px 20px; border: 1px solid #aaa;">
+        <h3>Dados da Encomenda</h3>
+        <table cellspacing="0" cellpadding="5" width="100%" style="border: 1px solid #ccc;">
+          <tr>
+            <th style="background-color: #eee; text-align: left;">Produto</th>
+            <th style="background-color: #eee; text-align: right">Preço Unitário</th> 
+            <th style="background-color: #eee; text-align: center">Quantidade</th>    
+            <th style="background-color: #eee; text-align: right">Sub-Total</th>
+          </tr>
+
+          <% @order.order_items.each do |item| %>
+            <tr>   
+              <td style="text-align: left;"><%= item.product.name %></td>
+              <td style="text-align: right;"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>     
+              <td style="text-align: center;"><%= item.quantity %></td>      
+              <td style="text-align: right;"><%= number_to_currency(item.price * item.quantity, :unit => "€", format: "%n %u") %></td>
+              </tr>
+          <% end %>
+
+          <tr>
+            <td colspan="3">Portes de Envio</td>
+            <td style="text-align: right;"><%= number_to_currency(@order.shipping_costs, :unit => "€", format: "%n %u") %></td>
+          </tr>
+
+          <% if @order.payment_method_id == 2 %>
+            <tr>
+              <td colspan="3">Custos de Envio à Cobrança</td>
+              <td style="text-align: right;"><%= number_to_currency(@order.charge_costs, :unit => "€", format: "%n %u") %></td>
+            </tr>
+          <% end %>
+
+          <tr>
+            <td colspan="3" style="background-color: #eee;"></td>
+            <td style="background-color: #eee; text-align: right; font-weight: bold;">
+              Total: &nbsp;
+              <%= number_to_currency((@order.order_items.sum("price * quantity") + @order.shipping_costs + @order.charge_costs), :unit => "€", format: "%n %u") %>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="background-color: #fff; padding: 0 20px 20px 20px; border: 1px solid #ccc;">
+        <h3>Local de Entrega</h3>
+        <div style="padding: 5px; border: 1px solid #aaa;">
+          <strong>Morada:</strong> <%= @order.address_line_1 %><br/>
+          <strong>Código Postal:</strong> <%= @order.zip_code %><br/>
+          <strong>Localidade:</strong> <%= @order.city %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -55,7 +55,9 @@ class Admin::ProductsController < ApplicationController
 		@product.abstract = params[:product][:abstract]
 		@product.description = params[:product][:description]
 		@product.price = params[:product][:price]
-		@product.stock_count = params[:product][:stock_count]		
+		@product.weight = params[:product][:weight]
+		@product.stock_count = params[:product][:stock_count]
+		@product.priority_number = params[:product][:priority_number]	
 		@product.is_active = params[:product][:is_active]
 
 		# upload da imagem
@@ -102,7 +104,9 @@ class Admin::ProductsController < ApplicationController
 		@product.abstract = params[:product][:abstract]
 		@product.description = params[:product][:description]
 		@product.price = params[:product][:price]
-		@product.stock_count = params[:product][:stock_count]		
+		@product.weight = params[:product][:weight]
+		@product.stock_count = params[:product][:stock_count]
+		@product.priority_number = params[:product][:priority_number]		
 		@product.is_active = params[:product][:is_active]
 
 		# upload da imagem

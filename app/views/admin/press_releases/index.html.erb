@@ -1,0 +1,30 @@
+<div class="press_releases">
+	<h1>Imprensa</h1>
+
+	<table cellspacing="0" class="table">
+		<tr class="table_row_header">
+			<th class="left_table_column entity">Entidade</th>
+			<th class="actions"></th>
+		</tr>
+
+		<% @press_releases.each do |pr| %>
+			<tr class="table_row_item">
+				<td class="left_table_column entity">
+					<%= link_to pr.entity, {:controller => "admin/press_releases", :action => :show, :id => pr.id}, :method => :get %>
+				</td>				
+				<td class="actions">
+					<div class="action_button"><%= button_to "Editar", {:controller => "admin/press_releases", :action => :edit, :id => pr.id}, :method => :get %></div>
+					<div class="action_button"><%= button_to "Apagar", {:controller => "admin/press_releases", :action => :destroy, :id => pr.id}, :method => :delete %></div>
+				</td>
+			</tr>
+		<% end %>
+		
+	</table>
+
+	<div class="actions_wrapper">
+		<div class="action_button">
+			<%=button_to "Inserir", {:controller => "admin/press_releases", :action => :new}, :method => :get %>
+		</div>
+	</div>
+</div>
+

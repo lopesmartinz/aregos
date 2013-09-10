@@ -23,16 +23,52 @@
 		<%= f.label :city %>
 		<%= f.text_field :city %>
 
+		<%= f.label :payment_method_id %>
+		<%= f.select(:payment_method_id, PaymentMethod.all.collect {|pm| [ pm.name, pm.id ] }, {include_blank: 'Indique o Método de Pagamento que Pretende'}) %>
+
+		<script type="text/javascript">
+			total_with_shipping_costs = "<%= number_to_currency(current_cart.total_price, :unit => "€", format: "%n %u") %>";
+			total_with_charge_costs = "<%= number_to_currency((current_cart.total_price + current_cart.total_charge_costs), :unit => "€", format: "%n %u") %>"
+
+			function add_charge_costs() {
+				$(".total_value").text(total_with_charge_costs);
+				$(".charge_costs").show();
+			}
+
+			function remove_charge_costs() {
+				$(".total_value").text(total_with_shipping_costs);
+				$(".charge_costs").hide();
+			}
+
+			// tratamento inicial do método de pagamento seleccionado
+			// (só se estiver seleccionado "à cobrança" [após validação por ex])
+			$(function(){
+				payment_method = $("#order_payment_method_id").val();
+
+					if(payment_method == 2)
+						add_charge_costs();
+			});
+
+			// tratar a alteração do método de pagamento seleccionado
+			$(function(){
+				$("#order_payment_method_id").change(function(){
+					payment_method = $(this).val();
+
+					if(payment_method == 2)
+						add_charge_costs();
+					else
+						remove_charge_costs();
+				});
+			});
+		</script>
+
 <%
 =begin %>
 
 DESCOMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO
 
 		<%= f.label :country %>
-		<%= f.select :country, [["Portugal"], ["Outro"]] %>
-
-		<%= f.label :payment_method_id %>
-		<%= f.select(:payment_method_id, PaymentMethod.all.collect {|pm| [ pm.name, pm.id ] }, {include_blank: 'Indique o Método de Pagamento'}) %>
+		<%= f.select :country, [["Portugal"], ["Outro"]] %>		
 
 		<%= f.label :first_name %>
 		<%= f.text_field :first_name %>

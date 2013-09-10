@@ -1,54 +1,57 @@
-<h1>Compra - <%= @order.reference %></h1>
+<div class="detail order">
+	
+	<div class="label">Referência</div>
+	<div class="value"><%= @order.reference %></div>
+	<div class="label">Cliente</div>
+	<div class="value"><%= @order.user.name %></div>
+	<div class="label">Morada</div>
+	<div class="value"><%= @order.address_line_1 %></div>
+	<div class="label">Código Postal</div>
+	<div class="value"><%= @order.zip_code %></div>
+	<div class="label">Localidade</div>
+	<div class="value"><%= @order.city %></div>
+	<div class="label">Estado</div>
+	<div class="value"><%= @order.order_actions.last.status unless @order.order_actions.last.nil? %></div>
 
-<div>Cliente</div>
-<div><%= @order.user.name %></div>
-<div>Morada</div>
-<div><%= @order.address_line_1 %></div>
-<div>Código Postal</div>
-<div><%= @order.zip_code %></div>
-<div>Cidade</div>
-<div><%= @order.city %></div>
-<div>País</div>
-<div><%= @order.country %></div>
-<div>Estado</div>
-<div><%= @order.order_actions.last.status unless @order.order_actions.last.nil? %></div>
+	<table cellspacing="0" class="table">
+		<tr class="table_row_header">
+			<th class="left_table_column product">Produto</th>		
+			<th class="quantity">Quantidade</th>
+			<th class="right_table_column price">Preço</th>
+		</tr>
 
-<table cellspacing="0" class="table order">
-	<tr class="table_row_header">
-		<th class="left_table_column product">Produto</th>		
-		<th class="quantity">Quantidade</th>
-		<th class="right_table_column price">Preço</th>
-	</tr>
+		<% @order.order_items.each do |item| %>
+			<tr class="table_row_item">		
+				<td class="left_table_column name"><%= item.product.name %></td>			
+				<td class="quantity"><%= item.quantity %></td>
+				<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>
+		    </tr>
+		<% end %>
 
-	<% @order.order_items.each do |item| %>
-		<tr class="table_row_item">		
-			<td class="name"><%= item.product.name %></td>			
-			<td class="quantity"><%= item.quantity %></td>
-			<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>
-	    </tr>
-	<% end %>
+		<tr class="table_row_item">
+			<td colspan="2" class="left_table_column">Portes de Envio</td>
+			<td class="right_table_column price"><%= number_to_currency(@order.shipping_costs, :unit => "€", format: "%n %u") %></td>
+		</tr>
 
-	<tr class="table_row_footer">
-		<td colspan="2" class="left_table_column"></td>
-		<td class="right_table_column">
-			<span class="total_label">Total</span>					
-			<span class="total_value"><%= number_to_currency(@order.order_items.sum("price * quantity"), :unit => "€", format: "%n %u") %></span>
-		</td>
-	</tr>
-</table>
+		<% if @order.payment_method_id == 2 %>
+			<tr class="table_row_item">
+				<td colspan="2" class="left_table_column">Custos de Envio à Cobrança</td>
+				<td class="right_table_column price"><%= number_to_currency(@order.charge_costs, :unit => "€", format: "%n %u") %></td>
+			</tr>
+		<% end %>
 
-<div class="actions_wrapper">
+		<tr class="table_row_footer">
+			<td colspan="2" class="left_table_column"></td>
+			<td class="right_table_column price">
+				<span class="total_label">Total</span>					
+				<span class="total_value"><%= number_to_currency((@order.order_items.sum("price * quantity") + @order.shipping_costs + @order.charge_costs), :unit => "€", format: "%n %u") %></span>
+			</td>
+		</tr>
+	</table>
 
-	<% if !@order.order_actions.last.nil? && @order.order_actions.last.id == 1 %>
-		<div class="action_button"><%= button_to "Passar para Processamento", {:controller => "admin/orders", :action => :add_order_action, order_action_id: 2}, :method => :post %></div>
-	<% end %>
-
-	<% if !@order.order_actions.last.nil? && @order.order_actions.last.id == 2 %>
-		<div class="action_button"><%= button_to "Dar como Enviada", {:controller => "admin/orders", :action => :add_order_action, order_action_id: 3}, :method => :post %></div>
-	<% end %>
-
-	<% if !@order.order_actions.last.nil? && @order.order_actions.last.id == 3 %>
-		<div class="action_button"><%= button_to "Dar como Fechada", {:controller => "admin/orders", :action => :add_order_action, order_action_id: 4}, :method => :post %></div>
-	<% end %>
-
+	<div class="actions_wrapper">
+		<% if !@order.next_order_action.nil? %>
+			<div class="action_button"><%= button_to @order.next_order_action.action_name, {:controller => "admin/orders", :action => :add_order_action, order_action_id: @order.next_order_action.id}, :method => :post %></div>
+		<% end %>
+	</div>
 </div>

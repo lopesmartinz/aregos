@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class OrdersController < ApplicationController
 
 	# definição do layout
@@ -50,24 +52,29 @@ class OrdersController < ApplicationController
 		@order.address_line_1 = params[:order][:address_line_1]
 		@order.address_line_2 = params[:order][:address_line_2]
 		@order.zip_code = params[:order][:zip_code]
-		@order.city = params[:order][:city]
+		@order.city = params[:order][:city]		
+
+		if !params[:order][:payment_method_id].blank? 
+			@order.payment_method = PaymentMethod.find(params[:order][:payment_method_id])			
+		end
+
+		@order.shipping_costs = current_cart.total_shipping_costs
+
+		if params[:order][:payment_method_id] == "2"
+			@order.charge_costs = current_cart.total_charge_costs
+		end
 
 		# COMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO
 		@order.country = "Portugal"
-		@order.payment_method = PaymentMethod.find(2)
 
 =begin
 
 DESCOMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO
 
-		@order.country = params[:order][:country]
-
-		if !params[:order][:payment_method_id].blank? 
-			@order.payment_method = PaymentMethod.find(params[:order][:payment_method_id])
-		end		
+		@order.country = params[:order][:country]				
 
 		# dados do cartão de crédito
-		if @order.payment_method == PaymentMethod.find(1)
+		if @order.payment_method == PaymentMethod.find(3)
 			@order.first_name = params[:order][:first_name]
 			@order.last_name = params[:order][:last_name]
 			@order.card_type = params[:order][:card_type]
@@ -84,7 +91,13 @@ DESCOMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO
 		# antes da criação (before_save no model), valida-se o cartão (caso seja esse o método de pagamento)
 		if @order.save
 			# registar acção de criação da encomenda
-			@order.order_action_items.create(:order_action => OrderAction.find(1))	
+			@order.order_action_items.create(:order_action => OrderAction.find(1))
+
+			# registar acção de colocação do valor da encomenda em débito
+			# => apenas se o método de pagamento for "tranferência bancária"
+			if @order.payment_method_id == 1
+				@order.order_action_items.create(:order_action => OrderAction.find(2))
+			end
 
 			# transferir items do carrinho para a encomenda
 			create_order_items(@order)					
@@ -99,7 +112,7 @@ DESCOMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO
 			session.delete(:aregos_cart_id)
 
 			# envio do email de confirmação da submissão da encomenda
-      		Emails.order_submission_confirmation(current_user, @order).deliver
+      		Emails.order_creation(current_user, @order).deliver
 
 			# redirecciona para detalhe da encomenda
 			redirect_to @order

@@ -1,6 +1,6 @@
 class OrderAction < ActiveRecord::Base
 
-  attr_accessible :action_name, :status
+  attr_accessible :action_name, :status, :related_payment_methods
 
 	
 

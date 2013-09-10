@@ -1,0 +1,13 @@
+<div class="detail press_releases">
+	<div class="label">Entidade</div>
+	<div class="value"><%= @press_release.entity %></div>
+	<div class="label">Data</div>
+	<div class="value"><%= @press_release.date %></div>
+	<div class="label">Descrição</div>
+	<div class="value"><%= @press_release.description %></div>	
+
+	<div class="actions_wrapper">
+		<div class="action_button"><%= button_to "Editar", {:controller => "admin/press_releases", :action => :edit, :id => @press_release.id}, :method => :get %></div>
+		<div class="action_button"><%= button_to "Apagar", {:controller => "admin/press_releases", :action => :destroy, :id => @press_release.id}, :method => :delete %></div>
+	</div>
+</div>

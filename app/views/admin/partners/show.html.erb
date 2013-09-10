@@ -1,7 +1,14 @@
-<h1>Parceiro</h1>
-Nome:
-<%= @partner.name %>
-Morada:
-<%= @partner.address %>
-Telefone:
-<%= @partner.phone_number %>
+<div class="detail partner">
+
+	<div class="label">Nome</div>
+	<div class="value"><%= @partner.name %></div>
+	<div class="label">Morada</div>
+	<div class="value"><%= @partner.address %></div>
+	<div class="label">Telefone</div>
+	<div class="value"><%= @partner.phone_number %></div>
+
+	<div class="actions_wrapper">
+		<div class="action_button"><%= button_to "Editar", {:controller => "admin/partners", :action => :edit, :id => @partner.id}, :method => :get %></div>
+		<div class="action_button"><%= button_to "Apagar", {:controller => "admin/partners", :action => :destroy, :id => @partner.id}, :method => :delete %></div>
+	</div>
+</div>

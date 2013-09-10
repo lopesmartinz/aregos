@@ -3,36 +3,45 @@
 
 	<table cellspacing="0" class="table">
 		<tr class="table_row_header">
-			<th class="left_table_column product">Produto</th>		
+			<th class="left_table_column product">Produto</th>
+			<th class="price">Preço Unitário</th>		
 			<th class="quantity">Quantidade</th>
-			<th class="price">Preço</th>
+			<th class="price">Sub-Total</th>
 			<th class="right_table_column actions"></th>
 		</tr>
 
 		<% @cart.cart_items.each do |item| %>
 			<tr class="table_row_item">		
-				<td class="left_table_column name"><%= item.product.name %></td>			
+				<td class="left_table_column name"><%= item.product.name %></td>				
+				<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>
 				<td class="quantity">
 					<div class="quantity_wrapper">
 						<div class="quantity_value"><%= item.quantity %></div>
 						<div class="action_button"><%= button_to "-", {:controller => :cart_items, :action => 'decrease_quantity', :id => item.id}, :method => :put %></div>		
 						<div class="action_button"><%= button_to "+", {:controller => :cart_items, :action => 'increase_quantity', :id => item.id}, :method => :put %></div>
-						<div style="clear: both;">&nbsp;</div>
+						<div class="clear_both">&nbsp;</div>
 					</div>
 				</td>
-				<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>
+				<td class="sub_total"><%= number_to_currency(item.price * item.quantity, :unit => "€", format: "%n %u") %></td>
 				<td class="right_table_column actions">				
 					<div class="action_button"><%= button_to "Remover", {:controller => :cart_items, :action => 'destroy', :id => item.id}, :method => :delete %></div>
 				</td>			       
 		    </tr>
 		<% end %>
 
-		<tr class="table_row_footer">
-			<td colspan="3" class="left_table_column">
-				<span class="total_label">Total</span>			
-				<span class="total_value"><%= number_to_currency(@cart.cart_items.sum("price * quantity"), :unit => "€", format: "%n %u") %></span>
-			</td>
+		<tr class="table_row_shipping_costs">
+			<td colspan="3" class="left_table_column">Portes de Envio</td>
+			<td class="price"><%= number_to_currency(current_cart.total_shipping_costs, :unit => "€", format: "%n %u") %></td>
 			<td class="right_table_column"></td>
+		</tr>
+
+		<tr class="table_row_footer">
+			<td colspan="4" class="left_table_column">
+				<span class="total_label">Total</span>			
+				<span class="total_value"><%= number_to_currency(current_cart.total_price, :unit => "€", format: "%n %u") %></span>
+			</td>
+			<td class="right_table_column">				
+			</td>
 		</tr>
 	</table>
 
@@ -42,4 +51,16 @@
 		<div class="action_button"><%= button_to "Finalizar Encomenda", {:controller => :carts, :action => :checkout, id: @cart.id}, :method => :get %></div>
 		<div style="clear: both;">&nbsp;</div>
 	</div>
+</div>
+
+<div class="aditional_info">
+	<p>
+		<strong>Métodos de pagamento disponíveis:</strong><br/>
+		Tranferência Bancária ou Envio à Cobrança
+	</p>
+	<p>		
+		<strong>Portes de Envio:</strong><br/>
+		Os portes de envio serão calculados durante o processo de finalização da encomenda. O seu valor difere consoante o método de pagamento que selecionar.
+	</p>
+		
 </div>

@@ -43,7 +43,9 @@ Aregos::Application.routes.draw do
   resources :orders
 
   resources :partners, only: [:index]
-  
+
+  resources :press_releases, only: [:index]  
+
   resources :general_interactions, only: [:new, :create]
   
   
@@ -59,7 +61,6 @@ Aregos::Application.routes.draw do
 
   # static_pages
   match '/the_project',  to: 'static_pages#the_project'
-  match '/press',  to: 'static_pages#press'
 
   # backoffice
   match '/admin',  to: 'admin/sessions#new'
@@ -67,13 +68,15 @@ Aregos::Application.routes.draw do
   namespace :admin do    
     resources :sessions
     resources :products
+    resources :partners
+    resources :press_releases
+    resources :shipping_costs
     resources :orders do
       # "member" permite adicionar acções extra ao recurso (para além das default)
       member do
         post 'add_order_action'
       end
-    end
-    resources :partners
+    end    
   end
  
 

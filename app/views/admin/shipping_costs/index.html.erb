@@ -1,0 +1,31 @@
+<div class="shipping_costs">
+	<h1>Portes de Envio</h1>
+
+	<table cellspacing="0" class="table">
+		<tr class="table_row_header">
+			<th class="left_table_column weight">Peso (gramas)</th>
+			<th class="price">Preço</th>		
+			<th class="actions"></th>
+		</tr>
+
+		<% @shipping_costs.each do |sc| %>
+			<tr class="table_row_item">
+				<td class="left_table_column weight">
+					<%= link_to sc.weight, {:controller => "admin/shipping_costs", :action => :show, :id => sc.id}, :method => :get %>
+				</td>
+				<td class="price"><%= number_to_currency(sc.price, :unit => "€", format: "%n %u") %></td>				
+				<td class="actions">
+					<div class="action_button"><%= button_to "Editar", {:controller => "admin/shipping_costs", :action => :edit, :id => sc.id}, :method => :get %></div>
+					<div class="action_button"><%= button_to "Apagar", {:controller => "admin/shipping_costs", :action => :destroy, :id => sc.id}, :method => :delete %></div>
+				</td>
+			</tr>
+		<% end %>
+		
+	</table>
+
+	<div class="actions_wrapper">
+		<div class="action_button">
+			<%=button_to "Inserir", {:controller => "admin/shipping_costs", :action => :new}, :method => :get %>
+		</div>
+	</div>
+</div>

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class CartItemsController < ApplicationController
 
 	##################################
@@ -47,7 +49,13 @@ class CartItemsController < ApplicationController
 			# apaga o item se a quantidade for zero
 			@cart_item.delete unless @cart_item.quantity > 0
 
-			redirect_to :back
+			if current_cart.cart_items.count == 0
+				current_cart.delete
+				session.delete(:aregos_cart_id)
+				redirect_to root_path
+			else
+				redirect_to :back
+			end
 		end
 	end
 

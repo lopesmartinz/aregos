@@ -21,7 +21,7 @@ pt:
         address_line_1: "Endereço"
         address_line_2: "Endereço"
         zip_code: "Código Postal"
-        city: "Cidade"
+        city: "Localidade"
         country: "País"
         payment_method_id: "Método de Pagamento"
         first_name: "Nome"

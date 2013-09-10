@@ -1,24 +1,9 @@
-<style>
-.products {
-	margin: 0 -14px;
-	/*padding-top: 1em;*/
-}
-h1 {
-	font-size: 1.3em;
-	border: 0;
-	margin-bottom: 0.5em;
-}
-.products img {
-	border: 1px dotted #ccc;
-}
-</style>
-
-<div class="products">
+<div class="products highlights">
 	<ul id="products_carousel">
 		<% @products.each do |p| %>
 			<li class="three_columns_content_wrapper">
-				<h1><%= link_to p.name, p %></h1>			
-				<%= image_tag("/images/products/" + p.thumbnail, :width => "258") unless p.thumbnail.nil?  %>			
+				<h1><%= link_to p.name, p %></h1>
+				<div class="image"><%= link_to image_tag("/images/products/" + p.thumbnail, :width => "260"), p unless p.thumbnail.nil?  %></div>
 				<p><%= raw p.abstract %></p>				
 				<div class="price_wrapper">
 					<div class="price"><%= number_to_currency(p.price, :unit => "€", format: "%n %u") %></div>				

@@ -1,17 +1,11 @@
-.cart th.quantity {
+.cart th.quantity, .cart td.quantity {
 	text-align: center;
 }
-.cart th.price, .cart td.price, .cart td.quantity {
+.cart th.price, .cart td.price, .cart th.sub_total, .cart td.sub_total {
 	text-align: right;
 }
-.cart td.price {
-	width: 6.5em;
-}
-.cart td.actions {
-	width: 5.5em;
-}
-.cart td.quantity {
-	width: 7.5em;
+.cart th.actions, .cart td.actions {
+	width: 7em;
 }
 .cart .table_row_item .action_button input[type="submit"] {
 	background-color: #ccc;
@@ -35,4 +29,19 @@
 .cart .total_value {
 	margin-left: 0.5em;
 	color: #cc9933;
+}
+.cart tr.table_row_shipping_costs td {
+	padding: 0.5em;
+	font-size: 0.9em;
+	min-height: 3em;
+	border-bottom: 1px dotted #ccc;
+}
+.cart tr.table_row_shipping_costs td.left_table_column {
+	border-left: 1px dotted #ddd;
+}
+.cart tr.table_row_shipping_costs td.right_table_column {
+	border-right: 1px dotted #ddd;
+}
+.cart .charge_costs {
+	display: none;
 }

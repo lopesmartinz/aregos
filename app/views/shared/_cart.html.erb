@@ -1,23 +1,35 @@
 <div class="cart">
 	<table cellspacing="0" class="table">
 		<tr class="table_row_header">
-			<th class="left_table_column product">Produto</th>		
+			<th class="left_table_column product">Produto</th>
+			<th class="price">Preço Unitário</th>	
 			<th class="quantity">Quantidade</th>
-			<th class="right_table_column price">Preço</th>
+			<th class="right_table_column sub_total">Sub-Total</th>
 		</tr>
 
 		<% current_cart.cart_items.each do |item| %>
 			<tr class="table_row_item">		
-				<td class="left_table_column name"><%= item.product.name %></td>			
+				<td class="left_table_column name"><%= item.product.name %></td>
+				<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>			
 				<td class="quantity"><%= item.quantity %></td>
-				<td class="right_table_column price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>
+				<td class="right_table_column sub_total"><%= number_to_currency(item.price * item.quantity, :unit => "€", format: "%n %u") %></td>
 		    </tr>
 		<% end %>
 
+		<tr class="table_row_shipping_costs">
+			<td colspan="3" class="left_table_column">Portes de Envio</td>
+			<td class="right_table_column price"><%= number_to_currency(current_cart.total_shipping_costs, :unit => "€", format: "%n %u") %></td>
+		</tr>
+
+		<tr class="table_row_shipping_costs charge_costs">
+			<td colspan="3" class="left_table_column">Custos de Envio à Cobrança</td>
+			<td class="right_table_column price"><%= number_to_currency(current_cart.total_charge_costs, :unit => "€", format: "%n %u") %></td>
+		</tr>
+
 		<tr class="table_row_footer">			
-			<td colspan="3" class="left_table_column right_table_column">
+			<td colspan="4" class="left_table_column right_table_column">
 				<span class="total_label">Total</span>
-				<span class="total_value"><%= number_to_currency(current_cart.cart_items.sum("price * quantity"), :unit => "€", format: "%n %u") %></span>
+				<span class="total_value"><%= number_to_currency(current_cart.total_price, :unit => "€", format: "%n %u") %></span>
 			</td>
 		</tr>
 	</table>	

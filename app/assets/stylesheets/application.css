@@ -254,6 +254,7 @@ tr.table_row_footer td.right_table_column {
 	display: block;
 }
 .form_field input[type="text"], .form_field input[type="password"], .form_field select, .form_field textarea {
+	/*background-color: #f9f9f9;*/
 	background-color: #f7f7f7;
 	border: 2px dotted #ddd;
  	border-radius: 0.4em;
@@ -291,7 +292,7 @@ tr.table_row_footer td.right_table_column {
 	color: #fff;
 	padding: 0.5em 0.5em 0.3em 0.5em;
 	background-color: #cc9933;
-	border-radius: 0.4em;
+	border-radius: 0.3em;
 	margin-left: 0.5em;
 	border: 0;
 }

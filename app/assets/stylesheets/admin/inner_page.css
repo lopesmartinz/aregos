@@ -70,6 +70,9 @@ tr.table_row_footer td {
 	background-color: #ddd;
 	padding: 0.5em;
 }
+.table th.left_table_column, .table td.left_table_column {
+	text-align: left;
+}
 
 
 /* FORMULÁRIOS */
@@ -111,6 +114,9 @@ tr.table_row_footer td {
 
 
 /* DETALHES */
+.detail .label {
+	font-weight: bold;
+}
 .detail .value {
 	border: 1px solid #ddd;
  	margin-bottom: 2em;
@@ -120,8 +126,21 @@ tr.table_row_footer td {
  	font-size: 0.9em;
 }
 
+.products td.actions, .orders td.actions, .partners td.actions,
+ .press_releases td.actions, .shipping_costs td.actions  {
+	text-align: right;
+}
 
-/* PRODUTOS */
-tr.table_row_header th.name, tr.table_row_item td.name {
-	text-align: left;
+/*Encomendas*/
+.order .table th.price, .order .table td.price {
+	text-align: right;
+}
+.orders .status .new_order {
+	background-color: #C4F2A5;
+}
+.orders .status .dependent_from_client {
+	background-color: #B0CEF5;
+}
+.orders .status .dependent_from_seller {
+	background-color: #FFF899;
 }

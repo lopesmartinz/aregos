@@ -26,7 +26,7 @@ class Admin::PartnersController < ApplicationController
 
 
 	# GET
-	# detalhe de produto
+	# detalhe de parceiro
 	def show
 		@partner = Partner.find(params[:id])
 	end

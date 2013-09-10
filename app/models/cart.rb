@@ -24,6 +24,54 @@ class Cart < ActiveRecord::Base
     	cart_items.create(product_id: product_id, quantity: 1, price: @product.price)
     end
     
-  end  
+  end
+
+  # obter preço total
+  def total_price
+    total = 0
+    
+    if self.cart_items.count > 0
+      total = self.cart_items.sum("price * quantity") + self.total_shipping_costs
+    end
+
+    total
+  end
+
+  # obter peso total dos itens do carrinho
+  def total_weight
+    total = 0
+    
+    self.cart_items.each do |item|
+      total += item.quantity * item.product.weight
+    end
+
+    total
+  end
+
+  # obter total de portes de envio
+  def total_shipping_costs
+    total_costs = 0
+
+    if self.cart_items.count > 0
+      total_costs = ShippingCost.where("weight >= ?", self.total_weight).order("weight").first.price
+    end
+
+    total_costs
+  end
+
+  # obter valor do envio à cobrança
+  def total_charge_costs
+    total = 0
+
+    if self.total_weight == 0
+      total = 0
+    elsif self.total_weight <= 5000
+      total = 1.2
+    elsif self.total_weight <= 10000
+      total = 2.5
+    end
+
+    total
+  end
 
 end

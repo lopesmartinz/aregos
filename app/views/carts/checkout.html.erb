@@ -1,22 +1,24 @@
-<% if !user_is_signed_in? && exists_pending_cart? %>
+<div class="checkout">
+	<% if !user_is_signed_in? && exists_pending_cart? %>
 
-	<h1>Finalizar Processo de Encomenda</h1>	
+		<h1>Finalizar Processo de Encomenda</h1>	
 
-	<div><%= render "shared/cart" %></div>
+		<div><%= render "shared/cart" %></div>
 
-	<div class="errors_list">
-		<ul>				
-			<li>Para finalizar o processo de encomenda necessita de estar registado e autenticado!</li>				
-		</ul>
-	</div>
-	
-	<div class="aditional_info">		
-		<p>
-			<span class="highlight">Utilizador já Registado? <%= link_to "Faça aqui o seu Login!", signin_path %></span>
-		</p>
-		<p>
-			<span class="highlight">Utilizador não Registado? <%= link_to "Registe-se Agora!", signup_path %></span>
-		</p>
-	</div>
+		<div class="errors_list">
+			<ul>				
+				<li>Para finalizar o processo de encomenda necessita de estar registado e autenticado!</li>				
+			</ul>
+		</div>
+		
+		<div class="aditional_info">		
+			<p>
+				<span class="highlight">Utilizador já Registado? <%= link_to "Faça aqui o seu Login!", signin_path %></span>
+			</p>
+			<p>
+				<span class="highlight">Utilizador não Registado? <%= link_to "Registe-se Agora!", signup_path %></span>
+			</p>
+		</div>
 
-<% end %>
+	<% end %>
+</div>

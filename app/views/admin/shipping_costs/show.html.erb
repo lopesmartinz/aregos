@@ -1,0 +1,12 @@
+<div class="detail shipping_costs">
+
+	<div class="label">Peso (gramas)</div>
+	<div class="value"><%= @shipping_cost.weight %></div>
+	<div class="label">Preço</div>
+	<div class="value"><%= @shipping_cost.price %></div>
+
+	<div class="actions_wrapper">
+		<div class="action_button"><%= button_to "Editar", {:controller => "admin/shipping_costs", :action => :edit, :id => @shipping_cost.id}, :method => :get %></div>
+		<div class="action_button"><%= button_to "Apagar", {:controller => "admin/shipping_costs", :action => :destroy, :id => @shipping_cost.id}, :method => :delete %></div>
+	</div>
+</div>

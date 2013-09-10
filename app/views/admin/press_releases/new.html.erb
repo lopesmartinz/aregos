@@ -1,0 +1,20 @@
+<div class="form_field">
+
+	<%= form_for(@press_release, :url => {:controller => "admin/press_releases", :action => :create}, :method => :post) do |f| %>
+		<%= f.label :entity, "Entidade" %>
+		<%= f.text_field :entity %>
+
+		<%= f.label :date, "Data" %>
+		<%= f.text_field :date %>
+
+		<%= f.label :description, "Descrição" %>
+		<%= f.text_area :description, class: "tinymce" %>		
+		
+		<div class="actions_wrapper">
+			<div class="action_button">
+				<%= f.submit "Inserir" %>
+			</div>
+		</div>
+	<% end %>
+
+</div>

@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   
 	attr_accessible :user_id, :address_line_1, :address_line_2, :zip_code,
-		:city, :country, :payment_method_id
+		:city, :country, :payment_method_id, :shipping_costs, :charge_costs
 
 	attr_accessor :first_name, :last_name,
 		:card_type, :card_number,
@@ -46,19 +46,19 @@ class Order < ActiveRecord::Base
 	validates :payment_method_id, presence: true
 
 	validates_presence_of :first_name,
-		:if => Proc.new { |o| o.payment_method_id == 1 }
+		:if => Proc.new { |o| o.payment_method_id == 3 }
 
 	validates_presence_of :last_name,
-		:if => Proc.new { |o| o.payment_method_id == 1 }
+		:if => Proc.new { |o| o.payment_method_id == 3 }
 
 	validates_presence_of :card_type,
-		:if => Proc.new { |o| o.payment_method_id == 1 }
+		:if => Proc.new { |o| o.payment_method_id == 3 }
 
 	validates_presence_of :card_number,
-		:if => Proc.new { |o| o.payment_method_id == 1 }
+		:if => Proc.new { |o| o.payment_method_id == 3 }
 
 	validates_presence_of :card_number,
-		:if => Proc.new { |o| o.payment_method_id == 1 }
+		:if => Proc.new { |o| o.payment_method_id == 3 }
 
 
 
@@ -73,9 +73,20 @@ class Order < ActiveRecord::Base
 		order_items.create(product_id: cart_item.product_id, quantity: cart_item.quantity, price: cart_item.price)
 	end
 
+	# obter próxima acção possível sobre a encomenda
+	def next_order_action
+		previous_action = self.order_action_items.last
+		next_actions = OrderAction.where("related_payment_methods like ? AND id > ?", "%#{self.payment_method_id}%", previous_action.order_action_id).order("id ASC")
+
+		next_action = nil
+		next_action = next_actions.first unless next_actions.count == 0
+
+		next_action
+	end
+
 	# valida os dados do cartão de crédito e se tem fundos
 	def validate_credit_card
-		if self.payment_method_id == 1
+		if self.payment_method_id == 3
 			credit_card_data_is_valid?
 			credit_card_has_enough_founds?
 		end
@@ -120,11 +131,11 @@ class Order < ActiveRecord::Base
 		end
 
 		response.success?
-	end
+	end	
 
 	# tenta cobrar o valor da encomenda no cartão de crédito	
 	def charge_credit_card
-		if self.payment_method_id == 1
+		if self.payment_method_id == 3
 			# usa a gateway (constante) defida em "config/environments"	
 			response = GATEWAY.purchase(1000, credit_card)
 			
@@ -144,6 +155,12 @@ class Order < ActiveRecord::Base
 	##################################
 	private
 	def add_reference
-		self.reference = "ARGS#{Order.count + 1}"
+		ref = 0
+
+		if Order.count > 0
+			ref = Order.count + 1
+		end
+
+		self.reference = "DRMMRS#{ref}"
 	end
 end

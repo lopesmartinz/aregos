@@ -1,0 +1,12 @@
+<div class="press">
+	<h1>Imprensa</h1>
+	<ul>
+		<% @press_releases.each do |pr| %>
+			<li class="two_columns_content_wrapper">
+				<h2><%= pr.entity %></h2>
+				<p><%= pr.date %></p>
+				<p><%= raw pr.description %></p>
+			</li>			
+		<% end %>
+	</ul>
+</div>

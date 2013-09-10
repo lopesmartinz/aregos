@@ -47,6 +47,27 @@ class Admin::OrdersController < ApplicationController
 
 		order.order_action_items.create(:order_action => order_action)
 
+		# envio dos e-mails correspondentes a cada acção
+		# e-mail de confirmação da recepção do pagamento
+		if order_action.id == 3
+			Emails.order_payment_received(order.user, order).deliver
+		end
+
+		# e-mail de início do processamento da encomenda
+		if order_action.id == 4
+			Emails.order_process_start(order.user, order).deliver
+		end
+
+		# e-mail de confirmação do envio da encomenda
+		if order_action.id == 5
+			Emails.order_sent(order.user, order).deliver
+		end
+
+		# e-mail de conclusão da encomenda
+		if order_action.id == 6
+			Emails.order_closed(order.user, order).deliver
+		end
+
 		redirect_to admin_order_path	
 	end
 

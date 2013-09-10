@@ -1,21 +1,20 @@
 <div class="products">
 	<h1>Produtos</h1>
+
 	<table cellspacing="0" class="table">
 		<tr class="table_row_header">
-			<th class="name">Nome</th>		
+			<th class="left_table_column name">Nome</th>		
 			<th class="price">Preço</th>
-			<th class="stock_count">Número em Stock</th>
 			<th class="is_active">Activo</th>
 			<th class="actions"></th>
 		</tr>
 
 		<% @products.each do |p| %>
 			<tr class="table_row_item">
-				<td class="name">
+				<td class="left_table_column name">
 					<%= link_to p.name, {:controller => "admin/products", :action => :show, :id => p.id}, :method => :get %>
 				</td>
 				<td class="price"><%= p.price %></td>
-				<td class="stock_count"><%= p.stock_count %></td>
 				<td class="is_active"><%= p.is_active? ? "Sim" : "Não" %></td>
 				<td class="actions">
 					<div class="action_button"><%= button_to "Editar", {:controller => "admin/products", :action => :edit, :id => p.id}, :method => :get %></div>

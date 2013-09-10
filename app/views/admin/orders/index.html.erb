@@ -1,21 +1,33 @@
-<h1>Compras</h1>
+<div class="orders">
+	<h1>Encomendas</h1>
 
-<table cellspacing="0" class="table orders">
-	<tr class="table_row_header">
-		<th class="left_table_column reference">Referência</th>		
-		<th class="creation_date">Data</th>
-		<th class="right_table_column status">Estado</th>
-	</tr>
+	<table cellspacing="0" class="table">
+		<tr class="table_row_header">
+			<th class="left_table_column reference">Referência</th>		
+			<th class="creation_date">Data</th>
+			<th class="payment_method">Método de Pagamento</th>
+			<th class="right_table_column status">Estado</th>
+		</tr>
 
-	<% @orders.each do |order| %>
-		<tr class="table_row_item">		
-			<td class="left_table_column reference"><%= link_to order.reference, [:admin, order] %></td>			
-			<td class="creation_date"><%= order.created_at.strftime("%Y-%m-%d") %></td>
-			<td class="right_table_column status"><%= order.order_actions.last.status unless order.order_actions.last.nil? %></td>
-	    </tr>
-	<% end %>
-
-	<tr class="table_row_footer">
-		<td colspan="2" class="left_table_column"></td>
-		<td class="right_table_column"></td>	
-</table>
+		<% @orders.each do |order| %>
+			<tr class="table_row_item">		
+				<td class="left_table_column reference"><%= link_to order.reference, [:admin, order] %></td>			
+				<td class="creation_date"><%= order.created_at.strftime("%Y-%m-%d") %></td>
+				<td class="payment_method"><%= order.payment_method.name %></td>
+				<td class="right_table_column status">
+					<% if order.order_actions.last.id == 1 %>
+						<span class="new_order">
+					<% elsif order.order_actions.last.id == 2  %>
+						<span class="dependent_from_client">
+					<% elsif order.order_actions.last.id == 3 || order.order_actions.last.id == 4 || order.order_actions.last.id == 5 %>
+						<span class="dependent_from_seller">
+					<% end %>
+					<%= order.order_actions.last.status unless order.order_actions.last.nil? %>
+					<% if order.order_actions.last.id != 6 %>
+						</span>
+					<% end %>
+				</td>
+		    </tr>
+		<% end %>
+	</table>
+</div>

@@ -1,15 +1,15 @@
-<div class="products">
-	<h1>Partners</h1>
+<div class="partners">
+	<h1>Parceiros</h1>
+
 	<table cellspacing="0" class="table">
 		<tr class="table_row_header">
-			<th>Nome</th>	
-			
+			<th class="left_table_column name">Nome</th>			
 			<th class="actions"></th>
 		</tr>
 
 		<% @partners.each do |p| %>
 			<tr class="table_row_item">
-				<td>
+				<td class="left_table_column name">
 					<%= link_to p.name, {:controller => "admin/partners", :action => :show, :id => p.id}, :method => :get %>
 				</td>				
 				<td class="actions">

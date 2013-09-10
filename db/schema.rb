@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130831144430) do
+ActiveRecord::Schema.define(:version => 20130910140453) do
 
   create_table "cart_items", :force => true do |t|
     t.integer  "product_id"
@@ -51,10 +51,11 @@ ActiveRecord::Schema.define(:version => 20130831144430) do
   end
 
   create_table "order_actions", :force => true do |t|
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.string   "action_name"
     t.string   "status"
+    t.string   "related_payment_methods"
   end
 
   create_table "order_items", :force => true do |t|
@@ -69,14 +70,16 @@ ActiveRecord::Schema.define(:version => 20130831144430) do
   create_table "orders", :force => true do |t|
     t.string   "reference"
     t.integer  "user_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "address_line_1",    :null => false
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+    t.string   "address_line_1",                                                   :null => false
     t.string   "address_line_2"
-    t.string   "zip_code",          :null => false
-    t.string   "city",              :null => false
+    t.string   "zip_code",                                                         :null => false
+    t.string   "city",                                                             :null => false
     t.string   "country"
     t.integer  "payment_method_id"
+    t.decimal  "shipping_costs",    :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "charge_costs",      :precision => 8, :scale => 2, :default => 0.0
   end
 
   add_index "orders", ["reference"], :name => "index_orders_on_reference", :unique => true
@@ -95,17 +98,34 @@ ActiveRecord::Schema.define(:version => 20130831144430) do
     t.string   "name"
   end
 
+  create_table "press_releases", :force => true do |t|
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "entity"
+    t.string   "date"
+    t.string   "description"
+  end
+
   create_table "products", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",                                                   :null => false
-    t.datetime "updated_at",                                                   :null => false
-    t.decimal  "price",       :precision => 8, :scale => 2
-    t.boolean  "is_active",                                 :default => false
-    t.integer  "stock_count",                               :default => 0
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+    t.decimal  "price",           :precision => 8, :scale => 2
+    t.boolean  "is_active",                                     :default => false
+    t.integer  "stock_count",                                   :default => 0
     t.text     "abstract"
     t.string   "picture"
     t.string   "thumbnail"
+    t.integer  "priority_number",                               :default => 0
+    t.integer  "weight",                                        :default => 0
+  end
+
+  create_table "shipping_costs", :force => true do |t|
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+    t.integer  "weight",                                   :default => 0
+    t.decimal  "price",      :precision => 8, :scale => 2, :default => 0.0
   end
 
   create_table "users", :force => true do |t|

@@ -11,11 +11,10 @@
 .order .table_row_header .quantity, .order .table_row_item .quantity {
 	text-align: center;
 }
-.order .table_row_header .price {
-	width: 6.5em;
-	text-align: center;
+.order .price {
+	text-align: right;
 }
-.order .table_row_item .price {
+.order .table_row_header .sub_total, .order .table_row_item .sub_total {
 	text-align: right;
 }
 
@@ -25,4 +24,16 @@
 .order .total_value {
 	margin-left: 0.5em;
 	color: #cc9933;
+}
+.order tr.table_row_shipping_costs td {
+	padding: 0.5em;
+	font-size: 0.9em;
+	min-height: 3em;
+	border-bottom: 1px dotted #ccc;
+}
+.order tr.table_row_shipping_costs td.left_table_column {
+	border-left: 1px dotted #ddd;
+}
+.order tr.table_row_shipping_costs td.right_table_column {
+	border-right: 1px dotted #ddd;
 }

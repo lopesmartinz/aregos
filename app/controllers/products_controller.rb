@@ -1,7 +1,9 @@
+# encoding: utf-8
+
 class ProductsController < ApplicationController
  	
  	# definição do layout
-	layout :resolve_layout
+	layout "inner_page"
 
 	
 	##################################
@@ -11,7 +13,7 @@ class ProductsController < ApplicationController
 	# GET
 	# Obter produtos válidos
 	def index
-		@products = Product.where("stock_count > 0 AND is_active = true")
+		@products = Product.where("is_active = true").order("priority_number ASC")
 	end
 
 
@@ -28,23 +30,7 @@ class ProductsController < ApplicationController
 	#### ACCÕES EXTRA
 	##################################
 	def highlights
-		@products = Product.where("stock_count > 0 AND is_active = true")
-	end
-
-
-
-
-	##################################
-	#### MÉTODOS PRIVADOS
-	##################################
-	private
-	def resolve_layout
-		case action_name
-	    when "show"
-	      "detail_page"		    
-	    else
-	      "inner_page"
-	    end		
+		@products = Product.where("is_active = true").order("priority_number ASC")
 	end
 
 end
