@@ -1,14 +1,22 @@
-<style>
-.product img {
-	border: 1px dotted #fff;
-}
-</style>
-
 <div class="product">
 	<h1><%= link_to @product.name, p %></h1>				
 	
-	<div style="display: inline-block; width:300px; vertical-align: top; margin-right: 14px;">
-		<div class="image"><%= image_tag("/images/products/" + @product.thumbnail, :width => "300") unless @product.thumbnail.nil?  %></div>			
+	<div class="left_column_wrapper">
+		<div class="image">
+			<div id="product_pictures_showcase" class="showcase">		
+				<div class="showcase-slide">
+					<div class="showcase-content">
+						<%= image_tag("/images/products/" + @product.picture_1, :width => "300") unless @product.picture_1.nil?  %>
+					</div>
+				</div>
+				<div class="showcase-slide">
+					<div class="showcase-content">
+						<%= image_tag("/images/products/" + @product.picture_2, :width => "300") unless @product.picture_2.nil?  %>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="price_wrapper">
 			<div class="price"><%= number_to_currency(@product.price, :unit => "€", format: "%n %u") %></div>				
 			<div class="price_extra_info">mais portes de envio</div>
@@ -20,5 +28,30 @@
 		</div>
 	</div>
 
-	<div style="display: inline-block; width:520px; vertical-align: top;"><%= raw @product.description %></div>
+	<div class="right_column_wrapper"><%= raw @product.description %>
+	</div>
 </div>
+
+
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$("#product_pictures_showcase").awShowcase(
+		{
+			content_width:			300,
+			content_height:			175,
+			fit_to_parent:			false,
+			auto:					true,
+			interval:				6000,
+			continuous:				true,
+			arrows:					false,
+			buttons:				false,
+			pauseonover: 			false,
+			stoponclick: 			false,
+			transition:				'hslide', /* hslide/vslide/fade */
+			transition_delay:		300,
+			transition_speed:		1000,
+			speed_change:			true
+		});
+	});
+</script>

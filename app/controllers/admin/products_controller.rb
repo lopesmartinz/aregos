@@ -60,30 +60,54 @@ class Admin::ProductsController < ApplicationController
 		@product.priority_number = params[:product][:priority_number]	
 		@product.is_active = params[:product][:is_active]
 
-		# upload da imagem
-		if !params[:product][:picture].nil?
-			# o nome da imagem será o id do produto
-			product_id = 1
-			product_id = Product.last.id + 1 unless Product.last.nil?
+		product_id = 1
+		product_id = Product.last.id + 1 unless Product.last.nil?
 
-			file_extension = File.extname(params[:product][:picture].original_filename)
-			file_new_name = "#{product_id}#{file_extension}"
-			@product.picture = file_new_name
+		# upload das imagens
+		# o nome das imagens será "product_" + "id do produto" + "_picture_" + "numero da imagem"
+		# picture_1
+		if !params[:product][:picture_1].nil?
+			file_extension = File.extname(params[:product][:picture_1].original_filename)
+			file_new_name = "product_#{product_id}_picture_1#{file_extension}"
+			@product.picture_1 = file_new_name
 			
-			upload_image(params[:product][:picture], "public/images/products/", file_new_name)
+			upload_image(params[:product][:picture_1], "public/images/products/", file_new_name)
+		end
+
+		# picture_2
+		if !params[:product][:picture_2].nil?
+			file_extension = File.extname(params[:product][:picture_2].original_filename)
+			file_new_name = "product_#{product_id}_picture_2#{file_extension}"
+			@product.picture_2 = file_new_name
+			
+			upload_image(params[:product][:picture_2], "public/images/products/", file_new_name)
+		end
+
+		# picture_3
+		if !params[:product][:picture_3].nil?
+			file_extension = File.extname(params[:product][:picture_3].original_filename)
+			file_new_name = "product_#{product_id}_picture_3#{file_extension}"
+			@product.picture_3 = file_new_name
+			
+			upload_image(params[:product][:picture_3], "public/images/products/", file_new_name)
+		end
+
+		# picture_4
+		if !params[:product][:picture_4].nil?
+			file_extension = File.extname(params[:product][:picture_4].original_filename)
+			file_new_name = "product_#{product_id}_picture_4#{file_extension}"
+			@product.picture_4 = file_new_name
+			
+			upload_image(params[:product][:picture_4], "public/images/products/", file_new_name)
 		end
 
 		# upload do thumbnail
+		# o nome do thumbnail será "product_" + "id do produto" + "_thumbnail"
 		if !params[:product][:thumbnail].nil?
-			# o nome do thumbnail será o id do produto + "_thumbnail"
-			product_id = 1
-			product_id = Product.last.id + 1 unless Product.last.nil?
-
 			file_extension = File.extname(params[:product][:thumbnail].original_filename)
-			file_new_name = "#{@product.id}_thumbnail#{file_extension}"
+			file_new_name = "product_#{@product.id}_thumbnail#{file_extension}"
 			@product.thumbnail = file_new_name
 
-			# upload da imagem
 			upload_image(params[:product][:thumbnail], "public/images/products/", file_new_name)
 		end
 
@@ -109,24 +133,53 @@ class Admin::ProductsController < ApplicationController
 		@product.priority_number = params[:product][:priority_number]		
 		@product.is_active = params[:product][:is_active]
 
-		# upload da imagem
-		if !params[:product][:picture].nil?
-			file_extension = File.extname(params[:product][:picture].original_filename)
-			file_new_name = "#{@product.id}#{file_extension}"
-			@product.picture = file_new_name
+		# upload das imagens
+		# o nome das imagens será "product_" + "id do produto" + "_picture_" + "numero da imagem"
+		# picture_1
+		if !params[:product][:picture_1].nil?
+			file_extension = File.extname(params[:product][:picture_1].original_filename)
+			file_new_name = "product_#{@product.id}_picture_1#{file_extension}"
+			@product.picture_1 = file_new_name
 			
-			upload_image(params[:product][:picture], "public/images/products/", file_new_name)
+			upload_image(params[:product][:picture_1], "public/images/products/", file_new_name)
+		end
+
+		# picture_2
+		if !params[:product][:picture_2].nil?
+			file_extension = File.extname(params[:product][:picture_2].original_filename)
+			file_new_name = "product_#{@product.id}_picture_2#{file_extension}"
+			@product.picture_2 = file_new_name
+			
+			upload_image(params[:product][:picture_2], "public/images/products/", file_new_name)
+		end
+
+		# picture_3
+		if !params[:product][:picture_3].nil?
+			file_extension = File.extname(params[:product][:picture_3].original_filename)
+			file_new_name = "product_#{@product.id}_picture_3#{file_extension}"
+			@product.picture_3 = file_new_name
+			
+			upload_image(params[:product][:picture_3], "public/images/products/", file_new_name)
+		end
+
+		# picture_4
+		if !params[:product][:picture_4].nil?
+			file_extension = File.extname(params[:product][:picture_4].original_filename)
+			file_new_name = "product_#{@product.id}_picture_4#{file_extension}"
+			@product.picture_4 = file_new_name
+			
+			upload_image(params[:product][:picture_4], "public/images/products/", file_new_name)
 		end
 
 		# upload do thumbnail
+		# o nome do thumbnail será "product_" + "id do produto" + "_thumbnail"
 		if !params[:product][:thumbnail].nil?
 			file_extension = File.extname(params[:product][:thumbnail].original_filename)
-			file_new_name = "#{@product.id}_thumbnail#{file_extension}"
+			file_new_name = "product_#{@product.id}_thumbnail#{file_extension}"
 			@product.thumbnail = file_new_name
 
-			# upload da imagem
 			upload_image(params[:product][:thumbnail], "public/images/products/", file_new_name)
-		end	
+		end
 
 		if @product.save
 			render :show, :id => @product.id

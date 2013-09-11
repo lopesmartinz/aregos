@@ -1,46 +1,56 @@
-<h1>Compra - <%= @order.reference %></h1>
+<div class="order">
+	<h1>Compra - <%= @order.reference %></h1>
 
-<table cellspacing="0" class="table order">
-	<tr class="table_row_header">
-		<th class="left_table_column product">Produto</th>
-		<th class="price">Preço Unitário</th>	
-		<th class="quantity">Quantidade</th>		
-		<th class="right_table_column sub_total">Sub-Total</th>
-	</tr>
-
-	<% @order.order_items.each do |item| %>
-		<tr class="table_row_item">		
-			<td class="left_table_column name"><%= item.product.name %></td>
-			<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>			
-			<td class="quantity"><%= item.quantity %></td>			
-			<td class="right_table_column sub_total"><%= number_to_currency(item.price * item.quantity, :unit => "€", format: "%n %u") %></td>
-	    </tr>
-	<% end %>
-
-	<tr class="table_row_shipping_costs">
-		<td colspan="3" class="left_table_column">Portes de Envio</td>
-		<td class="right_table_column price"><%= number_to_currency(@order.shipping_costs, :unit => "€", format: "%n %u") %></td>
-	</tr>
-
-	<% if @order.payment_method_id == 2 %>
-		<tr class="table_row_shipping_costs charge_costs">
-			<td colspan="3" class="left_table_column">Custos de Envio à Cobrança</td>
-			<td class="right_table_column price"><%= number_to_currency(@order.charge_costs, :unit => "€", format: "%n %u") %></td>
+	<table cellspacing="0" class="table">
+		<tr class="table_row_header">
+			<th class="left_table_column product">Produto</th>
+			<th class="price">Preço Unitário</th>	
+			<th class="quantity">Quantidade</th>		
+			<th class="right_table_column sub_total">Sub-Total</th>
 		</tr>
-	<% end %>
 
-	<tr class="table_row_footer">
-		<td colspan="3" class="left_table_column"></td>
-		<td class="right_table_column">
-			<span class="total_label">Total</span>					
-			<span class="total_value"><%= number_to_currency((@order.order_items.sum("price * quantity") + @order.shipping_costs + @order.charge_costs), :unit => "€", format: "%n %u") %></span>
-		</td>
-	</tr>
-</table>
+		<% @order.order_items.each do |item| %>
+			<tr class="table_row_item">		
+				<td class="left_table_column name"><%= item.product.name %></td>
+				<td class="price"><%= number_to_currency(item.price, :unit => "€", format: "%n %u") %></td>			
+				<td class="quantity"><%= item.quantity %></td>			
+				<td class="right_table_column sub_total"><%= number_to_currency(item.price * item.quantity, :unit => "€", format: "%n %u") %></td>
+		    </tr>
+		<% end %>
 
-<div class="aditional_info">
-	<p><strong>Dados da Entrega</strong></p>
-	<p>Morada: <%= @order.address_line_1 %></p>
-	<p>Código Postal: <%= @order.zip_code %></p>
-	<p>Localidade: <%= @order.city %></p>		
+		<tr class="table_row_shipping_costs">
+			<td colspan="3" class="left_table_column">Portes de Envio</td>
+			<td class="right_table_column price"><%= number_to_currency(@order.shipping_costs, :unit => "€", format: "%n %u") %></td>
+		</tr>
+
+		<% if @order.payment_method_id == 2 %>
+			<tr class="table_row_shipping_costs charging_costs">
+				<td colspan="3" class="left_table_column">Custos de Envio à Cobrança</td>
+				<td class="right_table_column price"><%= number_to_currency(@order.charging_costs, :unit => "€", format: "%n %u") %></td>
+			</tr>
+		<% end %>
+
+		<tr class="table_row_footer">
+			<td colspan="3" class="left_table_column"></td>
+			<td class="right_table_column">
+				<span class="total_label">Total</span>					
+				<span class="total_value"><%= number_to_currency((@order.order_items.sum("price * quantity") + @order.shipping_costs + @order.charging_costs), :unit => "€", format: "%n %u") %></span>
+			</td>
+		</tr>
+	</table>
+
+	<div class="aditional_info">
+		<strong>Local de Entrega</strong>
+		<p>			
+			Morada: <%= @order.address_line_1 %><br/>
+			Código Postal: <%= @order.zip_code %><br/>
+			Localidade: <%= @order.city %>
+		</p>		
+	</div>
+
+	<div class="actions_wrapper">
+		<div class="action_button">
+			<%= link_to "Imprimir", "#", onclick: "window.print()" %>
+		</div>
+	</div>
 </div>

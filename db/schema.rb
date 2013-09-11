@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130910140453) do
+ActiveRecord::Schema.define(:version => 20130911211414) do
 
   create_table "cart_items", :force => true do |t|
     t.integer  "product_id"
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(:version => 20130910140453) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "cart_status_id"
+  end
+
+  create_table "charging_costs", :force => true do |t|
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+    t.integer  "weight",                                   :default => 0
+    t.decimal  "price",      :precision => 8, :scale => 2, :default => 0.0
   end
 
   create_table "general_interactions", :force => true do |t|
@@ -79,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20130910140453) do
     t.string   "country"
     t.integer  "payment_method_id"
     t.decimal  "shipping_costs",    :precision => 8, :scale => 2, :default => 0.0
-    t.decimal  "charge_costs",      :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "charging_costs",    :precision => 8, :scale => 2, :default => 0.0
   end
 
   add_index "orders", ["reference"], :name => "index_orders_on_reference", :unique => true
@@ -115,10 +122,13 @@ ActiveRecord::Schema.define(:version => 20130910140453) do
     t.boolean  "is_active",                                     :default => false
     t.integer  "stock_count",                                   :default => 0
     t.text     "abstract"
-    t.string   "picture"
+    t.string   "picture_1"
     t.string   "thumbnail"
     t.integer  "priority_number",                               :default => 0
     t.integer  "weight",                                        :default => 0
+    t.string   "picture_2"
+    t.string   "picture_3"
+    t.string   "picture_4"
   end
 
   create_table "shipping_costs", :force => true do |t|

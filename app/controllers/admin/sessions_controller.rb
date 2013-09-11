@@ -37,7 +37,7 @@ class Admin::SessionsController < ApplicationController
 			# alerta para user autenticado com sucesso
       		flash[:notice] = "Bem vindo #{@user.name}"
 
-      		redirect_to admin_products_path			
+      		redirect_to admin_orders_path			
 		else
 			# adicionar tentiva de login falhada
 			if !@user.nil?

@@ -15,9 +15,12 @@
 	margin-bottom: 0.2em;
 	padding: 0.5em 0.2em 0 0.2em;
 	background-color: #fff;
+	border-top: 1px dotted #ddd;
+	border-bottom: 1px dotted #ddd;
 }
 .products .image img {
-	border: 0;
+	border-top: 1px dotted #e5e5e5;
+	border-bottom: 1px dotted #ddd;
 }
 .products .price_wrapper {
 	border-top: 1px dotted #d5d5d5;
@@ -38,9 +41,20 @@
 }
 
 /*DETALHE DE PRODUTOS */
-
+.product .left_column_wrapper {
+	display: inline-block;
+	width:300px;
+	vertical-align: top;
+	margin-right: 14px;
+}
+.product .right_column_wrapper {
+	display: inline-block;
+	width:520px;
+	vertical-align: top;
+}
 .product .image img {
-	border: 1px dotted #ddd;
+	border-top: 1px dotted #ddd;
+	border-bottom: 1px dotted #ddd;
 }
 .product .price_wrapper {
 	border-top: 1px dotted #ddd;

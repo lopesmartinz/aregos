@@ -12,10 +12,18 @@
 	<div class="value"><%= @product.weight %></div>
 	<div class="label">Número em Stock</div>
 	<div class="value"><%= @product.stock_count %></div>
+
 	<div class="label">Thumbnail</div>
 	<div class="value"><%= image_tag("/images/products/" + @product.thumbnail, :width => "100") unless @product.thumbnail.nil?  %></div>
-	<div class="label">Imagem</div>
-	<div class="value"><%= image_tag("/images/products/" + @product.picture, :width => "100") unless @product.picture.nil?  %></div>
+	<div class="label">Imagem 1</div>
+	<div class="value"><%= image_tag("/images/products/" + @product.picture_1, :width => "100") unless @product.picture_1.nil?  %></div>
+	<div class="label">Imagem 2</div>
+	<div class="value"><%= image_tag("/images/products/" + @product.picture_2, :width => "100") unless @product.picture_2.nil?  %></div>
+	<div class="label">Imagem 3</div>
+	<div class="value"><%= image_tag("/images/products/" + @product.picture_3, :width => "100") unless @product.picture_3.nil?  %></div>
+	<div class="label">Imagem 4</div>
+	<div class="value"><%= image_tag("/images/products/" + @product.picture_4, :width => "100") unless @product.picture_4.nil?  %></div>
+
 	<div class="label">Ordem</div>
 	<div class="value"><%= @product.priority_number %></div>
 	<div class="label">Activo</div>

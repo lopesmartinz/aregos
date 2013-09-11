@@ -18,8 +18,8 @@ pt:
         password: "Password"
         password_confirmation: "Confirmação da Password"
       order:
-        address_line_1: "Endereço"
-        address_line_2: "Endereço"
+        address_line_1: "Morada"
+        address_line_2: "Morada"
         zip_code: "Código Postal"
         city: "Localidade"
         country: "País"
@@ -49,6 +49,14 @@ pt:
               confirmation: "e Confirmação da Password não coincidem"
               invalid: "deve incluir pelo menos uma letra e pelo menos um número"
             password_confirmation:
+              blank: "é obrigatória"
+        order:
+          attributes:
+            address_line_1:
+              blank: "é obrigatória"
+            zip_code:
+              invalid: "deve ter o formato 0000-000"
+            city:
               blank: "é obrigatória"
         general_interaction:
           attributes:

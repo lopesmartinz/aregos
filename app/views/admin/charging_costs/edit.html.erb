@@ -1,0 +1,16 @@
+<div class="form_field">
+
+	<%= form_for(@charging_cost, :url => {:contoller => "admin/charging_costs", :action => :update, :id => @charging_cost.id}, :method => :put) do |f| %>
+		<%= f.label :weight, "Peso (gramas)" %>
+		<%= f.text_field :weight %>
+		<%= f.label :price, "Preço" %>
+		<%= f.text_field :price %>
+
+		<div class="actions_wrapper">
+			<div class="action_button">
+				<%= f.submit "Actualizar" %>
+			</div>
+		</div>
+	<% end %>
+	
+</div>

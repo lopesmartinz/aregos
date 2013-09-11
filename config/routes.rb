@@ -71,6 +71,7 @@ Aregos::Application.routes.draw do
     resources :partners
     resources :press_releases
     resources :shipping_costs
+    resources :charging_costs
     resources :orders do
       # "member" permite adicionar acções extra ao recurso (para além das default)
       member do

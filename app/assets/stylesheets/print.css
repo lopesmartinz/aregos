@@ -1,0 +1,39 @@
+/* CLASSES PARA IMPRESSÃO */
+
+.user_area, .main_menu_wrapper, .banner_background, .actions_wrapper {
+	display: none;
+}
+.header_wrapper {
+	border-bottom: 1px solid #999;
+	margin-bottom: 1cm;
+}
+.content_wrapper {
+	font-family: Arial, Verdana;
+	font-size: 12pt;
+}
+h1 {
+	font-size: 16pt;
+}
+.table {
+	width: 100%;
+	border: 1px solid #999;
+}
+.table tr th {
+	padding: 0.2cm;
+	border: 1px solid #999;
+}
+
+.table tr td {
+	padding: 0.2cm;
+	font-size: 0.9em;
+	border: 1px solid #999;
+}
+.aditional_info {
+	margin-top: 1cm;
+	padding: 0.5cm 0;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+}
+.aditional_info p {
+	margin: 0.2cm 0 0 0;
+}		

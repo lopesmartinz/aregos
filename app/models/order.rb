@@ -29,8 +29,10 @@ class Order < ActiveRecord::Base
 	##################################
 
   	before_save :add_reference
-  	before_save :validate_credit_card
-  	after_save :charge_credit_card
+
+  	# validações do cartão de crédito
+  	#before_save :validate_credit_card
+  	#after_save :charge_credit_card
 
 
 
@@ -40,11 +42,19 @@ class Order < ActiveRecord::Base
 
 	validates :reference, uniqueness: true
 	validates :address_line_1, presence: true
-	validates :zip_code, presence: true
+
+	VALID_ZIPCODE_REGEX = /\A\d{4}-\d{3}\z/i
+  	validates_presence_of :zip_code
+
+          validates_format_of :zip_code,
+            :with => VALID_ZIPCODE_REGEX,
+            :if => Proc.new { |o| o.zip_code.present? }
+
 	validates :city, presence: true
 	validates :country, presence: true
 	validates :payment_method_id, presence: true
 
+	# validações do cartão de crédito
 	validates_presence_of :first_name,
 		:if => Proc.new { |o| o.payment_method_id == 3 }
 
@@ -59,6 +69,7 @@ class Order < ActiveRecord::Base
 
 	validates_presence_of :card_number,
 		:if => Proc.new { |o| o.payment_method_id == 3 }
+
 
 
 

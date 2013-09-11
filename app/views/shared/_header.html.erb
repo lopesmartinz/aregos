@@ -3,7 +3,7 @@
 	<div class="user_area">
 		<ul class="user_menu">
 			<% if !current_cart.nil? %>
-				<li><%= link_to "Carrinho de Compras", carts_path %></li>
+				<li><%= link_to "Carrinho de Compras", carts_path, class: "shopping_cart" %><span class="cart_items_count"><%= current_cart.cart_items.count %></span></li>
 			<% end %>
 
 			<% if user_is_signed_in? %>

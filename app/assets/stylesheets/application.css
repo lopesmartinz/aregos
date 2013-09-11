@@ -149,11 +149,23 @@ ul.user_menu li a, ul.user_menu li input[type="submit"] {
 	color: #cc9933;
 	background: none;
 	border: 0;
-	padding: 0 28px;
+	padding: 3px 28px 0 28px;
 }
 ul.user_menu li a, ul.user_menu li a:hover, ul.user_menu li a:visited {
 	text-decoration: none;
 	color: #cc9933;
+}
+ul.user_menu li a.shopping_cart {
+	padding: 3px 7px 0 28px;
+}
+ul.user_menu li span.cart_items_count {
+	font-family: "Candara", "Arial", "DejaVu Sans";
+	font-size: 0.9em;
+	background-color: #bbb;
+	color: #fff;
+	border-radius: 0.3em;
+	padding: 3px 14px 0 14px;
+	margin-right: 28px;
 }
 ul.main_menu {
 	clear: both;
@@ -255,7 +267,7 @@ tr.table_row_footer td.right_table_column {
 }
 .form_field input[type="text"], .form_field input[type="password"], .form_field select, .form_field textarea {
 	/*background-color: #f9f9f9;*/
-	background-color: #f7f7f7;
+	background-color: #f8f8f8;
 	border: 2px dotted #ddd;
  	border-radius: 0.4em;
  	margin-bottom: 1em;

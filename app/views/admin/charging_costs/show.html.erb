@@ -1,0 +1,12 @@
+<div class="detail charging_costs">
+
+	<div class="label">Peso (gramas)</div>
+	<div class="value"><%= @charging_cost.weight %></div>
+	<div class="label">Preço</div>
+	<div class="value"><%= @charging_cost.price %></div>
+
+	<div class="actions_wrapper">
+		<div class="action_button"><%= button_to "Editar", {:controller => "admin/charging_costs", :action => :edit, :id => @charging_cost.id}, :method => :get %></div>
+		<div class="action_button"><%= button_to "Apagar", {:controller => "admin/charging_costs", :action => :destroy, :id => @charging_cost.id}, :method => :delete %></div>
+	</div>
+</div>

@@ -127,7 +127,7 @@ tr.table_row_footer td {
 }
 
 .products td.actions, .orders td.actions, .partners td.actions,
- .press_releases td.actions, .shipping_costs td.actions  {
+ .press_releases td.actions, .shipping_costs td.actions, .charging_costs td.actions  {
 	text-align: right;
 }
 

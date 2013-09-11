@@ -42,6 +42,6 @@
 .cart tr.table_row_shipping_costs td.right_table_column {
 	border-right: 1px dotted #ddd;
 }
-.cart .charge_costs {
+.cart .charging_costs {
 	display: none;
 }

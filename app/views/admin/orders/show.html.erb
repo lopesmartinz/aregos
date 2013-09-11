@@ -36,7 +36,7 @@
 		<% if @order.payment_method_id == 2 %>
 			<tr class="table_row_item">
 				<td colspan="2" class="left_table_column">Custos de Envio à Cobrança</td>
-				<td class="right_table_column price"><%= number_to_currency(@order.charge_costs, :unit => "€", format: "%n %u") %></td>
+				<td class="right_table_column price"><%= number_to_currency(@order.charging_costs, :unit => "€", format: "%n %u") %></td>
 			</tr>
 		<% end %>
 
@@ -44,7 +44,7 @@
 			<td colspan="2" class="left_table_column"></td>
 			<td class="right_table_column price">
 				<span class="total_label">Total</span>					
-				<span class="total_value"><%= number_to_currency((@order.order_items.sum("price * quantity") + @order.shipping_costs + @order.charge_costs), :unit => "€", format: "%n %u") %></span>
+				<span class="total_value"><%= number_to_currency((@order.order_items.sum("price * quantity") + @order.shipping_costs + @order.charging_costs), :unit => "€", format: "%n %u") %></span>
 			</td>
 		</tr>
 	</table>

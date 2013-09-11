@@ -61,7 +61,7 @@ class OrdersController < ApplicationController
 		@order.shipping_costs = current_cart.total_shipping_costs
 
 		if params[:order][:payment_method_id] == "2"
-			@order.charge_costs = current_cart.total_charge_costs
+			@order.charging_costs = current_cart.total_charging_costs
 		end
 
 		# COMENTAR SE ACEITAR PAGAMENTOS COM CARTAO DE CREDITO

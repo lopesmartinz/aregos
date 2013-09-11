@@ -60,18 +60,14 @@ class Cart < ActiveRecord::Base
   end
 
   # obter valor do envio à cobrança
-  def total_charge_costs
-    total = 0
+  def total_charging_costs
+    total_costs = 0
 
-    if self.total_weight == 0
-      total = 0
-    elsif self.total_weight <= 5000
-      total = 1.2
-    elsif self.total_weight <= 10000
-      total = 2.5
+    if self.cart_items.count > 0
+      total_costs = ChargingCost.where("weight >= ?", self.total_weight).order("weight").first.price
     end
 
-    total
+    total_costs
   end
 
 end

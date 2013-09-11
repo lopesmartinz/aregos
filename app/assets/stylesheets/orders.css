@@ -37,3 +37,6 @@
 .order tr.table_row_shipping_costs td.right_table_column {
 	border-right: 1px dotted #ddd;
 }
+.order .actions_wrapper {
+	margin-top: 1em;
+}

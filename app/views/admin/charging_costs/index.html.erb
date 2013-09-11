@@ -1,0 +1,31 @@
+<div class="charging_costs">
+	<h1>Custos de Envio à Cobrança</h1>
+
+	<table cellspacing="0" class="table">
+		<tr class="table_row_header">
+			<th class="left_table_column weight">Peso (gramas)</th>
+			<th class="price">Preço</th>		
+			<th class="actions"></th>
+		</tr>
+
+		<% @charging_costs.each do |cc| %>
+			<tr class="table_row_item">
+				<td class="left_table_column weight">
+					<%= link_to cc.weight, {:controller => "admin/charging_costs", :action => :show, :id => cc.id}, :method => :get %>
+				</td>
+				<td class="price"><%= number_to_currency(cc.price, :unit => "€", format: "%n %u") %></td>				
+				<td class="actions">
+					<div class="action_button"><%= button_to "Editar", {:controller => "admin/charging_costs", :action => :edit, :id => cc.id}, :method => :get %></div>
+					<div class="action_button"><%= button_to "Apagar", {:controller => "admin/charging_costs", :action => :destroy, :id => cc.id}, :method => :delete %></div>
+				</td>
+			</tr>
+		<% end %>
+		
+	</table>
+
+	<div class="actions_wrapper">
+		<div class="action_button">
+			<%=button_to "Inserir", {:controller => "admin/charging_costs", :action => :new}, :method => :get %>
+		</div>
+	</div>
+</div>
