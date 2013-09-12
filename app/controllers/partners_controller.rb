@@ -11,7 +11,7 @@ class PartnersController < ApplicationController
 	#### ACCÕES DEFAULT
 	##################################
 	def index
-		@partners = Partner.all
+		@partners = Partner.All
 	end
 
 end

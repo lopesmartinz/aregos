@@ -28,9 +28,11 @@
 		</div>
 
 		<%= f.label :payment_method_id %>
-		<%= f.select(:payment_method_id, PaymentMethod.all.collect {|pm| [ (pm.id == 1 ? pm.name : "#{pm.name} (acresce #{number_to_currency(current_cart.total_charging_costs, :unit => "€", format: "%n %u")} ao valor da encomenda)"), pm.id ] }, {include_blank: 'Indique o Método de Pagamento que Pretende'}) %>
+		<%= f.select(:payment_method_id, PaymentMethod.all.collect {|pm| [ (pm.id == 2 && current_cart.total_charging_costs > 0 ? "#{pm.name} (acresce #{number_to_currency(current_cart.total_charging_costs, :unit => "€", format: "%n %u")} ao valor da encomenda)" : pm.name), pm.id ] }, {include_blank: 'Indique o Método de Pagamento que Pretende'}) %>
+
 
 		<script type="text/javascript">
+			clean_charging_costs = parseFloat("<%= current_cart.total_charging_costs %>");
 			total_with_shipping_costs = "<%= number_to_currency(current_cart.total_price, :unit => "€", format: "%n %u") %>";
 			total_with_charging_costs = "<%= number_to_currency((current_cart.total_price + current_cart.total_charging_costs), :unit => "€", format: "%n %u") %>"
 
@@ -49,7 +51,7 @@
 			$(function(){
 				payment_method = $("#order_payment_method_id").val();
 
-					if(payment_method == 2)
+					if(payment_method == 2 && clean_charging_costs > 0)
 						add_charging_costs();
 			});
 
@@ -58,7 +60,7 @@
 				$("#order_payment_method_id").change(function(){
 					payment_method = $(this).val();
 
-					if(payment_method == 2)
+					if(payment_method == 2 && clean_charging_costs > 0)
 						add_charging_costs();
 					else
 						remove_charging_costs();

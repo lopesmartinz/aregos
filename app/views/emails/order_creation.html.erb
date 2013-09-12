@@ -19,7 +19,7 @@
       <% if @order.payment_method_id == 1 %>
           <div style="background-color: #FFF899; padding: 20px; border: 1px solid #ccc; font-size: 14px; font-weight: bold; margin-bottom: 20px;">          
               Para dar seguimento à sua encomenda deverá executar os dois primeiros passos descritos de seguida na secção "Processo de Entrega da Encomenda".<br/><br/>
-              Após a realização destes passos e consequente confirmação da receção do pagamento, daremos início ao processo de envio da sua encomenda.
+              Após a realização destes passos e consequente confirmação da receção do pagamento daremos início ao processo de envio da sua encomenda.
           </div>
         <% end %>
 
@@ -29,7 +29,7 @@
           <% if @order.payment_method_id == 1 %>        
             <ol style="margin: 0; padding: 0;">
               <li>
-                <strong>Cliente -</strong> Deverá proceder à transferência bancária no valor total da encomenda para o NIB: x
+                <strong>Cliente -</strong> Deverá proceder à transferência bancária no valor total da encomenda para o NIB: <strong>XXXXXXXXXXXXXXXX</strong>
               </li>
               <li>
                 <strong>Cliente -</strong> Deverá responder ao presente e-mail, confirmando que a transferência foi efetuada
@@ -81,12 +81,14 @@
               </tr>
           <% end %>
 
-          <tr>
-            <td colspan="3">Portes de Envio</td>
-            <td style="text-align: right;"><%= number_to_currency(@order.shipping_costs, :unit => "€", format: "%n %u") %></td>
-          </tr>
+          <% if @order.shipping_costs > 0 %>
+            <tr>
+              <td colspan="3">Portes de Envio</td>
+              <td style="text-align: right;"><%= number_to_currency(@order.shipping_costs, :unit => "€", format: "%n %u") %></td>
+            </tr>
+          <% end %>
 
-          <% if @order.payment_method_id == 2 %>
+          <% if @order.payment_method_id == 2 && @order.charging_costs > 0 %>
             <tr>
               <td colspan="3">Custos de Envio à Cobrança</td>
               <td style="text-align: right;"><%= number_to_currency(@order.charging_costs, :unit => "€", format: "%n %u") %></td>

@@ -18,12 +18,14 @@
 		    </tr>
 		<% end %>
 
-		<tr class="table_row_shipping_costs">
-			<td colspan="3" class="left_table_column">Portes de Envio</td>
-			<td class="right_table_column price"><%= number_to_currency(@order.shipping_costs, :unit => "€", format: "%n %u") %></td>
-		</tr>
+		<% if @order.shipping_costs > 0 %>
+			<tr class="table_row_shipping_costs">
+				<td colspan="3" class="left_table_column">Portes de Envio</td>
+				<td class="right_table_column price"><%= number_to_currency(@order.shipping_costs, :unit => "€", format: "%n %u") %></td>
+			</tr>
+		<% end %>
 
-		<% if @order.payment_method_id == 2 %>
+		<% if @order.payment_method_id == 2 && @order.charging_costs > 0 %>
 			<tr class="table_row_shipping_costs charging_costs">
 				<td colspan="3" class="left_table_column">Custos de Envio à Cobrança</td>
 				<td class="right_table_column price"><%= number_to_currency(@order.charging_costs, :unit => "€", format: "%n %u") %></td>
@@ -45,6 +47,11 @@
 			Morada: <%= @order.address_line_1 %><br/>
 			Código Postal: <%= @order.zip_code %><br/>
 			Localidade: <%= @order.city %>
+		</p>
+		<br/>
+		<strong>Método de Pagamento Escolhido</strong>
+		<p>
+			<%= @order.payment_method.name %>
 		</p>		
 	</div>
 

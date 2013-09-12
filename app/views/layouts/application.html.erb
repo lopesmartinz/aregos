@@ -8,10 +8,6 @@
 </head>
 <body>
 
-	<% if user_is_signed_in? %>
-		<%= link_to "Logout", signout_path, {method: "delete"} %>
-	<% end %>
-
 	<%= yield %>
 
 </body>

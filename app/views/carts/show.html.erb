@@ -29,11 +29,13 @@
 		    </tr>
 		<% end %>
 
-		<tr class="table_row_shipping_costs">
-			<td colspan="3" class="left_table_column">Portes de Envio</td>
-			<td class="price"><%= number_to_currency(current_cart.total_shipping_costs, :unit => "€", format: "%n %u") %></td>
-			<td class="right_table_column"></td>
-		</tr>
+		<% if current_cart.total_shipping_costs > 0 %>
+			<tr class="table_row_shipping_costs">
+				<td colspan="3" class="left_table_column">Portes de Envio</td>
+				<td class="price"><%= number_to_currency(current_cart.total_shipping_costs, :unit => "€", format: "%n %u") %></td>
+				<td class="right_table_column"></td>
+			</tr>
+		<% end %>
 
 		<tr class="table_row_footer">
 			<td colspan="4" class="left_table_column">

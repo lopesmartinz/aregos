@@ -53,7 +53,8 @@ class Cart < ActiveRecord::Base
     total_costs = 0
 
     if self.cart_items.count > 0
-      total_costs = ShippingCost.where("weight >= ?", self.total_weight).order("weight").first.price
+      correspondent_costs = ShippingCost.where("weight >= ?", self.total_weight).order("weight ASC").first
+      total_costs = correspondent_costs.price unless correspondent_costs.nil?
     end
 
     total_costs
@@ -64,7 +65,8 @@ class Cart < ActiveRecord::Base
     total_costs = 0
 
     if self.cart_items.count > 0
-      total_costs = ChargingCost.where("weight >= ?", self.total_weight).order("weight").first.price
+      correspondent_costs = ChargingCost.where("weight >= ?", self.total_weight).order("weight ASC").first
+      total_costs = correspondent_costs.price unless correspondent_costs.nil?
     end
 
     total_costs
